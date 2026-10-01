@@ -115,8 +115,10 @@
     body.mode-table #leftPanel { width: 100% !important; }
     body.mode-table #rightPanel, body.mode-table .splitter { display: none; }
     
-    body.mode-pres #rightPanel { width: 100% !important; }
-    body.mode-pres #leftPanel, body.mode-pres .splitter { display: none; }
+    body.mode-pres #rightPanel,
+    body.mode-build #rightPanel { width: 100% !important; }
+    body.mode-pres #leftPanel, body.mode-pres .splitter,
+    body.mode-build #leftPanel, body.mode-build .splitter { display: none; }
 
     #editorFrame { display: none; }
     body.mode-editor #tableFrame { display: none !important; }
@@ -159,6 +161,18 @@
       margin-left: auto; color: var(--accent); font-weight: 800; font-size: 13px; visibility: hidden;
     }
     .ss-theme-card.is-active .ss-check{ visibility: visible; }
+    .ss-section{margin:10px 0;padding:10px;border:1px solid rgba(255,255,255,.10);border-radius:10px;background:rgba(255,255,255,.025)}
+    .ss-section-title{font-size:10px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:#aeb6c4;margin-bottom:8px}
+    .ss-control-row{display:grid;grid-template-columns:74px minmax(0,1fr) 48px;align-items:center;gap:8px;margin:7px 0;font-size:10px;color:#aeb6c4}
+    .ss-control-row input[type=range]{width:100%;accent-color:var(--accent);padding:0}
+    .ss-control-row input[type=number],#shellBuildVariantName{width:100%;padding:6px 8px;font-size:11px}
+    .ss-fit-row,.ss-build-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+    .ss-build-actions .btn,.ss-fit-row .btn{padding:6px 8px;min-height:30px;font-size:10px}
+    .ss-fit-row .btn.is-active{border-color:var(--accent);color:#fff;background:rgba(255,255,255,.14)}
+    .ss-build-variants{display:flex;flex-wrap:wrap;gap:5px;max-height:94px;overflow:auto;margin:6px 0}
+    .ss-build-variant{width:auto;min-width:32px;min-height:28px;padding:4px 8px;font-size:10px;text-transform:none;letter-spacing:0}
+    .ss-build-variant.is-active{border-color:var(--accent);background:rgba(74,158,255,.22);color:#fff}
+    .ss-build-summary{font-size:10px;color:#8b93a1;line-height:1.4;margin:4px 0 8px}
     /* превью Studio */
     .ss-p-studio .p-btn{ background:#20232a; border:1px solid #3a3a3a; border-radius:8px; width:26px; height:14px; }
     .ss-p-studio .p-tab{ background:#20232a; border:1px solid #3a3a3a; border-radius:8px; width:20px; height:11px; }
@@ -227,6 +241,7 @@
       <button class="btn shell-icon-btn active" id="btnPres" onclick="setMode('pres')" title="Только Презентация" aria-label="Только Презентация"><svg class="shell-svg bold-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path class="secondary" d="M6 15l3-4 3 2 3-5 3 7z"/><path d="M9 20h6v2H9z"/></svg></button>
       <button class="btn shell-icon-btn" id="btnSplit" onclick="setMode('split')" title="Сплит-режим" aria-label="Сплит-режим"><svg class="shell-svg bold-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="16" rx="1"/><rect class="secondary" x="14" y="4" width="7" height="16" rx="1"/><rect x="11" y="4" width="2" height="16"/></svg></button>
       <button class="btn shell-icon-btn" id="btnEditor" onclick="setMode('editor')" title="Блокнот + Преза" aria-label="Блокнот + Преза"><svg class="shell-svg bold-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v3h3L19 8l-3-3z"/><path class="secondary" d="M14 6l3 3 2-2-3-3z"/><path d="M18 4l2 2-2 2-2-2z"/></svg></button>
+      <button class="btn shell-icon-btn" id="btnBuild" onclick="setMode('build')" title="Варианты сборки" aria-label="Варианты сборки"><svg class="shell-svg bold-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect class="secondary" x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/><path class="cut" d="M7 5h2v2H7zM7 11h2v2H7zM7 17h2v2H7z"/></svg></button>
 <select
   id="shellPresentationPanelSelect"
   onchange="selectPresentationPanel(this.value)"
@@ -264,6 +279,29 @@
   <div id="shellSettingsPanel" hidden>
     <div class="ss-title">Settings &middot; Button Design System</div>
     <div class="ss-caption">Единый визуальный язык кнопок, вкладок и панелей Presentation. Применяется сразу и запоминается.</div>
+    <section class="ss-section" aria-label="Настройки панели Presentation">
+      <div class="ss-section-title">Panel Appearance</div>
+      <label class="ss-control-row"><span>Opacity</span><input id="shellPanelOpacity" type="range" min="20" max="100" step="1" value="100"><output id="shellPanelOpacityValue">100%</output></label>
+      <div class="ss-fit-row"><button type="button" class="btn" id="shellPanelFitUser">FIT: USER</button><button type="button" class="btn" id="shellPanelFitAuto">FIT: AUTO</button></div>
+      <label class="ss-control-row"><span>Scale</span><input id="shellPanelScale" type="range" min="0.5" max="1.6" step="0.01" value="1"><input id="shellPanelScaleValue" type="number" min="0.5" max="1.6" step="0.01" value="1"></label>
+      <div class="ss-build-actions"><button type="button" class="btn" id="shellPanelAppearanceReset">Reset</button><button type="button" class="btn" id="shellPanelAppearanceRefresh">Refresh</button></div>
+    </section>
+    <section class="ss-section" aria-label="Менеджер сборки">
+      <div class="ss-section-title">Build Manager · Менеджер сборки</div>
+      <div class="ss-build-summary" id="shellBuildActiveSummary">Загрузка вариантов…</div>
+      <div class="ss-build-variants" id="shellBuildVariantList"></div>
+      <div class="ss-control-row" style="grid-template-columns:minmax(0,1fr) auto;">
+        <input id="shellBuildVariantName" type="text" maxlength="48" placeholder="Короткое имя варианта">
+        <button type="button" class="btn" id="shellBuildRenameBtn">Rename</button>
+      </div>
+      <div class="ss-build-actions">
+        <button type="button" class="btn" id="shellBuildDuplicateBtn">Duplicate Stack</button>
+        <button type="button" class="btn" id="shellBuildClearBtn">Clear Selected Stack</button>
+        <button type="button" class="btn" id="shellBuildCopyBtn">Copy Stack JSON</button>
+        <button type="button" class="btn" id="shellBuildDownloadBtn">Download JSON</button>
+        <button type="button" class="btn" id="shellBuildImportBtn">Import Stack JSON</button>
+      </div>
+    </section>
     <button type="button" class="ss-theme-card" data-theme-card="studio" onclick="selectButtonTheme('studio')">
       <span class="ss-theme-preview ss-p-studio"><span class="p-tab"></span><span class="p-tab p-act"></span><span class="p-btn"></span></span>
       <span class="ss-theme-meta">
@@ -442,7 +480,18 @@ function toggleShellSettings() {
     document.querySelectorAll('[data-theme-card]').forEach(card => {
       card.classList.toggle('is-active', card.dataset.themeCard === current);
     });
+    requestPanelUiState();
+    requestBuildVariantsState();
   }
+}
+function openShellSettings(){
+  const panel=document.getElementById('shellSettingsPanel');
+  if(!panel)return;
+  panel.hidden=false;
+  const current=shellButtonThemeSafe(localStorage.getItem('workspace_button_theme')||'studio');
+  document.querySelectorAll('[data-theme-card]').forEach(card=>card.classList.toggle('is-active',card.dataset.themeCard===current));
+  requestPanelUiState();
+  requestBuildVariantsState();
 }
 document.addEventListener('click', function(e) {
   const panel = document.getElementById('shellSettingsPanel');
@@ -458,7 +507,11 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+let currentShellMode = 'pres';
 function setMode(mode) {
+  const knownModes = ['table','pres','split','editor','build'];
+  if (!knownModes.includes(mode)) mode = 'pres';
+  currentShellMode = mode;
   document.body.className = 'mode-' + mode;
   localStorage.setItem('workspace_mode', mode); // Запоминаем режим
 
@@ -466,6 +519,7 @@ function setMode(mode) {
   if (mode === 'table') document.getElementById('btnTable').classList.add('active');
   if (mode === 'pres') document.getElementById('btnPres').classList.add('active');
   if (mode === 'editor') document.getElementById('btnEditor').classList.add('active');
+  if (mode === 'build') document.getElementById('btnBuild').classList.add('active');
   if (mode === 'split') {
     document.getElementById('btnSplit').classList.add('active');
     
@@ -477,18 +531,20 @@ function setMode(mode) {
   
   const presFrame = document.getElementById('presFrame').contentWindow;
   presFrame.postMessage({ type: 'SHELL_MODE', mode: mode }, '*');
-  if (mode === 'pres') {
+  if (mode === 'pres' || mode === 'build') {
     requestAnimationFrame(() => {
       const presFrameEl = document.getElementById('presFrame');
-      if (presFrameEl && presFrameEl.contentWindow) {
-        presFrameEl.contentWindow.focus();
-      }
+      if (presFrameEl && presFrameEl.contentWindow) presFrameEl.contentWindow.focus();
     });
   }
 }
 
 // Восстановление режима и пропорций при старте
 window.addEventListener('load', function() {
+  const presFrameEl=document.getElementById('presFrame');
+  presFrameEl?.addEventListener('load',()=>{
+    if(presFrameEl.contentWindow){presFrameEl.contentWindow.postMessage({type:'SHELL_MODE',mode:currentShellMode},'*');presFrameEl.contentWindow.postMessage({type:'SHELL_BUTTON_THEME',theme:shellButtonThemeSafe(localStorage.getItem('workspace_button_theme')||'studio')},'*');requestBuildVariantsState();requestPanelUiState();}
+  });
   selectButtonTheme(shellButtonThemeSafe(localStorage.getItem('workspace_button_theme') || 'studio'));
   const savedMode = localStorage.getItem('workspace_mode') || 'pres';
   setMode(savedMode);
@@ -518,7 +574,54 @@ window.addEventListener('load', function() {
   setTimeout(() => {
     switchZenithMode(savedZenithMode);
   }, 100);
+  setTimeout(()=>{requestBuildVariantsState();requestPanelUiState();renderShellBuildVariants();},350);
 });
+
+// Build Manager is a client of Presentation's active variant state; it stores no stack data.
+let shellBuildVariantsState = { activeBuildVariantId:null, variants:[] };
+function presentationFrame(){ return document.getElementById('presFrame')?.contentWindow || null; }
+function requestBuildVariantsState(){ const frame=presentationFrame(); if(frame) frame.postMessage({type:'SHELL_BUILD_VARIANT_ACTION',action:'getState'},'*'); }
+function requestPanelUiState(){ const frame=presentationFrame(); if(frame) frame.postMessage({type:'PANEL_UI_COMMAND',action:'getState'},'*'); }
+function sendPanelUiCommand(action,value){ const frame=presentationFrame(); if(frame) frame.postMessage({type:'PANEL_UI_COMMAND',action,value},'*'); }
+function sendBuildVariantAction(action,payload={}){ const frame=presentationFrame(); if(frame) frame.postMessage(Object.assign({type:'SHELL_BUILD_VARIANT_ACTION',action},payload),'*'); }
+function buildVariantLabel(variant){ return String(variant.number||'')+(variant.name?' — '+variant.name:''); }
+function renderShellBuildVariants(){
+  const list=document.getElementById('shellBuildVariantList'),summary=document.getElementById('shellBuildActiveSummary'),nameInput=document.getElementById('shellBuildVariantName');
+  if(!list)return;
+  const variants=(shellBuildVariantsState.variants||[]).slice().sort((a,b)=>(Number(a.number)||0)-(Number(b.number)||0));
+  list.innerHTML='';
+  variants.forEach(variant=>{
+    const button=document.createElement('button');button.type='button';button.className='btn ss-build-variant'+(variant.id===shellBuildVariantsState.activeBuildVariantId?' is-active':'');
+    button.textContent=buildVariantLabel(variant);button.title='Переключить на вариант '+buildVariantLabel(variant);
+    button.addEventListener('click',()=>sendBuildVariantAction('switch',{id:variant.id}));list.appendChild(button);
+  });
+  const active=variants.find(v=>v.id===shellBuildVariantsState.activeBuildVariantId)||variants[0]||null;
+  if(summary)summary.textContent=active?'Активен стек '+buildVariantLabel(active)+' · '+(active.pageCount||0)+' страниц':'Варианты сборки ещё не готовы';
+  if(nameInput && document.activeElement!==nameInput)nameInput.value=active?.name||'';
+  ['shellBuildDuplicateBtn','shellBuildClearBtn','shellBuildCopyBtn','shellBuildDownloadBtn','shellBuildImportBtn','shellBuildRenameBtn'].forEach(id=>{const button=document.getElementById(id);if(button)button.disabled=!active;});
+}
+function syncShellPanelAppearance(state){
+  if(!state)return;
+  const opacity=document.getElementById('shellPanelOpacity'),opacityValue=document.getElementById('shellPanelOpacityValue');
+  const scale=document.getElementById('shellPanelScale'),scaleValue=document.getElementById('shellPanelScaleValue');
+  if(opacity){opacity.value=String(Math.round((Number(state.opacity)||1)*100));if(opacityValue)opacityValue.textContent=opacity.value+'%';}
+  if(scale){scale.value=String(Number(state.scale)||1);if(scaleValue)scaleValue.value=Number(state.scale||1).toFixed(2).replace(/0+$/,'').replace(/\.$/,'');}
+  document.getElementById('shellPanelFitUser')?.classList.toggle('is-active',!state.autoFit);
+  document.getElementById('shellPanelFitAuto')?.classList.toggle('is-active',!!state.autoFit);
+}
+document.getElementById('shellPanelOpacity')?.addEventListener('input',event=>{const value=Number(event.target.value)||100;document.getElementById('shellPanelOpacityValue').textContent=value+'%';sendPanelUiCommand('setOpacity',value/100);});
+document.getElementById('shellPanelScale')?.addEventListener('input',event=>{const value=Math.min(1.6,Math.max(.5,Number(event.target.value)||1));document.getElementById('shellPanelScaleValue').value=value.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');sendPanelUiCommand('setScale',value);});
+document.getElementById('shellPanelScaleValue')?.addEventListener('change',event=>{const value=Math.min(1.6,Math.max(.5,Number(event.target.value)||1));event.target.value=value.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');document.getElementById('shellPanelScale').value=String(value);sendPanelUiCommand('setScale',value);});
+document.getElementById('shellPanelFitUser')?.addEventListener('click',()=>sendPanelUiCommand('setAutoFit',false));
+document.getElementById('shellPanelFitAuto')?.addEventListener('click',()=>sendPanelUiCommand('setAutoFit',true));
+document.getElementById('shellPanelAppearanceReset')?.addEventListener('click',()=>sendPanelUiCommand('reset'));
+document.getElementById('shellPanelAppearanceRefresh')?.addEventListener('click',requestPanelUiState);
+document.getElementById('shellBuildDuplicateBtn')?.addEventListener('click',()=>sendBuildVariantAction('duplicate'));
+document.getElementById('shellBuildClearBtn')?.addEventListener('click',()=>sendBuildVariantAction('clear'));
+document.getElementById('shellBuildCopyBtn')?.addEventListener('click',()=>sendBuildVariantAction('export'));
+document.getElementById('shellBuildDownloadBtn')?.addEventListener('click',()=>sendBuildVariantAction('download'));
+document.getElementById('shellBuildImportBtn')?.addEventListener('click',()=>sendBuildVariantAction('import'));
+document.getElementById('shellBuildRenameBtn')?.addEventListener('click',()=>sendBuildVariantAction('rename',{name:document.getElementById('shellBuildVariantName')?.value||''}));
 
 // --- 2. РАБОТА СПЛИТТЕРА (С сохранением положения) ---
 let isDragging = false;
@@ -565,7 +668,8 @@ document.addEventListener('mouseup', function() {
       Digit1: 'table',
       Digit2: 'pres',
       Digit3: 'split',
-      Digit4: 'editor'
+      Digit4: 'editor',
+      Digit5: 'build'
     };
 
     function isShellModeTextInput(target) {
@@ -593,10 +697,31 @@ window.addEventListener('message', function(event) {
       const presFrame = document.getElementById('presFrame').contentWindow;
       const editorFrameEl = document.getElementById('editorFrame');
       const editorFrame = editorFrameEl ? editorFrameEl.contentWindow : null;
+      if (event.source === presFrame && event.data && event.data.type === 'BUILD_VARIANTS_STATE') {
+        const next=event.data.state;
+        if(next&&Array.isArray(next.variants)){shellBuildVariantsState=next;renderShellBuildVariants();}
+        return;
+      }
+      if (event.source === presFrame && event.data && event.data.type === 'PANEL_UI_STATE') {
+        syncShellPanelAppearance(event.data.state);
+        return;
+      }
+      if (event.source === presFrame && event.data && event.data.type === 'SHELL_OPEN_SETTINGS_PANEL') {
+        openShellSettings();
+        return;
+      }
+      if (event.source === presFrame && event.data && event.data.type === 'SHELL_TOGGLE_SETTINGS_PANEL') {
+        toggleShellSettings();
+        return;
+      }
+      if (event.source === presFrame && event.data && event.data.type === 'SHELL_CLOSE_SETTINGS_PANEL') {
+        const panel=document.getElementById('shellSettingsPanel');if(panel)panel.hidden=true;
+        return;
+      }
       if (event.data && event.data.type === 'SHELL_MODE_HOTKEY_REQUEST') {
         const requestedMode = event.data.mode;
         const isKnownFrame = event.source === tableFrame || event.source === presFrame || event.source === editorFrame;
-        if (isKnownFrame && ['table', 'pres', 'split', 'editor'].includes(requestedMode)) {
+        if (isKnownFrame && ['table', 'pres', 'split', 'editor', 'build'].includes(requestedMode)) {
           setMode(requestedMode);
         }
         return;

@@ -280,6 +280,13 @@ The production project remains local.
       color:#111111;
       caret-color:#111111;
     }
+    #selectionTextEditor{height:auto;min-height:72px;max-height:65vh;resize:none;overflow-y:hidden;box-sizing:border-box;line-height:1.45;}
+    .text-adapt-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:6px;}
+    .text-adapt-actions .btn{min-width:0;padding:7px 6px;font-size:9px;min-height:32px;}
+    .text-gap-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:6px;}
+    .text-gap-actions .btn{min-width:0;padding:7px 6px;font-size:9px;min-height:31px;}
+    .text-gap-actions .selection-note{grid-column:1/-1;}
+    .text-image-normalize-btn{margin-top:7px;min-height:32px;font-size:9px;padding:6px 8px;}
     .btn{
       cursor:pointer;transition:var(--transition);text-align:center;font-size:11px;min-height:40px
     }
@@ -2771,6 +2778,8 @@ body.preview .text-library-panel{
       margin-left:34px!important;
     }
 
+    /* Global Type Styles is intentionally hidden from the Text Panel. */
+    #globalTypeStylesCard{ display:none!important; }
     /* В preview бар вкладок скрыт. */
     body.preview .left-dock-tabs{ display:none!important; }
     @media print{ .left-dock-tabs{ display:none!important; } }
@@ -4854,11 +4863,11 @@ body.shell-split-active[data-approved-split-section="text"]
 }
 
 /*
-  Реальная карточка Global Type Styles отображается только
-  в Text Inspector.
+  The active Text Inspector card is styled here; Global Type Styles stays
+  hidden per the Presentation Text Panel UI contract.
 */
 body.shell-split-active[data-approved-split-section="text"]
-#approvedSplitTextSlot > .approved-dock-card{
+#approvedSplitTextSlot > .approved-dock-card:not(#globalTypeStylesCard){
   display:block!important;
   width:100%!important;
   margin:0!important;
@@ -7395,6 +7404,14 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       max-height:calc(100vh - 420px);
     }
 
+    .tm-builtin-block{border:1px solid rgba(255,255,255,.09);border-radius:8px;background:rgba(255,255,255,.025);margin:8px 0;padding:0 8px 8px}
+    .tm-builtin-block>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:9px 2px;font-size:11px;font-weight:700;list-style:none}
+    .tm-builtin-block>summary::-webkit-details-marker{display:none}
+    .tm-builtin-block>summary::before{content:"▸";color:#8b93a1;margin-right:2px}
+    .tm-builtin-block[open]>summary::before{content:"▾"}
+    .tm-builtin-count{color:#8b93a1;font-variant-numeric:tabular-nums}
+    .tm-builtin-state{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 0 8px;font-size:10px;color:#aab2bf}
+    .tm-builtin-list{max-height:220px!important}
     .tm-item{
       display:flex;
       align-items:center;
@@ -7463,7 +7480,110 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       border-radius:6px;
     }
     /* END_TEMPLATE_MANAGER_PANEL_V1_CSS */
-         </style>
+/* BUILD_VARIANTS_MAP_STACK_V1 */
+#buildModeSurface{display:none;position:fixed;inset:0;z-index:50000;flex-direction:column;min-width:0;min-height:0;background:linear-gradient(180deg,#191b20,#0d0f13);color:var(--text);font-family:var(--ui-font);}
+body.build-mode-active{height:100vh!important;min-height:0!important;overflow:hidden!important;}
+body.build-mode-active .app{display:none!important;}
+body.build-mode-active #buildModeSurface{display:flex!important;}
+.build-topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:0 0 auto;padding:8px 10px;border-bottom:1px solid var(--line-dark);background:rgba(20,22,27,.98);}
+.build-title{display:flex;flex-direction:column;min-width:130px;margin-right:4px;}
+.build-title strong{font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+.build-title span{font-size:10px;color:var(--text-3);margin-top:2px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.build-variant-buttons{display:flex;align-items:center;gap:5px;flex:1 1 260px;min-width:160px;overflow-x:auto;scrollbar-width:thin;padding:2px;}
+.build-variants-inline{display:flex;align-items:center;gap:6px;flex:1 1 100%;width:100%;min-width:0;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text-3);font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.build-variants-inline .build-variant-buttons{flex:1 1 auto;min-width:0;}
+.build-variants-inline .build-add-variant{flex:0 0 32px;}
+.build-variant-btn,.build-add-variant{flex:0 0 auto;width:auto;min-width:32px;min-height:30px;padding:4px 9px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(255,255,255,.05);color:var(--text);font-size:10px;font-weight:800;letter-spacing:.02em;text-transform:none;white-space:nowrap;cursor:pointer;}
+.build-variant-btn.is-active{background:rgba(255,255,255,.19);border-color:rgba(255,255,255,.32);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.05);}
+.build-add-variant{font-size:18px;line-height:1;padding:0;width:32px;}
+.build-top-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.build-top-actions .btn{width:auto;min-height:30px;padding:5px 8px;font-size:9px;letter-spacing:.06em;}
+.build-workspace{display:flex;flex:1 1 auto;min-height:0;min-width:0;overflow:hidden;--build-map-width:48%;}
+#buildMapPane,#buildStackPane{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;}
+#buildMapPane{flex:0 0 var(--build-map-width);width:var(--build-map-width);background:#111318;}
+#buildStackPane{flex:1 1 auto;background:#191b20;}
+#buildDivider{flex:0 0 7px;width:7px;cursor:col-resize;background:rgba(255,255,255,.07);border-left:1px solid rgba(255,255,255,.08);border-right:1px solid rgba(0,0,0,.35);z-index:2;touch-action:none;}
+#buildDivider:hover,#buildDivider.is-dragging{background:rgba(255,255,255,.28);}
+.build-map-toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px;border-bottom:1px solid var(--line-dark);background:rgba(255,255,255,.018);flex:0 0 auto;}
+.build-filter-dropdown{position:relative;flex:0 0 132px;width:132px;min-width:132px;}
+.build-filter-dropdown>summary{display:flex;align-items:center;justify-content:space-between;gap:6px;width:132px;height:30px;padding:4px 8px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#20232a;color:var(--text);font-size:10px;font-weight:700;cursor:pointer;list-style:none;white-space:nowrap;overflow:hidden;}
+.build-filter-dropdown>summary::-webkit-details-marker{display:none;}
+.build-filter-dropdown>summary .build-filter-summary{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+.build-filter-dropdown>summary::after{content:"▾";color:var(--text-3);flex:0 0 auto;}
+.build-filter-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;width:220px;max-height:320px;overflow:auto;z-index:8;padding:6px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:#1b1e25;box-shadow:0 14px 36px rgba(0,0,0,.55);}
+.build-filter-dropdown[open] .build-filter-menu{display:flex;flex-direction:column;gap:2px;}
+.build-filter-option{display:flex;align-items:center;gap:7px;min-height:27px;padding:4px 6px;border-radius:6px;color:var(--text-2);font-size:10px;cursor:pointer;}
+.build-filter-option:hover{background:rgba(255,255,255,.06);color:var(--text);}
+.build-filter-option input{width:14px;height:14px;min-width:14px;padding:0;margin:0;accent-color:#cfd5df;}
+.build-filter-divider{height:1px;background:rgba(255,255,255,.10);margin:3px 2px;}
+.build-toggle{display:flex;align-items:center;gap:5px;height:30px;padding:0 7px;border:1px solid rgba(255,255,255,.10);border-radius:8px;background:rgba(255,255,255,.03);font-size:9px;color:var(--text-2);white-space:nowrap;cursor:pointer;}
+.build-toggle input{width:13px;height:13px;min-width:13px;margin:0;padding:0;accent-color:#d8dde6;}
+.build-slider{display:grid;grid-template-columns:auto minmax(52px,1fr) 34px;align-items:center;gap:4px;min-width:112px;flex:1 1 120px;color:var(--text-3);font-size:9px;white-space:nowrap;}
+.build-slider input{width:100%;height:14px;padding:0;margin:0;accent-color:#d8dde6;}
+.build-slider output{font-variant-numeric:tabular-nums;text-align:right;color:var(--text-2);}
+.build-map-count{margin-left:auto;font:10px ui-monospace,monospace;color:var(--text-3);white-space:nowrap;}
+.build-map-scroll{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent;padding:10px;}
+.build-map-scroll::-webkit-scrollbar,#buildStackViewport::-webkit-scrollbar,.build-variant-buttons::-webkit-scrollbar{width:7px;height:7px;}
+.build-map-scroll::-webkit-scrollbar-thumb,#buildStackViewport::-webkit-scrollbar-thumb,.build-variant-buttons::-webkit-scrollbar-thumb{background:rgba(255,255,255,.20);border-radius:99px;}
+.build-map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--build-card-size,270px)),var(--build-card-size,270px)));justify-content:center;align-items:start;row-gap:var(--build-row-gap,12px);column-gap:var(--build-col-gap,12px);}
+.build-map-empty{grid-column:1/-1;padding:28px 16px;text-align:center;border:1px dashed rgba(255,255,255,.16);border-radius:12px;color:var(--text-3);font-size:11px;line-height:1.5;}
+.build-map-card{position:relative;min-width:0;width:var(--build-card-size,270px);max-width:100%;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:#d8dade;color:#111;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.25);cursor:grab;user-select:none;}
+.build-map-card:active{cursor:grabbing;}
+.build-map-card.is-selected{outline:2px solid #d6dbe4;outline-offset:2px;}
+.build-map-preview{width:100%;aspect-ratio:1123 / 794;overflow:hidden;position:relative;background:#fff;pointer-events:none;}
+.build-map-preview .page-shell{width:1123px!important;min-width:1123px!important;max-width:1123px!important;margin:0!important;padding:0!important;}
+.build-map-preview .page-toolbar,.build-map-preview .tech-meta-badge{display:none!important;}
+.build-map-preview .page-stage{width:1123px!important;height:794px!important;min-width:1123px!important;max-width:1123px!important;margin:0!important;transform-origin:top left!important;transition:none!important;border-radius:0!important;box-shadow:none!important;}
+.build-map-preview .page-stage:hover{transform:inherit!important;}
+.build-map-card-meta{display:flex;align-items:center;gap:6px;min-height:34px;padding:6px 9px;background:#eff0f2;border-top:1px solid rgba(0,0,0,.10);}
+.build-map-card-name{flex:1 1 auto;min-width:0;font-size:10px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.build-map-card-source{flex:0 0 auto;max-width:45%;font-size:8px;color:#515662;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.build-map-card-action{position:absolute;top:8px;right:8px;z-index:3;width:31px;height:31px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.72);border-radius:50%;background:rgba(15,18,23,.78);color:#fff;font-size:18px;opacity:0;transform:translateY(3px);transition:opacity .12s ease,transform .12s ease;cursor:pointer;}
+.build-map-card:hover .build-map-card-action,.build-map-card:focus-within .build-map-card-action{opacity:1;transform:none;}
+.build-map-card-action.is-drag-target{opacity:1;transform:none;background:#343a45;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.15);}
+.build-map-feedback{position:absolute;left:12px;bottom:10px;z-index:4;padding:6px 9px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:rgba(16,18,22,.86);color:var(--text-2);font-size:10px;pointer-events:none;opacity:0;transition:opacity .15s ease;}
+.build-map-feedback.is-visible{opacity:1;}
+.build-stack-header{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:43px;padding:7px 11px;border-bottom:1px solid var(--line-dark);font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--text-2);}
+.build-stack-header small{font-size:9px;color:var(--text-3);font-weight:600;letter-spacing:0;text-transform:none;}
+#buildStackViewport{flex:1 1 auto;min-height:0;min-width:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent;padding:8px 10px;}
+#buildStackViewport #pagesStack{display:flex!important;flex-direction:column!important;align-items:center!important;width:100%!important;min-width:0!important;max-width:none!important;gap:var(--page-gap);padding:6px 0 30px!important;overflow:visible!important;}
+#buildStackViewport .page-shell{zoom:var(--build-page-scale, .58)!important;margin-bottom:0!important;}
+#buildStackViewport .empty-space{zoom:var(--build-page-scale, .58)!important;}
+#buildStackViewport .page-toolbar{margin-bottom:8px;}
+#buildStackViewport .page-toolbar-left{gap:5px;}
+#buildStackViewport .page-toolbar-right{gap:4px;}
+#buildStackViewport .page-toolbar .small-btn{padding:5px 7px;font-size:8px;}
+#buildStackViewport .page-toolbar .mini-pill{font-size:8px;padding:5px 6px;}
+#buildStackViewport .page-chip{padding:6px 8px;font-size:9px;}
+#buildStackViewport.build-drop-target{outline:2px dashed rgba(255,255,255,.34);outline-offset:-4px;}
+#buildStackViewport .page-shell.build-drop-before::before{content:"";position:absolute;left:0;right:0;top:-8px;border-top:3px solid #e6e9ef;z-index:20;}
+#buildStackViewport .page-shell.build-drop-after::after{content:"";position:absolute;left:0;right:0;bottom:-8px;border-bottom:3px solid #e6e9ef;z-index:20;}
+.build-import-backdrop{position:fixed;inset:0;z-index:60000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,5,8,.72);}
+.build-import-backdrop.is-open{display:flex;}
+.build-import-dialog{width:min(480px,100%);padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:#1b1e25;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+.build-import-dialog h2{margin:0 0 8px;font-size:14px;}
+.build-import-dialog p{margin:0 0 12px;color:var(--text-2);font-size:11px;line-height:1.45;}
+.build-import-dialog .field{margin:10px 0;}
+.build-import-dialog .build-import-name[hidden]{display:none;}
+.build-import-dialog .build-import-target-note{padding:9px;border-radius:8px;background:rgba(255,255,255,.05);color:var(--text-2);font-size:10px;line-height:1.4;}
+.build-import-dialog .build-import-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;}
+.build-import-dialog .build-import-actions .btn{width:auto;min-height:34px;}
+@media(max-width:760px){
+ .build-topbar{gap:6px;padding:6px;}
+ .build-title{min-width:100px;}
+ .build-title strong{font-size:10px;}
+ .build-top-actions{flex:1 1 100%;justify-content:flex-start;}
+ .build-top-actions .btn{font-size:8px;min-height:27px;padding:4px 6px;}
+ .build-map-toolbar{gap:4px;padding:6px;}
+ .build-filter-dropdown,.build-filter-dropdown>summary{width:118px;min-width:118px;flex-basis:118px;}
+ .build-slider{min-width:82px;font-size:8px;}
+ .build-map-count{margin-left:0;}
+ #buildDivider{flex-basis:5px;width:5px;}
+ #buildStackViewport{padding:5px;}
+}
+/* END_BUILD_VARIANTS_MAP_STACK_V1 */
+
+             </style>
 
   <!-- Подключаем файл кастомных обложек из Песочницы -->
 <script>
@@ -7794,9 +7914,18 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             <select id="tmCategorySelect" class="select-field"></select>
           </div>
 
+          <details class="tm-builtin-block" id="tmBuiltinBlock" open>
+            <summary><span>Built-in Templates</span><span id="tmBuiltinCount" class="tm-builtin-count"></span></summary>
+            <div class="tm-builtin-state">
+              <span id="tmBuiltinStateLabel"></span>
+              <button type="button" class="btn" id="tmBuiltinToggleBtn">Disable all</button>
+            </div>
+            <div class="tm-list tm-builtin-list" id="tmBuiltinList"></div>
+          </details>
           <div class="tm-list" id="tmList"></div>
 
           <div class="stack-actions tm-actions">
+            <button class="btn" id="tmNormalizeIdsBtn" type="button">Normalize IDs</button>
             <button class="btn" id="tmImportBtn" type="button">Import JSON</button>
             <button class="btn" id="tmExportBtn" type="button">Export JSON</button>
           </div>
@@ -7857,7 +7986,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           <div class="mini-help" id="memoryStatsText">Load: low</div>
         </div>
 
-        <div class="sidebar-card">
+        <div class="sidebar-card" id="globalTypeStylesCard">
           <h3 class="sidebar-title">Global Type Styles</h3>
           <div class="field" style="margin-bottom:8px;">
             <label for="globalTypePresetSelect">Preset Type</label>
@@ -7934,6 +8063,63 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
     </div>
   </div>
 
+
+  <section id="buildModeSurface" aria-label="Варианты сборки">
+    <header class="build-topbar">
+      <div class="build-title"><strong>Варианты сборки</strong><span id="buildActiveVariantLabel">Активный вариант</span></div>
+      <div class="build-top-actions">
+        <button type="button" class="btn" id="buildRenameVariantBtn">Rename</button>
+        <button type="button" class="btn" id="buildDuplicateStackBtn">Duplicate Stack</button>
+        <button type="button" class="btn" id="buildClearStackBtn">Clear Selected Stack</button>
+        <button type="button" class="btn" id="buildCopyStackJsonBtn">Copy Stack JSON</button>
+        <button type="button" class="btn" id="buildExportStackJsonBtn">Download JSON</button>
+        <button type="button" class="btn" id="buildImportStackJsonBtn">Import JSON</button>
+      </div>
+    </header>
+    <div class="build-workspace" id="buildWorkspace">
+      <section id="buildMapPane" aria-label="Template Map">
+        <div class="build-map-toolbar">
+          <div class="build-variants-inline">
+            <span>Variants</span>
+            <div class="build-variant-buttons" id="buildVariantButtons" role="group" aria-label="Build variants"></div>
+            <button type="button" class="build-add-variant" id="buildAddVariantBtn" title="Создать новый вариант">+</button>
+          </div>
+          <details class="build-filter-dropdown" id="buildStyleFilter">
+            <summary><span>Style</span><span class="build-filter-summary" id="buildStyleSummary">All styles</span></summary>
+            <div class="build-filter-menu" id="buildStyleOptions"></div>
+          </details>
+          <details class="build-filter-dropdown" id="buildCategoryFilter">
+            <summary><span>Category</span><span class="build-filter-summary" id="buildCategorySummary">All categories</span></summary>
+            <div class="build-filter-menu" id="buildCategoryOptions"></div>
+          </details>
+          <label class="build-toggle"><input type="checkbox" id="buildFavoritesOnly"><span>Favorites</span></label>
+          <label class="build-toggle"><input type="checkbox" id="buildSelectedOnly"><span>Selected only</span></label>
+          <span class="build-map-count" id="buildMapCount">0 templates</span>
+          <label class="build-slider" title="Card size · 140–1200 px"><span>Size</span><input type="range" id="buildCardSize" min="140" max="1200" step="10" value="270"><output id="buildCardSizeValue">270</output></label>
+          <label class="build-slider" title="Vertical gap · 0–80 px"><span>↕ Gap</span><input type="range" id="buildRowGap" min="0" max="80" step="2" value="12"><output id="buildRowGapValue">12</output></label>
+          <label class="build-slider" title="Horizontal gap · 0–80 px"><span>↔ Gap</span><input type="range" id="buildColumnGap" min="0" max="80" step="2" value="12"><output id="buildColumnGapValue">12</output></label>
+        </div>
+        <div class="build-map-scroll" id="buildMapScroll"><div class="build-map-grid" id="buildMapGrid"></div></div>
+      </section>
+      <div id="buildDivider" role="separator" aria-orientation="vertical" aria-label="Изменить ширину Map и Stack" tabindex="0"></div>
+      <section id="buildStackPane" aria-label="Build Stack">
+        <header class="build-stack-header"><span>Build Stack</span><small id="buildStackCount">0 pages</small></header>
+        <div id="buildStackViewport"></div>
+      </section>
+    </div>
+    <div class="build-map-feedback" id="buildMapFeedback" aria-live="polite"></div>
+  </section>
+  <input type="file" id="buildStackImportInput" accept=".json,application/json" class="hidden">
+  <div class="build-import-backdrop" id="buildImportBackdrop" aria-hidden="true">
+    <section class="build-import-dialog" role="dialog" aria-modal="true" aria-labelledby="buildImportTitle">
+      <h2 id="buildImportTitle">Import Stack JSON</h2>
+      <p id="buildImportDescription">Проверьте целевой вариант. Существующий стек будет заменён только после подтверждения.</p>
+      <div class="field"><label for="buildImportTargetSelect">Target variant</label><select id="buildImportTargetSelect"></select></div>
+      <div class="field build-import-name" id="buildImportNameField" hidden><label for="buildImportName">Name for new variant</label><input id="buildImportName" type="text" maxlength="48" placeholder="Short name"></div>
+      <div class="build-import-target-note" id="buildImportTargetNote"></div>
+      <div class="build-import-actions"><button type="button" class="btn" id="buildImportCancelBtn">Cancel</button><button type="button" class="btn primary" id="buildImportConfirmBtn">Import</button></div>
+    </section>
+  </div>
   <input type="file" id="jsonImportInput" accept=".json" class="hidden">
   <input type="file" id="tmImportInput" accept=".json,application/json" class="hidden">
   <input type="file" id="imageImportInput" accept="image/*" class="hidden">
@@ -8168,7 +8354,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         { key:"exportCsv", label:"Export CSV", run:() => els.exportCsvBtn && els.exportCsvBtn.click() },
          { key:"importCsv", label:"Import CSV", run:() => els.importCsvBtn && els.importCsvBtn.click() },
         { key:"aipcCollect", label:"AI Collector: собрать текущую", run:() => { if (window.__aipcCollect) window.__aipcCollect(); } },
-        { key:"panelAppearance", label:"Panel: прозрачность/размер (popup)", run:() => { if (window.__panelUiV1TogglePopup) window.__panelUiV1TogglePopup(); } }
+        { key:"panelAppearance", label:"Panel appearance · Shell Gear settings", run:() => { if (window.__panelUiV1TogglePopup) window.__panelUiV1TogglePopup(); } }
       ];
 
       function normalizeHotkeysState(hk){
@@ -8957,16 +9143,26 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       }
 
       function safeProjectSnapshot(){
+        syncActiveBuildVariantSnapshot();
         return JSON.stringify(state, (key, value) => {
           if (key === "currentJsonHandleKey") return value || null;
           return value;
         });
       }
 
-      function getHistorySnapshot(){
+      function getHistorySnapshot(options = {}){
+        syncActiveBuildVariantSnapshot();
+        const includeAllBuildVariants = options.includeAllBuildVariants === true;
         return {
           ui:deepClone(state.ui),
           pages:deepClone(state.pages),
+          activeBuildVariantId:state.activeBuildVariantId || null,
+          buildVariants:(state.buildVariants || []).map(variant => ({
+            id:variant.id, number:variant.number, name:variant.name || "",
+            selectedPageId:variant.selectedPageId || null,
+            pages:includeAllBuildVariants ? deepClone(variant.pages || []) : null
+          })),
+          buildVariantsFull:includeAllBuildVariants,
           document:deepClone(state.document),
           textLibrary:deepClone(state.textLibrary)
         };
@@ -8974,9 +9170,30 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
       function applyHistorySnapshot(snapshot){
         const liveImagePool = state.imagePool || { items:[] };
+        const liveVariants = Array.isArray(state.buildVariants) ? state.buildVariants : [];
+        const liveById = new Map(liveVariants.map(variant => [variant.id, variant]));
+        const restoredVariants = Array.isArray(snapshot.buildVariants)
+          ? snapshot.buildVariants.map(variant => {
+              const live = liveById.get(variant.id);
+              return {
+                id:variant.id, number:variant.number, name:variant.name || "",
+                selectedPageId:variant.selectedPageId || null,
+                pages:Array.isArray(variant.pages) ? deepClone(variant.pages) : deepClone(live?.pages || [])
+              };
+            })
+          : deepClone(liveVariants);
+        const restoredPages = deepClone(snapshot.pages || []);
+        const restoredActiveId = snapshot.activeBuildVariantId || restoredVariants[0]?.id || null;
+        const restoredActive = restoredVariants.find(variant => variant.id === restoredActiveId);
+        if (restoredActive) {
+          restoredActive.pages = deepClone(restoredPages);
+          restoredActive.selectedPageId = snapshot.ui?.selectedPageId || restoredActive.selectedPageId || null;
+        }
         state = {
           ui:deepClone(snapshot.ui || {}),
-          pages:deepClone(snapshot.pages || []),
+          pages:restoredPages,
+          buildVariants:restoredVariants,
+          activeBuildVariantId:restoredActiveId,
           document:deepClone(snapshot.document || { design:{ select:"#dbe3ef" }, globalTypeStyles:{} }),
           imagePool:liveImagePool,
           textLibrary:deepClone(snapshot.textLibrary || createDefaultTextLibraryState())
@@ -8984,9 +9201,12 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       }
 
       function getLocalStorageSnapshot(){
+        syncActiveBuildVariantSnapshot();
         return {
           ui:deepClone(state.ui),
           pages:deepClone(state.pages),
+          buildVariants:deepClone(state.buildVariants || []),
+          activeBuildVariantId:state.activeBuildVariantId || null,
           document:deepClone(state.document),
           textLibrary:deepClone(state.textLibrary),
         imagePool:{
@@ -9023,12 +9243,18 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       function reIdPage(page){
         const copy = deepClone(page);
         copy.id = uid("p");
+        const idMap = new Map();
         copy.blocks = (copy.blocks || []).map(b => {
           const c = deepClone(b);
+          const oldId = c.id;
           c.id = uid("b");
-          if (c.kind === "frame") c.slots = (c.slots || []).map(s => Object.assign({}, s, { id:uid("s") }));
+          if (oldId) idMap.set(oldId, c.id);
+          if (c.kind === "frame") c.slots = (c.slots || []).map(slot => Object.assign({}, slot, { id:uid("s") }));
           return c;
         });
+        if (Array.isArray(copy.templateGeometry)) {
+          copy.templateGeometry = copy.templateGeometry.map(g => Object.assign({}, g, { id:idMap.get(g.id) || g.id }));
+        }
         return copy;
       }
 
@@ -9047,7 +9273,10 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
       function createTemplatePage(meta){
         const blocks = meta.factory();
-        const page = makePage(meta.templateGroup, meta.id, meta.label, blocks, meta.visualStyle || "cinematic");
+        const page = makePage(meta.templateGroup || meta.templateGroupLabel || meta.label, meta.id, meta.label || meta.name || meta.id, blocks, meta.visualStyle || "cinematic");
+        if (meta.sourceTemplateId || meta.originalTemplateId) page.originalTemplateId = meta.sourceTemplateId || meta.originalTemplateId;
+        if (meta.libraryId) page.templateLibraryId = meta.libraryId;
+        if (meta.libraryName) page.templateLibraryName = meta.libraryName;
         markFullBleedBlocksForNoRadius(page);
         /*
           RESET LAYOUT: снимок ИСХОДНОЙ геометрии блоков на момент
@@ -9185,20 +9414,87 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       }
 
       function getTemplateMetaById(templateId){
-        return TEMPLATE_INDEX[templateId] || null;
+        const record = typeof TemplateRegistry !== "undefined" && TemplateRegistry.getById
+          ? TemplateRegistry.getById(templateId)
+          : null;
+        return record?.meta || TEMPLATE_INDEX[templateId] || null;
+      }
+
+      function getProgramStyleDisplayName(styleId, candidate){
+        const explicit = String(candidate || '').trim();
+        if (explicit) return explicit;
+        const id = String(styleId || '').trim();
+        let name = id;
+        name = name.replace(/^(?:program|import|style)_[a-z0-9_-]+\s*[·|—:]\s*/i, '');
+        name = name.replace(/\s*\((?:import|импорт)(?:\s+\d+)?\)\s*$/i, '').trim();
+        if (/^program_[a-z0-9_-]+$/i.test(name)) {
+          name = name.replace(/^program_/i, '').replace(/[_-]+/g, ' ').replace(/\b[a-z]/g, m => m.toUpperCase());
+        }
+        if (name === 'editorial-blue') return 'Editorial Blue';
+        if (name === 'cinematic') return 'Cinematic';
+        return name || 'Imported style';
+      }
+
+      function extractSandboxStyleDisplayName(source){
+        const text = String(source || '');
+        const match = /^\s*\/\/\s*Covers Sandbox\s*[—-]\s*экспорт стиля\s+(.+?)\.\s*$/im.exec(text);
+        return match ? String(match[1] || '').trim() : '';
+      }
+
+      function getCompactTemplateDisplay(section, templateId){
+        const meta = getTemplateMetaById(templateId);
+        return meta?.label || meta?.name || String(templateId || section || 'Template');
+      }
+
+      function getCompactTemplateDisplayName(page){
+        const meta = getTemplateMetaById(page?.templateId || '');
+        return meta?.label || meta?.name || page?.sourceLabel || page?.templateGroup || 'Template';
+      }
+
+      function migrateLegacyPageTemplateBindings(){
+        let appState = null;
+        try { appState = state; } catch (error) { return 0; }
+        if (!appState) return 0;
+        const pages = [];
+        const seen = new Set();
+        const addPages = list => (Array.isArray(list) ? list : []).forEach(page => {
+          if (page && typeof page === "object" && !seen.has(page)) { seen.add(page); pages.push(page); }
+        });
+        addPages(appState.pages);
+        (appState.buildVariants || []).forEach(variant => addPages(variant.pages));
+        const favoriteOverrides = getTemplateFavoriteOverrides();
+        let migrated = 0;
+        pages.forEach(page => {
+          const currentId = String(page.templateId || "");
+          if (!currentId || currentId === "blank" || currentId === "csv-import") return;
+          if (TemplateRegistry.getExactById(currentId)) return;
+          const candidates = TemplateRegistry.getSourceCandidates(currentId);
+          let record = candidates.length === 1 ? candidates[0] : null;
+          if (!record && candidates.length > 1) {
+            const byGroup = candidates.filter(candidate => candidate.group === page.templateGroup || candidate.name === page.sourceLabel);
+            if (byGroup.length === 1) record = byGroup[0];
+          }
+          if (!record) {
+            const legacyOwner = TemplateRegistry.getById(currentId);
+            if (legacyOwner && legacyOwner.source === TEMPLATE_SOURCE_CONNECTED) record = legacyOwner;
+          }
+          if (!record || record.source !== TEMPLATE_SOURCE_CONNECTED || !record.meta?.sourceTemplateId) return;
+          page.originalTemplateId = record.meta.sourceTemplateId;
+          page.templateLibraryId = record.libraryId || null;
+          page.templateId = record.id;
+          if (favoriteOverrides[currentId] !== undefined && favoriteOverrides[record.id] === undefined) {
+            favoriteOverrides[record.id] = favoriteOverrides[currentId] === true;
+          }
+          migrated++;
+        });
+        if (migrated) saveTemplateFavoriteOverrides(favoriteOverrides);
+        const active = (appState.buildVariants || []).find(variant => variant.id === appState.activeBuildVariantId);
+        if (active) { active.pages = deepClone(appState.pages); active.selectedPageId = appState.ui?.selectedPageId || active.selectedPageId || null; }
+        return migrated;
       }
 
       function getTemplateCategoryKeys(){
         return Object.keys(PAGE_TEMPLATE_LIBRARY);
-      }
-
-      function getCompactTemplateDisplay(section, templateId){
-        const safeSection = String(section || "Template").trim();
-        return `${safeSection}_${getTemplateHumanId(templateId)}`;
-      }
-
-      function getCompactTemplateDisplayName(page){
-        return getCompactTemplateDisplay(page?.templateGroup || "Template", page?.templateId || "");
       }
 
       /* ============================================================
@@ -9222,6 +9518,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
       const TEMPLATE_ENABLED_OVERRIDES_KEY =
         "portfolio_editor_template_enabled_overrides_v1";
+      const BUILTIN_TEMPLATES_ENABLED_KEY = "portfolio_editor_builtin_templates_enabled_v1";
       const TEMPLATE_CONNECTED_LIBRARY_KEY =
         "portfolio_editor_connected_templates_v1";
       const TEMPLATE_PACKAGE_FORMAT = "template-library";
@@ -9286,10 +9583,12 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
         let enabledOverrides =
           normalizeMap(TemplateStorage.readJSON(TEMPLATE_ENABLED_OVERRIDES_KEY, {}));
+        let builtinsEnabled = TemplateStorage.readJSON(BUILTIN_TEMPLATES_ENABLED_KEY, true) !== false;
 
         return {
           isEnabled(meta){
             if (!meta || !meta.id) return true;
+            if (meta.__templateSource === TEMPLATE_SOURCE_BUILTIN) return builtinsEnabled;
             if (Object.prototype.hasOwnProperty.call(enabledOverrides, meta.id)) {
               return enabledOverrides[meta.id] === true;
             }
@@ -9305,6 +9604,20 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               isEnabled: isEnabled === true
             });
             return true;
+          },
+          areBuiltinsEnabled(){ return builtinsEnabled; },
+          setBuiltinsEnabled(enabled){
+            builtinsEnabled = enabled === true;
+            TemplateStorage.writeJSON(BUILTIN_TEMPLATES_ENABLED_KEY, builtinsEnabled);
+            TemplateEvents.emit("templates:enabledChanged", { templateId:"__all_builtin__", isEnabled:builtinsEnabled });
+            return builtinsEnabled;
+          },
+          migrateLegacyOverride(oldId, newId){
+            if (!oldId || !newId || oldId === newId) return;
+            if (Object.prototype.hasOwnProperty.call(enabledOverrides, oldId) && !Object.prototype.hasOwnProperty.call(enabledOverrides, newId)) {
+              enabledOverrides[newId] = enabledOverrides[oldId];
+              TemplateStorage.writeJSON(TEMPLATE_ENABLED_OVERRIDES_KEY, enabledOverrides);
+            }
           }
         };
       })();
@@ -9334,6 +9647,8 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           description: meta.description || "",
           libraryId: meta.libraryId || null,
           libraryName: meta.libraryName || null,
+          sourceTemplateId: meta.sourceTemplateId || meta.originalTemplateId || null,
+          visualStyleDisplayName: meta.visualStyleDisplayName || meta.programStyleDisplayName || "",
           isFavorite: meta.isFavorite === true || meta.favorite === true,
           meta
         };
@@ -9353,6 +9668,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             (group?.templates || [])
               .filter(t => t.__connectedTemplate !== true)
               .forEach(t => {
+                t.__templateSource = TEMPLATE_SOURCE_BUILTIN;
                 out.push(normalizeTemplateMeta(t, catKey, group.label, TEMPLATE_SOURCE_BUILTIN));
               });
           });
@@ -9387,6 +9703,9 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             label: entry.name || entry.id,
             templateGroup: entry.group || entry.name || entry.id,
             visualStyle: entry.visualStyle || "cinematic",
+            sourceTemplateId: entry.sourceTemplateId || entry.originalTemplateId || null,
+            originalTemplateId: entry.sourceTemplateId || entry.originalTemplateId || null,
+            visualStyleDisplayName: entry.visualStyleDisplayName || "",
             isFavorite: entry.isFavorite === true,
             enabled: entry.enabled !== false,
             version: entry.version || 1,
@@ -9454,6 +9773,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       /* ---------- registry (single source of truth) ---------- */
       const TemplateRegistry = (() => {
         const records = new Map();
+        let legacyAliases = new Map();
 
         function computeEnabled(record){
           return TemplateStateStore.isEnabled(record.meta);
@@ -9536,8 +9856,24 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             return Array.from(records.values()).map(decorate);
           },
           getById(id){
+            if (records.has(id)) return decorate(records.get(id));
+            const aliasId = legacyAliases.get(String(id || ""));
+            return aliasId && records.has(aliasId) ? decorate(records.get(aliasId)) : null;
+          },
+          getExactById(id){
             return records.has(id) ? decorate(records.get(id)) : null;
           },
+          getSourceCandidates(sourceId){
+            const target = String(sourceId || "");
+            return this.all().filter(record => String(record.meta?.sourceTemplateId || record.meta?.originalTemplateId || "") === target);
+          },
+          setLegacyAliases(aliases){
+            legacyAliases = aliases instanceof Map ? new Map(aliases) : new Map(Object.entries(aliases || {}));
+            legacyAliases.forEach((runtimeId, sourceId) => {
+              if (runtimeId && records.has(runtimeId)) TemplateStateStore.migrateLegacyOverride(sourceId, runtimeId);
+            });
+          },
+          getLegacyAliases(){ return new Map(legacyAliases); },
           getCategories(){
             const counts = {};
             this.all().forEach(record => {
@@ -9558,7 +9894,11 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           setEnabled(id, isEnabled){
             const record = this.getById(id);
             if (!record) return false;
-            TemplateStateStore.setEnabled(id, isEnabled);
+            if (record.source === TEMPLATE_SOURCE_BUILTIN) {
+              TemplateStateStore.setBuiltinsEnabled(isEnabled);
+            } else {
+              TemplateStateStore.setEnabled(record.id, isEnabled);
+            }
             /*
               Сигнализируем системе в целом (панель Template Manager,
               пересинхронизация селекторов). Точечный канал
@@ -9594,6 +9934,9 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               __connectedTemplate: true,
               libraryId: entry.libraryId || null,
               libraryName: entry.libraryName || null,
+              sourceTemplateId: entry.sourceTemplateId || entry.originalTemplateId || null,
+              originalTemplateId: entry.sourceTemplateId || entry.originalTemplateId || null,
+              visualStyleDisplayName: entry.visualStyleDisplayName || "",
               factory: entry.factory || (() => deepClone(Array.isArray(entry.blocks) ? entry.blocks : []))
             };
 
@@ -9646,7 +9989,10 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               writeThroughToLegacy(record, Object.assign({}, meta, {
                 __connectedTemplate: true,
                 libraryId: meta.libraryId || null,
-                libraryName: meta.libraryName || null
+                libraryName: meta.libraryName || null,
+                sourceTemplateId: meta.sourceTemplateId || meta.originalTemplateId || null,
+                originalTemplateId: meta.originalTemplateId || meta.sourceTemplateId || null,
+                visualStyleDisplayName: meta.visualStyleDisplayName || ""
               }));
             });
             TemplateEvents.emit("templates:changed", { action: "syncLegacyIndexes" });
@@ -9958,6 +10304,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
           const templates = [];
           const seenIds = new Set();
+          const sandboxStyleDisplayName = extractSandboxStyleDisplayName(file.content || "");
           raw.templates.forEach((tpl, index) => {
             const where = "templates[" + index + "]";
             if (!tpl || typeof tpl !== "object" || Array.isArray(tpl)) {
@@ -10003,10 +10350,13 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               : label;
             templates.push({
               id,
+              sourceTemplateId: id,
+              originalTemplateId: id,
               label,
               templateGroup: group,
               categoryKey: templateGroupLabelToKey(group),
               visualStyle,
+              visualStyleDisplayName: String(tpl.visualStyleDisplayName || tpl.programStyleDisplayName || raw.visualStyleDisplayName || sandboxStyleDisplayName || "").trim(),
               isFavorite: tpl.isFavorite === true || tpl.favorite === true,
               version: tpl.version != null ? String(tpl.version) : version,
               description: typeof tpl.description === "string" ? tpl.description : "",
@@ -10025,73 +10375,79 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           return "h" + (hash >>> 0).toString(36) + "_" + str.length.toString(36);
         }
 
-        /* ---------- глобальная уникальность template ID ---------- */
+        /* ---------- library-scoped identity (stable across reloads) ---------- */
+        function runtimeTemplateId(libraryId, sourceId){
+          return "lib:" + encodeURIComponent(String(libraryId || "library")) + "::" + encodeURIComponent(String(sourceId || ""));
+        }
+
         function buildExistingIdOwners(){
           const owners = new Map();
           Object.values(PAGE_TEMPLATE_LIBRARY).forEach(group => {
             (group.templates || []).forEach(t => {
               if (!t || t.__connectedTemplate === true) return;
-              owners.set(t.id, { owner: "builtin", label: "Built-in", libraryObj: null });
+              if (!owners.has(t.id)) owners.set(t.id, { owner:"builtin", label:"Built-in", runtimeId:t.id });
             });
           });
+          /* Keep the former Presentation owner as the migration target for bare IDs. */
           ConnectedTemplateProvider.importedEntries().forEach(entry => {
-            owners.set(entry.id, {
+            const owner = {
               owner: entry.libraryId || "imported",
               label: entry.libraryName || "Imported template package",
-              libraryObj: null
-            });
+              runtimeId: entry.id
+            };
+            owners.set(String(entry.id), owner);
+            const sourceId = String(entry.sourceTemplateId || entry.originalTemplateId || "");
+            if (sourceId) owners.set(sourceId, owner);
           });
           return owners;
         }
 
+        let currentLegacyAliases = new Map();
+
         function computeActiveEntries(){
-          /*
-            Единый проход: ON-библиотеки (детерминированный порядок по имени),
-            глобальное пространство template ID. Первая библиотека "занимает" id,
-            последующие получают структурированный conflict (silent overwrite
-            исключён по построению).
-          */
+          /* Source IDs may repeat across libraries. Every enabled library record
+             receives its own stable runtime ID; source collisions are diagnostic
+             only and never suppress an entry. */
           const owners = buildExistingIdOwners();
           const sorted = Array.from(libraries.values())
             .filter(lib => lib.status !== "error" && Array.isArray(lib.templates))
             .sort((a, b) => (a.name || "").localeCompare(b.name || "") || (a.file || "").localeCompare(b.file || ""));
-
           sorted.forEach(lib => { lib.conflicts = []; });
-
           const entries = [];
+          currentLegacyAliases = new Map();
+          owners.forEach((owner, sourceId) => currentLegacyAliases.set(sourceId, owner.runtimeId || sourceId));
+
           sorted.forEach(lib => {
             if (!isLibraryEnabled(lib.libraryId)) return;
             lib.templates.forEach(tpl => {
-              const existing = owners.get(tpl.id);
-              if (existing) {
-                const conflict = {
-                  templateId: tpl.id,
-                  keptBy: existing.owner,
-                  keptByLabel: existing.label,
+              const sourceId = String(tpl.sourceTemplateId || tpl.originalTemplateId || tpl.id);
+              const runtimeId = runtimeTemplateId(lib.libraryId, sourceId);
+              const previous = owners.get(sourceId);
+              if (previous) {
+                lib.conflicts.push({
+                  templateId: sourceId,
+                  sourceTemplateId: sourceId,
+                  runtimeId,
+                  keptBy: previous.owner,
+                  keptByLabel: previous.label,
                   skippedLibrary: lib.libraryId,
                   skippedLibraryFile: lib.file,
-                  resolution: "skipped"
-                };
-                lib.conflicts.push(conflict);
-                if (existing.libraryObj) {
-                  existing.libraryObj.conflicts.push({
-                    templateId: tpl.id,
-                    keptBy: lib.libraryId,
-                    keptByLabel: lib.name,
-                    skippedLibrary: existing.owner,
-                    skippedLibraryFile: existing.libraryObj.file,
-                    resolution: "kept"
-                  });
-                }
-                return;
+                  resolution: "namespaced"
+                });
+              } else {
+                owners.set(sourceId, { owner:lib.libraryId, label:lib.name, runtimeId });
+                currentLegacyAliases.set(sourceId, runtimeId);
               }
-              owners.set(tpl.id, { owner: lib.libraryId, label: lib.name, libraryObj: lib });
               entries.push({
-                id: tpl.id,
+                id: runtimeId,
+                sourceTemplateId: sourceId,
+                originalTemplateId: sourceId,
                 name: tpl.label,
+                label: tpl.label,
                 group: tpl.templateGroup,
                 categoryKey: tpl.categoryKey,
                 visualStyle: tpl.visualStyle,
+                visualStyleDisplayName: tpl.visualStyleDisplayName || "",
                 enabled: true,
                 version: tpl.version,
                 description: tpl.description,
@@ -10109,7 +10465,9 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           const entries = computeActiveEntries();
           ConnectedTemplateProvider.setExternalLibraryEntries(entries);
           TemplateRegistry.rebuild();
+          TemplateRegistry.setLegacyAliases(currentLegacyAliases);
           TemplateRegistry.syncLegacyIndexes(); // emits templates:changed → панели/селекторы обновятся
+          migrateLegacyPageTemplateBindings();
           TemplateEvents.emit("libraries:changed", getSummary());
           return entries;
         }
@@ -10201,7 +10559,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           const entries = applyActiveSet();
 
           const totalConflicts = Array.from(libraries.values())
-            .reduce((sum, lib) => sum + (lib.conflicts || []).filter(c => c.resolution === "skipped").length, 0);
+            .reduce((sum, lib) => sum + (lib.conflicts || []).length, 0);
           const totalErrors = Array.from(libraries.values())
             .reduce((sum, lib) => sum + (lib.errors || []).length, 0);
 
@@ -10293,7 +10651,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             templates: all.reduce((sum, lib) => sum + (lib.templateCount || 0), 0),
             active: active.length,
             errors: all.reduce((sum, lib) => sum + (lib.errors || []).length, 0),
-            conflicts: all.reduce((sum, lib) => sum + (lib.conflicts || []).filter(c => c.resolution === "skipped").length, 0)
+            conflicts: all.reduce((sum, lib) => sum + (lib.conflicts || []).length, 0)
           };
         }
 
@@ -10332,6 +10690,11 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           selectFolder,
           reload,
           loadFromScanResult,
+          normalizeIds(){
+            const sourceRecords = Array.from(libraries.values()).reduce((sum, lib) => sum + (lib.templates || []).length, 0);
+            const entries = applyActiveSet();
+            return { ok:true, count:entries.length, sourceRecords };
+          },
           listLibraries,
           getSummary,
           isLibraryEnabled,
@@ -10429,6 +10792,12 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         },
         isEnabled(id){
           return TemplateRegistry.isEnabled(id);
+        },
+        areBuiltinsEnabled(){ return TemplateStateStore.areBuiltinsEnabled(); },
+        setBuiltinsEnabled(enabled){
+          const result = TemplateStateStore.setBuiltinsEnabled(enabled);
+          TemplateEvents.emit("templates:changed", { action:"builtin:toggle", enabled:result });
+          return result;
         },
         enable(id){
           return TemplateRegistry.setEnabled(id, true);
@@ -10737,7 +11106,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           meta.textContent =
             (record.source === TEMPLATE_SOURCE_BUILTIN ? "Built-in" : "Connected") +
             " · " + record.group +
-            " · " + getCompactTemplateDisplay(record.group, record.id);
+            (record.source === TEMPLATE_SOURCE_CONNECTED && record.libraryName ? " · " + record.libraryName : "");
 
           main.appendChild(name);
           main.appendChild(meta);
@@ -10749,16 +11118,15 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           badge.className = "tm-badge " + (record.enabledEffective ? "tm-badge-on" : "tm-badge-off");
           badge.textContent = record.enabledEffective ? "Enabled" : "Disabled";
 
-          const toggle = document.createElement("button");
-          toggle.type = "button";
-          toggle.className = "btn tm-toggle-btn";
-          toggle.textContent = record.enabledEffective ? "Disable" : "Enable";
-          toggle.addEventListener("click", () => {
-            TemplateManager.toggle(record.id);
-          });
-
           side.appendChild(badge);
-          side.appendChild(toggle);
+          if (record.source !== TEMPLATE_SOURCE_BUILTIN) {
+            const toggle = document.createElement("button");
+            toggle.type = "button";
+            toggle.className = "btn tm-toggle-btn";
+            toggle.textContent = record.enabledEffective ? "Disable" : "Enable";
+            toggle.addEventListener("click", () => TemplateManager.toggle(record.id));
+            side.appendChild(toggle);
+          }
 
           item.appendChild(main);
           item.appendChild(side);
@@ -10772,32 +11140,41 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           renderChips();
 
           const list = $("tmList");
-          if (!list) return;
+          const builtinList = $("tmBuiltinList");
+          if (!list || !builtinList) return;
           list.innerHTML = "";
-
-          const records = TemplateManager.search(currentFilter());
-          if (!records.length) {
+          builtinList.innerHTML = "";
+          const builtinBlock = $("tmBuiltinBlock");
+          const builtinsEnabled = TemplateManager.areBuiltinsEnabled();
+          const stateLabel = $("tmBuiltinStateLabel");
+          const toggleBuiltinBtn = $("tmBuiltinToggleBtn");
+          const builtinCount = $("tmBuiltinCount");
+          if (stateLabel) stateLabel.textContent = builtinsEnabled ? "Все встроенные шаблоны включены" : "Все встроенные шаблоны отключены";
+          if (toggleBuiltinBtn) toggleBuiltinBtn.textContent = builtinsEnabled ? "Disable all" : "Enable all";
+          const records = TemplateManager.search(currentFilter()).slice().sort((a, b) => (a.group + a.name).localeCompare(b.group + b.name));
+          const builtinRecords = records.filter(record => record.source === TEMPLATE_SOURCE_BUILTIN);
+          const connectedRecords = records.filter(record => record.source !== TEMPLATE_SOURCE_BUILTIN);
+          if (builtinCount) builtinCount.textContent = `${builtinRecords.length} shown`;
+          if (builtinBlock) builtinBlock.hidden = ui.source === "connected" || !builtinRecords.length;
+          builtinRecords.forEach(record => builtinList.appendChild(renderItem(record)));
+          connectedRecords.forEach(record => list.appendChild(renderItem(record)));
+          if (!connectedRecords.length && !builtinRecords.length) {
             const empty = document.createElement("div");
             empty.className = "tm-empty";
             empty.textContent = "No templates match the filter";
             list.appendChild(empty);
-            return;
           }
-
-          records
-            .slice()
-            .sort((a, b) => {
-              if (a.source !== b.source) {
-                return a.source === TEMPLATE_SOURCE_BUILTIN ? -1 : 1;
-              }
-              return (a.group + a.name).localeCompare(b.group + b.name);
-            })
-            .forEach(record => list.appendChild(renderItem(record)));
         }
 
         function bindOnce(){
           if (ui.bound) return;
           ui.bound = true;
+
+          const builtinToggle = $("tmBuiltinToggleBtn");
+          if (builtinToggle) builtinToggle.addEventListener("click", () => {
+            TemplateManager.setBuiltinsEnabled(!TemplateManager.areBuiltinsEnabled());
+            render();
+          });
 
           const search = $("tmSearch");
           if (search) {
@@ -10863,6 +11240,22 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               };
               reader.onerror = () => toast("Invalid template package: файл не прочитан");
               reader.readAsText(file);
+            });
+          }
+
+          const normalizeBtn = $("tmNormalizeIdsBtn");
+          if (normalizeBtn) {
+            normalizeBtn.addEventListener("click", () => {
+              try {
+                const result = TemplateLibrarySystem.api.normalizeIds();
+                syncTemplateSelectorsUI();
+                syncTemplateStyleFilterOptions();
+                renderAll();
+                toast(`IDs normalized · ${result.count} active · ${result.sourceRecords} source records`);
+              } catch (error) {
+                console.error("[TemplateLibrary] Normalize IDs failed", error);
+                toast("Normalize IDs failed: " + String(error && error.message || error));
+              }
             });
           }
 
@@ -11028,9 +11421,15 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           currentJsonHandleKey:null,
           memoryStats:null,
                     noRepeats:false,
+          buildMapSettings:{
+            styles:[], categories:[], favoritesOnly:false, selectedOnly:false,
+            selectedTemplateIds:[], size:270, rowGap:12, columnGap:12, splitPct:48
+          },
           hotkeys:Object.assign({}, HOTKEY_DEFAULTS)
         },
         pages:[],
+        buildVariants:[],
+        activeBuildVariantId:null,
         imagePool:{ items:[], rootPath:"" },
         document:{ design:{ select:"#dbe3ef" }, globalTypeStyles:deepClone(GLOBAL_TYPE_STYLE_DEFAULTS) },
         textLibrary:createDefaultTextLibraryState()
@@ -11077,7 +11476,835 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         if (!block.style.semanticType) block.style.semanticType = inferSemanticType(block.role, "", block.content);
       }
 
+      function buildVariantUid(){ return uid("build"); }
+      function freeBuildVariantNumber(variants){
+        const used = new Set((variants || []).map(variant => Number(variant.number)).filter(Number.isFinite));
+        let next = 1;
+        while (used.has(next)) next++;
+        return next;
+      }
+      function normalizeBuildMapSettings(raw){
+        const source = raw && typeof raw === "object" ? raw : {};
+        const uniqueStrings = value => Array.from(new Set((Array.isArray(value) ? value : []).map(item => String(item || "").trim()).filter(Boolean)));
+        return {
+          styles:uniqueStrings(source.styles), categories:uniqueStrings(source.categories),
+          favoritesOnly:!!source.favoritesOnly, selectedOnly:!!source.selectedOnly,
+          selectedTemplateIds:uniqueStrings(source.selectedTemplateIds),
+          size:clamp(Number(source.size) || 270, 140, 1200),
+          rowGap:clamp(Number(source.rowGap) || 0, 0, 80),
+          columnGap:clamp(Number(source.columnGap) || 0, 0, 80),
+          splitPct:clamp(Number(source.splitPct) || 48, 25, 75)
+        };
+      }
+      function normalizeBuildVariantsState(s){
+        const originalPages = Array.isArray(s.pages) ? s.pages : [];
+        const list = Array.isArray(s.buildVariants) ? s.buildVariants : [];
+        const seenIds = new Set(), seenNumbers = new Set();
+        const normalized = list.map(variant => {
+          const item = variant && typeof variant === "object" ? variant : {};
+          let id = String(item.id || "");
+          if (!id || seenIds.has(id)) id = buildVariantUid();
+          seenIds.add(id);
+          let number = Math.max(1, parseInt(item.number, 10) || 0);
+          if (!number || seenNumbers.has(number)) { number = 1; while (seenNumbers.has(number)) number++; }
+          seenNumbers.add(number);
+          return { id, number, name:String(item.name || "").trim().slice(0, 48), pages:Array.isArray(item.pages) ? deepClone(item.pages) : [], selectedPageId:item.selectedPageId || null };
+        });
+        if (!normalized.length) {
+          normalized.push({ id:buildVariantUid(), number:1, name:"", pages:deepClone(originalPages), selectedPageId:s.ui?.selectedPageId || originalPages[0]?.id || null });
+        }
+        s.buildVariants = normalized;
+        const active = normalized.find(variant => variant.id === s.activeBuildVariantId) || normalized[0];
+        s.activeBuildVariantId = active.id;
+        if (!list.length) active.pages = deepClone(originalPages);
+        s.pages = deepClone(active.pages || []);
+        const validSelected = active.selectedPageId && s.pages.some(page => page.id === active.selectedPageId);
+        active.selectedPageId = validSelected ? active.selectedPageId : (s.ui?.selectedPageId && s.pages.some(page => page.id === s.ui.selectedPageId) ? s.ui.selectedPageId : s.pages[0]?.id || null);
+        s.ui.selectedPageId = active.selectedPageId;
+      }
+
+      function syncActiveBuildVariantSnapshot(){
+        if (typeof state === "undefined" || !state) return;
+        if (!Array.isArray(state.buildVariants)) state.buildVariants = [];
+        let active = state.buildVariants.find(variant => variant.id === state.activeBuildVariantId);
+        if (!active) {
+          active = { id:buildVariantUid(), number:freeBuildVariantNumber(state.buildVariants), name:"", pages:[], selectedPageId:null };
+          state.buildVariants.push(active);
+          state.activeBuildVariantId = active.id;
+        }
+        active.pages = deepClone(state.pages || []);
+        active.selectedPageId = state.ui?.selectedPageId || null;
+      }
+
+      let buildVariantAutosaveTimer = null;
+      let buildVariantShellStateQueued = false;
+      function scheduleBuildVariantShellState(){
+        if (buildVariantShellStateQueued) return;
+        buildVariantShellStateQueued = true;
+        requestAnimationFrame(() => {
+          buildVariantShellStateQueued = false;
+          try {
+            if (window.parent && window.parent !== window) window.parent.postMessage({ type:"BUILD_VARIANTS_STATE", state:getBuildVariantShellState() }, "*");
+          } catch (error) {}
+        });
+      }
+      function scheduleBuildVariantAutosave(){
+        clearTimeout(buildVariantAutosaveTimer);
+        buildVariantAutosaveTimer = setTimeout(() => {
+          try { localStorage.setItem(STORAGE_KEY, safeLocalStorageSnapshot()); } catch (error) {}
+        }, 350);
+      }
+
+      const BUILD_STACK_JSON_FORMAT = "presentation-build-stack";
+      const BUILD_STACK_JSON_VERSION = 1;
+      let buildModeBound = false;
+      let buildPagesStackHome = null;
+      let buildPagesStackNextSibling = null;
+      let buildDividerDrag = null;
+      let buildPendingImport = null;
+      let buildMapRenderToken = 0;
+      let buildMapPreviewObserver = null;
+      let buildFeedbackTimer = null;
+
+      function getBuildVariantShellState(){
+        const variants = (state?.buildVariants || []).slice().sort((a,b) => (Number(a.number)||0) - (Number(b.number)||0));
+        return {
+          activeBuildVariantId:state?.activeBuildVariantId || null,
+          variants:variants.map(variant => ({
+            id:variant.id, number:variant.number, name:variant.name || "",
+            selectedPageId:variant.selectedPageId || null,
+            pageCount:Array.isArray(variant.pages) ? variant.pages.length : 0
+          }))
+        };
+      }
+
+      function getActiveBuildVariant(){
+        return (state.buildVariants || []).find(variant => variant.id === state.activeBuildVariantId) || null;
+      }
+
+      function rescaleBuildMapPreviews(){
+        requestAnimationFrame(()=>{
+          document.querySelectorAll(".build-map-preview").forEach(preview=>{
+            const stage=preview.querySelector(".page-stage");if(!stage)return;
+            const scale=Math.max(.01,Math.min(preview.clientWidth/PAGE_W,preview.clientHeight/PAGE_H));
+            stage.style.transformOrigin="top left";stage.style.transform="scale("+scale+")";
+          });
+        });
+      }
+
+      function applyBuildMapLayout(){
+        const settings = normalizeBuildMapSettings(state.ui.buildMapSettings);
+        state.ui.buildMapSettings = settings;
+        const workspace = $("buildWorkspace");
+        if (workspace) workspace.style.setProperty("--build-map-width", settings.splitPct + "%");
+        const map = $("buildMapGrid");
+        if (map) {
+          map.style.setProperty("--build-card-size", settings.size + "px");
+          map.style.setProperty("--build-row-gap", settings.rowGap + "px");
+          map.style.setProperty("--build-col-gap", settings.columnGap + "px");
+        }
+        rescaleBuildMapPreviews();
+        const controls = [
+          ["buildCardSize","buildCardSizeValue","size"],
+          ["buildRowGap","buildRowGapValue","rowGap"],
+          ["buildColumnGap","buildColumnGapValue","columnGap"]
+        ];
+        controls.forEach(([inputId,outputId,key]) => {
+          const input = $(inputId), output = $(outputId);
+          if (input) input.value = String(settings[key]);
+          if (output) output.textContent = String(settings[key]);
+        });
+        const favorites = $("buildFavoritesOnly"), selected = $("buildSelectedOnly");
+        if (favorites) favorites.checked = !!settings.favoritesOnly;
+        if (selected) selected.checked = !!settings.selectedOnly;
+        updateBuildStackPageScale();
+      }
+
+      function updateBuildStackPageScale(){
+        const viewport = $("buildStackViewport");
+        if (!viewport) return;
+        requestAnimationFrame(() => {
+          if (!viewport.isConnected) return;
+          const width = Math.max(0, viewport.clientWidth - 30);
+          const scale = clamp(width / PAGE_W, 0.24, 1);
+          viewport.style.setProperty("--build-page-scale", String(scale));
+        });
+      }
+
+      function buildRecordsForMap(){
+        return TemplateRegistry.all().filter(record => record && record.enabledEffective && record.source !== "disabled");
+      }
+
+      function renderBuildFilterOptions(kind){
+        const records = buildRecordsForMap();
+        const isStyle = kind === "styles";
+        const host = $(isStyle ? "buildStyleOptions" : "buildCategoryOptions");
+        const summary = $(isStyle ? "buildStyleSummary" : "buildCategorySummary");
+        if (!host) return;
+        const settings = state.ui.buildMapSettings;
+        const values = new Map();
+        records.forEach(record => {
+          const key = String(isStyle ? record.visualStyle || "" : record.categoryKey || "").trim();
+          if (!key) return;
+          if (!values.has(key)) values.set(key, isStyle
+            ? getProgramStyleDisplayName(key, record.visualStyleDisplayName)
+            : (PAGE_TEMPLATE_LIBRARY[key]?.label || record.group || key));
+        });
+        const selected = isStyle ? settings.styles : settings.categories;
+        const entries = Array.from(values.entries()).sort((a,b) => a[1].localeCompare(b[1]));
+        host.innerHTML = "";
+        const appendOption = (value,label,checked,isAll) => {
+          const row = document.createElement("label");
+          row.className = "build-filter-option";
+          const input = document.createElement("input");
+          input.type = "checkbox";
+          input.checked = !!checked;
+          input.dataset.buildFilterKind = kind;
+          input.dataset.buildFilterValue = value;
+          input.dataset.buildFilterAll = isAll ? "1" : "0";
+          const text = document.createElement("span");
+          text.textContent = label;
+          row.append(input,text);
+          host.appendChild(row);
+        };
+        appendOption("__all__", isStyle ? "All styles" : "All categories", selected.length === 0, true);
+        const divider = document.createElement("div");
+        divider.className = "build-filter-divider";
+        host.appendChild(divider);
+        entries.forEach(([value,label]) => appendOption(value,label,selected.includes(value),false));
+        if (summary) summary.textContent = selected.length
+          ? (selected.length === 1 ? (values.get(selected[0]) || "1 selected") : selected.length + " selected")
+          : (isStyle ? "All styles" : "All categories");
+      }
+
+      function buildMapFilteredRecords(){
+        const settings = state.ui.buildMapSettings;
+        const selectedIds = new Set(settings.selectedTemplateIds || []);
+        return buildRecordsForMap().filter(record => {
+          if (settings.styles.length && !settings.styles.includes(record.visualStyle)) return false;
+          if (settings.categories.length && !settings.categories.includes(record.categoryKey)) return false;
+          if (settings.favoritesOnly && !getEffectiveTemplateFavorite(record)) return false;
+          if (settings.selectedOnly && !selectedIds.has(record.id)) return false;
+          return true;
+        });
+      }
+
+      function showBuildFeedback(message){
+        const feedback = $("buildMapFeedback");
+        if (!feedback) return;
+        feedback.textContent = message;
+        feedback.classList.add("is-visible");
+        clearTimeout(buildFeedbackTimer);
+        buildFeedbackTimer = setTimeout(() => feedback.classList.remove("is-visible"), 1900);
+      }
+
+      function renderBuildMapPreview(preview,record,token){
+        if(!preview||!record||token!==buildMapRenderToken||!preview.isConnected)return;
+        try{
+          const savedUi=state.ui;
+          state.ui=Object.assign({},savedUi,{
+            preview:true,selectedPageId:null,selectedPageIds:[],selectedBlockIds:[],
+            selectedBlockId:null,selectedSlotId:null,editingBlockId:null,
+            techInfoMode:"off",isPrintingNow:false
+          });
+          let shell=null;
+          try{const page=createTemplatePage(record.meta);shell=renderPage(page,0);}
+          finally{state.ui=savedUi;}
+          if(!shell)return;
+          shell.classList.add("build-preview-shell");
+          preview.appendChild(shell);
+          requestAnimationFrame(()=>{
+            if(token!==buildMapRenderToken||!preview.isConnected)return;
+            const stage=shell.querySelector(".page-stage");if(!stage)return;
+            const scale=Math.max(.01,Math.min(preview.clientWidth/PAGE_W,preview.clientHeight/PAGE_H));
+            stage.style.transformOrigin="top left";stage.style.transform="scale("+scale+")";
+          });
+        }catch(error){
+          console.warn("[BuildMap] preview failed for "+record.id,error);
+          const fallback=document.createElement("div");fallback.className="build-map-empty";fallback.textContent=record.name||record.id;preview.appendChild(fallback);
+        }
+      }
+
+      function renderBuildMap(){
+        const grid = $("buildMapGrid");
+        if (!grid) return;
+        const token = ++buildMapRenderToken;
+        if(buildMapPreviewObserver){buildMapPreviewObserver.disconnect();buildMapPreviewObserver=null;}
+        const settings = state.ui.buildMapSettings;
+        const records = buildMapFilteredRecords();
+        const recordById = new Map(records.map(record=>[record.id,record]));
+        const scrollRoot=$("buildMapScroll");
+        if("IntersectionObserver" in window && scrollRoot){
+          buildMapPreviewObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+            if(!entry.isIntersecting)return;
+            const card=entry.target,record=recordById.get(card.dataset.templateId);
+            const preview=card.querySelector(".build-map-preview");
+            renderBuildMapPreview(preview,record,token);
+            buildMapPreviewObserver?.unobserve(card);
+          }),{root:scrollRoot,rootMargin:"360px 0px",threshold:.01});
+        }
+        const total = buildRecordsForMap().length;
+        const count = $("buildMapCount");
+        if (count) count.textContent = records.length + " / " + total + " templates";
+        renderBuildFilterOptions("styles");
+        renderBuildFilterOptions("categories");
+        applyBuildMapLayout();
+        grid.innerHTML = "";
+        if (!records.length) {
+          const empty = document.createElement("div");
+          empty.className = "build-map-empty";
+          empty.textContent = settings.selectedOnly && !settings.selectedTemplateIds.length
+            ? "No templates are marked. Click a card to mark it, then enable Selected only."
+            : "No enabled templates match these filters.";
+          grid.appendChild(empty);
+          return;
+        }
+        records.forEach(record => {
+          const card = document.createElement("article");
+          card.className = "build-map-card" + (settings.selectedTemplateIds.includes(record.id) ? " is-selected" : "");
+          card.dataset.templateId = record.id;
+          card.draggable = true;
+          card.title = "Click to mark · drag to insert · Ctrl+arrow to replace selected page";
+          const preview = document.createElement("div");
+          preview.className = "build-map-preview";
+          const meta = document.createElement("div");
+          meta.className = "build-map-card-meta";
+          const name = document.createElement("span");
+          name.className = "build-map-card-name";
+          name.textContent = record.name || record.meta?.label || record.id;
+          const source = document.createElement("span");
+          source.className = "build-map-card-source";
+          const styleLabel = getProgramStyleDisplayName(record.visualStyle,record.visualStyleDisplayName);
+          source.textContent = [styleLabel,record.libraryName].filter(Boolean).join(" · ");
+          const action = document.createElement("button");
+          action.type = "button";
+          action.className = "build-map-card-action";
+          action.textContent = "→";
+          action.title = "Insert after selected page · Ctrl+click to replace selected page";
+          action.setAttribute("aria-label","Insert template into Build Stack");
+          action.addEventListener("click", event => {
+            event.preventDefault();
+            event.stopPropagation();
+            const selectedIndex = state.ui.selectedPageId ? state.pages.findIndex(page => page.id === state.ui.selectedPageId) : -1;
+            const insertIndex = selectedIndex >= 0 ? selectedIndex + 1 : state.pages.length;
+            insertBuildTemplate(record.id,insertIndex,!!event.ctrlKey);
+          });
+          action.addEventListener("dragover",event=>{
+            if(!Array.from(event.dataTransfer?.types||[]).includes("application/x-presentation-template-id"))return;
+            event.preventDefault();event.stopPropagation();event.dataTransfer.dropEffect="copy";action.classList.add("is-drag-target");
+          });
+          action.addEventListener("dragleave",()=>action.classList.remove("is-drag-target"));
+          action.addEventListener("drop",event=>{
+            const draggedId=event.dataTransfer?.getData("application/x-presentation-template-id")||"";
+            if(!draggedId)return;
+            event.preventDefault();event.stopPropagation();action.classList.remove("is-drag-target");
+            const selectedIndex=state.ui.selectedPageId?state.pages.findIndex(page=>page.id===state.ui.selectedPageId):-1;
+            insertBuildTemplate(draggedId,selectedIndex>=0?selectedIndex+1:state.pages.length,!!event.ctrlKey);
+          });
+          card.append(preview,meta);
+          meta.append(name,source);
+          card.appendChild(action);
+          card.addEventListener("click", event => {
+            if (event.target.closest(".build-map-card-action")) return;
+            toggleBuildMapTemplateSelection(record.id);
+          });
+          card.addEventListener("dragstart", event => {
+            if (!event.dataTransfer) return;
+            event.dataTransfer.setData("application/x-presentation-template-id",record.id);
+            event.dataTransfer.setData("text/plain",record.id);
+            event.dataTransfer.effectAllowed = "copy";
+          });
+          grid.appendChild(card);
+          if(buildMapPreviewObserver)buildMapPreviewObserver.observe(card);
+          else renderBuildMapPreview(preview,record,token);
+        });
+      }
+
+      function toggleBuildMapTemplateSelection(templateId){
+        const settings = state.ui.buildMapSettings;
+        const next = new Set(settings.selectedTemplateIds || []);
+        next.has(templateId) ? next.delete(templateId) : next.add(templateId);
+        settings.selectedTemplateIds = Array.from(next);
+        applyBuildMapLayout();
+        renderBuildMap();
+        scheduleBuildVariantAutosave();
+      }
+
+      function updateBuildVariantControls(){
+        const host = $("buildVariantButtons");
+        if (!host) return;
+        host.innerHTML = "";
+        const active = getActiveBuildVariant();
+        const label = $("buildActiveVariantLabel");
+        if (label) label.textContent = active ? "Активен " + active.number + (active.name ? " — " + active.name : "") : "Активный вариант";
+        (state.buildVariants || []).slice().sort((a,b) => a.number-b.number).forEach(variant => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "build-variant-btn" + (variant.id === state.activeBuildVariantId ? " is-active" : "");
+          button.dataset.variantId = variant.id;
+          button.textContent = String(variant.number) + (variant.name ? " — " + variant.name : "");
+          button.title = "Switch to " + button.textContent;
+          button.addEventListener("click", () => switchBuildVariant(variant.id));
+          host.appendChild(button);
+        });
+        const hasActive = !!active;
+        ["buildRenameVariantBtn","buildDuplicateStackBtn","buildClearStackBtn","buildCopyStackJsonBtn","buildExportStackJsonBtn","buildImportStackJsonBtn"].forEach(id => { const button=$(id); if(button)button.disabled=!hasActive; });
+        renderBuildStackCount();
+      }
+
+      function renderBuildStackCount(){
+        const count = $("buildStackCount");
+        if (count) count.textContent = (state.pages || []).length + " pages";
+      }
+
+      function switchBuildVariant(variantId){
+        syncActiveBuildVariantSnapshot();
+        const target = (state.buildVariants || []).find(variant => variant.id === variantId);
+        if (!target || target.id === state.activeBuildVariantId) return false;
+        pushHistory({includeAllBuildVariants:true});
+        state.activeBuildVariantId = target.id;
+        state.pages = deepClone(target.pages || []);
+        state.ui.selectedPageId = target.selectedPageId && state.pages.some(page => page.id === target.selectedPageId)
+          ? target.selectedPageId : (state.pages[0]?.id || null);
+        state.ui.selectedPageIds = [];
+        state.ui.selectedBlockIds = [];
+        state.ui.selectedBlockId = null;
+        state.ui.selectedSlotId = null;
+        state.ui.editingBlockId = null;
+        renderAll();
+        applyUI();
+        scheduleBuildVariantAutosave();
+        return true;
+      }
+
+      function addBuildVariant(name){
+        syncActiveBuildVariantSnapshot();
+        let variantName = name;
+        if (variantName === undefined) {
+          try { variantName = window.prompt("Short name for the new Build Variant",""); } catch (error) { variantName = ""; }
+        }
+        pushHistory({includeAllBuildVariants:true});
+        const variant = {
+          id:buildVariantUid(),number:freeBuildVariantNumber(state.buildVariants),
+          name:String(variantName || "").trim().slice(0,48),pages:[],selectedPageId:null
+        };
+        state.buildVariants.push(variant);
+        state.activeBuildVariantId = variant.id;
+        state.pages = [];
+        state.ui.selectedPageId = null;
+        state.ui.selectedPageIds = [];
+        state.ui.selectedBlockIds = [];
+        state.ui.selectedBlockId = null;
+        state.ui.selectedSlotId = null;
+        state.ui.editingBlockId = null;
+        renderAll();
+        applyUI();
+        scheduleBuildVariantAutosave();
+        return variant;
+      }
+
+      function renameActiveBuildVariant(name){
+        const variant = getActiveBuildVariant();
+        if (!variant) return false;
+        const nextName = String(name == null ? "" : name).trim().slice(0,48);
+        if (nextName === (variant.name || "")) return true;
+        pushHistory({includeAllBuildVariants:true});
+        variant.name = nextName;
+        updateBuildVariantControls();
+        scheduleBuildVariantAutosave();
+        scheduleBuildVariantShellState();
+        return true;
+      }
+
+      function duplicateActiveBuildVariant(name){
+        syncActiveBuildVariantSnapshot();
+        const source = getActiveBuildVariant();
+        if (!source) return null;
+        const defaultName = (source.name || ("Variant " + source.number)) + " Copy";
+        let variantName = name;
+        if (variantName === undefined) {
+          try { variantName = window.prompt("Name for the duplicated stack",defaultName); } catch (error) { variantName = defaultName; }
+          if (variantName == null) variantName = defaultName;
+        }
+        pushHistory({includeAllBuildVariants:true});
+        const pages = (source.pages || []).map(page => reIdPage(page));
+        const pageIds = new Map((source.pages || []).map((page,index) => [page.id,pages[index]?.id]));
+        const duplicate = {
+          id:buildVariantUid(),number:freeBuildVariantNumber(state.buildVariants),
+          name:String(variantName || "").trim().slice(0,48),pages,
+          selectedPageId:pageIds.get(source.selectedPageId) || pages[0]?.id || null
+        };
+        state.buildVariants.push(duplicate);
+        state.activeBuildVariantId = duplicate.id;
+        state.pages = deepClone(duplicate.pages);
+        state.ui.selectedPageId = duplicate.selectedPageId;
+        state.ui.selectedPageIds = [];
+        state.ui.selectedBlockIds = [];
+        state.ui.selectedBlockId = null;
+        state.ui.selectedSlotId = null;
+        state.ui.editingBlockId = null;
+        renderAll();
+        applyUI();
+        scheduleBuildVariantAutosave();
+        return duplicate;
+      }
+
+      function clearActiveBuildVariant(){
+        const variant = getActiveBuildVariant();
+        if (!variant) return false;
+        if (!window.confirm("Clear stack " + variant.number + (variant.name ? " — " + variant.name : "") + "? Other variants will not change.")) return false;
+        pushHistory({includeAllBuildVariants:true});
+        state.pages = [];
+        state.ui.selectedPageId = null;
+        state.ui.selectedPageIds = [];
+        state.ui.selectedBlockIds = [];
+        state.ui.selectedBlockId = null;
+        state.ui.selectedSlotId = null;
+        state.ui.editingBlockId = null;
+        syncActiveBuildVariantSnapshot();
+        renderAll();
+        applyUI();
+        scheduleBuildVariantAutosave();
+        return true;
+      }
+
+      function insertBuildTemplate(templateId,insertIndex,replaceSelected){
+        if (replaceSelected && state.ui.selectedPageId) {
+          /* Map replacement uses an explicit template override. Do not change the
+             ordinary Template Library selection as a side effect. */
+          applyTemplateToSelectedPage(templateId);
+          return true;
+        }
+        const template = getTemplateMetaById(templateId);
+        if (!template) { toast("Template not found: " + templateId); return false; }
+        const page = createTemplatePage(template);
+        pushHistory();
+        insertPageAfterSelected(page,{insertIndex:Number.isInteger(insertIndex) ? insertIndex : state.pages.length});
+        autofillPageAfterTemplateApply(page);
+        renderAll();
+        applyUI();
+        return true;
+      }
+
+      function buildStackExportObject(){
+        syncActiveBuildVariantSnapshot();
+        const variant = getActiveBuildVariant();
+        if (!variant) throw new Error("No active Build Variant");
+        return {
+          format:BUILD_STACK_JSON_FORMAT,
+          version:BUILD_STACK_JSON_VERSION,
+          exportedAt:new Date().toISOString(),
+          variant:{number:variant.number,name:variant.name || "",selectedPageId:variant.selectedPageId || null},
+          pages:deepClone(state.pages || [])
+        };
+      }
+
+      async function copyBuildStackJson(){
+        try {
+          const text = JSON.stringify(buildStackExportObject(),null,2);
+          if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
+          else {
+            const area = document.createElement("textarea");
+            area.value = text; area.style.position="fixed"; area.style.opacity="0";
+            document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove();
+          }
+          toast("Build Stack JSON copied");
+          return true;
+        } catch (error) { toast("Could not copy Stack JSON: " + String(error && error.message || error)); return false; }
+      }
+
+      function downloadBuildStackJson(){
+        try {
+          const json = JSON.stringify(buildStackExportObject(),null,2);
+          const variant = getActiveBuildVariant();
+          const safeName = String(variant?.name || ("variant-" + (variant?.number || 1))).replace(/[^a-z0-9_-]+/gi,"-").replace(/^-+|-+$/g,"");
+          triggerBlobDownload(new Blob([json],{type:"application/json"}),"build-stack-"+safeName+".json");
+          toast("Active Build Stack exported");
+          return true;
+        } catch (error) { toast("Could not export Stack JSON: " + String(error && error.message || error)); return false; }
+      }
+
+      function validateBuildStackJson(data){
+        const errors = [], missing = [];
+        if (!data || typeof data !== "object" || Array.isArray(data)) return {ok:false,errors:["Root must be a JSON object"],missing:[]};
+        if (data.format !== BUILD_STACK_JSON_FORMAT) errors.push("Unknown format; expected " + BUILD_STACK_JSON_FORMAT);
+        if (data.version !== BUILD_STACK_JSON_VERSION) errors.push("Unsupported version");
+        if (!Array.isArray(data.pages)) errors.push("pages must be an array");
+        if (errors.length) return {ok:false,errors,missing};
+        const seenPages = new Set();
+        data.pages.forEach((page,index) => {
+          const label = "pages["+(index+1)+"]";
+          if (!page || typeof page !== "object" || Array.isArray(page)) { errors.push(label+" must be an object"); return; }
+          if (typeof page.id !== "string" || !page.id.trim()) errors.push(label+" is missing page id");
+          else if (seenPages.has(page.id)) errors.push(label+" repeats page id "+page.id);
+          else seenPages.add(page.id);
+          if (typeof page.templateId !== "string" || !page.templateId.trim()) errors.push(label+" is missing templateId");
+          else if (!["blank","csv-import"].includes(page.templateId) && !TemplateRegistry.getById(page.templateId)) missing.push({id:page.templateId,page:index+1});
+          if (!Array.isArray(page.blocks)) errors.push(label+" blocks must be an array");
+          else {
+            const blockIds = new Set();
+            page.blocks.forEach((block,blockIndex) => {
+              if (!block || typeof block !== "object" || Array.isArray(block)) { errors.push(label+" blocks["+(blockIndex+1)+"] must be an object"); return; }
+              if (typeof block.id !== "string" || !block.id.trim()) errors.push(label+" blocks["+(blockIndex+1)+"] is missing id");
+              else if (blockIds.has(block.id)) errors.push(label+" repeats block id "+block.id);
+              else blockIds.add(block.id);
+              if (typeof block.kind !== "string" || !block.kind.trim()) errors.push(label+" blocks["+(blockIndex+1)+"] is missing kind");
+            });
+          }
+        });
+        if (missing.length) errors.push("Missing template records");
+        return {ok:errors.length===0,errors,missing};
+      }
+
+      function openBuildImportDialog(data){
+        const backdrop = $("buildImportBackdrop"), select = $("buildImportTargetSelect"), field=$("buildImportNameField"), nameInput=$("buildImportName");
+        if (!backdrop || !select) return;
+        buildPendingImport = data;
+        select.innerHTML = "";
+        (state.buildVariants || []).slice().sort((a,b) => a.number-b.number).forEach(variant => {
+          const option=document.createElement("option");option.value=variant.id;option.textContent=String(variant.number)+(variant.name?" — "+variant.name:"");select.appendChild(option);
+        });
+        const newOption=document.createElement("option");newOption.value="__new__";newOption.textContent="Create new variant · "+freeBuildVariantNumber(state.buildVariants);select.appendChild(newOption);
+        select.value=state.activeBuildVariantId || (state.buildVariants[0]?.id || "__new__");
+        const importedName=String(data.variant?.name||"").trim();
+        if (nameInput) nameInput.value=importedName;
+        const update=()=>{
+          const isNew=select.value==="__new__";
+          if(field)field.hidden=!isNew;
+          const target=state.buildVariants.find(variant=>variant.id===select.value);
+          const targetLabel=isNew
+            ? "Create new Variant "+freeBuildVariantNumber(state.buildVariants)+(nameInput?.value.trim()?" — "+nameInput.value.trim():"")
+            : "Replace Variant "+(target?.number||"")+(target?.name?" — "+target.name:"");
+          const note=$("buildImportTargetNote");if(note)note.textContent=targetLabel+" with "+data.pages.length+" imported page(s). This is the explicit target; no stack changes until you confirm.";
+          const confirm=$("buildImportConfirmBtn");if(confirm)confirm.textContent=isNew?"Create & Import":"Replace & Import";
+        };
+        select.onchange=update;
+        if(nameInput)nameInput.oninput=update;
+        update();
+        backdrop.classList.add("is-open");backdrop.setAttribute("aria-hidden","false");
+      }
+
+      function closeBuildImportDialog(){
+        const backdrop=$("buildImportBackdrop");
+        if(backdrop){backdrop.classList.remove("is-open");backdrop.setAttribute("aria-hidden","true");}
+        buildPendingImport=null;
+      }
+
+      function commitBuildStackImport(){
+        const data=buildPendingImport;if(!data)return false;
+        const targetValue=$("buildImportTargetSelect")?.value||"";
+        const name=String($("buildImportName")?.value||"").trim().slice(0,48);
+        const pages=(data.pages||[]).map(page=>reIdPage(page));
+        const pageMap=new Map((data.pages||[]).map((page,index)=>[page.id,pages[index]?.id]));
+        pushHistory({includeAllBuildVariants:true});
+        let target=null;
+        if(targetValue==="__new__"){
+          target={id:buildVariantUid(),number:freeBuildVariantNumber(state.buildVariants),name,pages:[],selectedPageId:null};
+          state.buildVariants.push(target);
+        }else target=state.buildVariants.find(variant=>variant.id===targetValue);
+        if(!target){closeBuildImportDialog();toast("Import target is no longer available");return false;}
+        target.pages=pages;
+        target.selectedPageId=pageMap.get(data.variant?.selectedPageId)||pages[0]?.id||null;
+        state.activeBuildVariantId=target.id;
+        state.pages=deepClone(target.pages);
+        state.ui.selectedPageId=target.selectedPageId;
+        state.ui.selectedPageIds=[];state.ui.selectedBlockIds=[];state.ui.selectedBlockId=null;state.ui.selectedSlotId=null;state.ui.editingBlockId=null;
+        closeBuildImportDialog();
+        renderAll();applyUI();scheduleBuildVariantAutosave();
+        toast("Imported "+pages.length+" pages into Variant "+target.number);
+        return true;
+      }
+
+      function handleBuildStackFile(file){
+        if(!file)return;
+        const reader=new FileReader();
+        reader.onload=()=>{
+          let data;
+          try{data=JSON.parse(String(reader.result||""));}catch(error){window.alert("Stack JSON is invalid: "+String(error&&error.message||error));return;}
+          const result=validateBuildStackJson(data);
+          if(!result.ok){
+            const missingList=result.missing.map(item=>"Page "+item.page+": "+item.id);
+            const lines=result.errors.filter(error=>error!=="Missing template records");
+            if(missingList.length)lines.push("Missing template IDs:\n"+Array.from(new Set(missingList)).join("\n"));
+            window.alert("Import rejected. No changes were made.\n\n"+lines.join("\n"));
+            return;
+          }
+          openBuildImportDialog(data);
+        };
+        reader.onerror=()=>window.alert("Could not read Stack JSON file");
+        reader.readAsText(file);
+      }
+
+      function requestBuildStackImport(){
+        const input=$("buildStackImportInput");if(!input)return;
+        input.value="";input.click();
+      }
+
+      function setupBuildStackDrop(){
+        const viewport=$("buildStackViewport");if(!viewport||viewport.dataset.buildDropBound)return;
+        viewport.dataset.buildDropBound="1";
+        viewport.addEventListener("dragover",event=>{
+          if(!Array.from(event.dataTransfer?.types||[]).includes("application/x-presentation-template-id"))return;
+          event.preventDefault();event.dataTransfer.dropEffect="copy";viewport.classList.add("build-drop-target");
+          document.querySelectorAll("#buildStackViewport .build-drop-before,#buildStackViewport .build-drop-after").forEach(el=>el.classList.remove("build-drop-before","build-drop-after"));
+          const target=event.target.closest(".page-shell");
+          if(target&&viewport.contains(target)){
+            const rect=target.getBoundingClientRect();
+            target.classList.add(event.clientY<rect.top+rect.height/2?"build-drop-before":"build-drop-after");
+          }
+        });
+        viewport.addEventListener("dragleave",event=>{
+          if(!viewport.contains(event.relatedTarget)){viewport.classList.remove("build-drop-target");document.querySelectorAll("#buildStackViewport .build-drop-before,#buildStackViewport .build-drop-after").forEach(el=>el.classList.remove("build-drop-before","build-drop-after"));}
+        });
+        viewport.addEventListener("drop",event=>{
+          const templateId=event.dataTransfer?.getData("application/x-presentation-template-id")||"";
+          if(!templateId)return;
+          event.preventDefault();event.stopPropagation();viewport.classList.remove("build-drop-target");
+          document.querySelectorAll("#buildStackViewport .build-drop-before,#buildStackViewport .build-drop-after").forEach(el=>el.classList.remove("build-drop-before","build-drop-after"));
+          const shells=Array.from($("pagesStack")?.querySelectorAll(".page-shell")||[]);
+          const target=event.target.closest(".page-shell");
+          let index=state.pages.length;
+          if(target){
+            const currentIndex=shells.indexOf(target);
+            if(currentIndex>=0){const rect=target.getBoundingClientRect();index=currentIndex+(event.clientY<rect.top+rect.height/2?0:1);}
+          }
+          insertBuildTemplate(templateId,index,!!event.ctrlKey);
+        });
+      }
+
+      function mountBuildPagesStack(){
+        const stack=$("pagesStack"),viewport=$("buildStackViewport");if(!stack||!viewport)return;
+        if(!buildPagesStackHome){buildPagesStackHome=stack.parentElement;buildPagesStackNextSibling=stack.nextSibling;}
+        if(stack.parentElement!==viewport)viewport.appendChild(stack);
+        setupBuildStackDrop();
+        updateBuildStackPageScale();
+      }
+
+      function restoreBuildPagesStack(){
+        const stack=$("pagesStack");if(!stack||!buildPagesStackHome)return;
+        if(stack.parentElement!==buildPagesStackHome){
+          if(buildPagesStackNextSibling&&buildPagesStackNextSibling.parentElement===buildPagesStackHome)buildPagesStackHome.insertBefore(stack,buildPagesStackNextSibling);
+          else buildPagesStackHome.appendChild(stack);
+        }
+        buildPagesStackHome=null;buildPagesStackNextSibling=null;
+      }
+
+      function enterBuildMode(){
+        document.body.classList.add("build-mode-active");
+        mountBuildPagesStack();
+        applyBuildMapLayout();
+        updateBuildVariantControls();
+        renderBuildMap();
+        renderAll();
+        requestAnimationFrame(updateBuildStackPageScale);
+      }
+
+      function exitBuildMode(){
+        document.body.classList.remove("build-mode-active");
+        restoreBuildPagesStack();
+        renderAll();
+        applyUI();
+      }
+
+      function bindBuildModeControls(){
+        if(buildModeBound)return;
+        buildModeBound=true;
+        $("buildAddVariantBtn")?.addEventListener("click",()=>addBuildVariant());
+        $("buildRenameVariantBtn")?.addEventListener("click",()=>{
+          const variant=getActiveBuildVariant();if(!variant)return;
+          const value=window.prompt("Rename Build Variant",variant.name||"");if(value!==null)renameActiveBuildVariant(value);
+        });
+        $("buildDuplicateStackBtn")?.addEventListener("click",()=>duplicateActiveBuildVariant());
+        $("buildClearStackBtn")?.addEventListener("click",()=>clearActiveBuildVariant());
+        $("buildCopyStackJsonBtn")?.addEventListener("click",()=>copyBuildStackJson());
+        $("buildExportStackJsonBtn")?.addEventListener("click",()=>downloadBuildStackJson());
+        $("buildImportStackJsonBtn")?.addEventListener("click",requestBuildStackImport);
+        $("buildImportStackInput")?.addEventListener("change",event=>{
+          const file=event.target.files?.[0];event.target.value="";handleBuildStackFile(file);
+        });
+        $("buildImportCancelBtn")?.addEventListener("click",closeBuildImportDialog);
+        $("buildImportConfirmBtn")?.addEventListener("click",commitBuildStackImport);
+        $("buildImportBackdrop")?.addEventListener("click",event=>{if(event.target.id==="buildImportBackdrop")closeBuildImportDialog();});
+        $("buildImportTargetSelect")?.addEventListener("change",()=>{});
+        $("buildStyleOptions")?.addEventListener("change",event=>{
+          const input=event.target.closest("input[data-build-filter-kind]");if(!input)return;
+          const kind=input.dataset.buildFilterKind,isAll=input.dataset.buildFilterAll==="1",value=input.dataset.buildFilterValue;
+          if(isAll){state.ui.buildMapSettings[kind]=[];}
+          else{
+            const values=new Set(state.ui.buildMapSettings[kind]||[]);
+            input.checked?values.add(value):values.delete(value);
+            state.ui.buildMapSettings[kind]=Array.from(values);
+          }
+          renderBuildMap();scheduleBuildVariantAutosave();
+        });
+        $("buildCategoryOptions")?.addEventListener("change",event=>{
+          const input=event.target.closest("input[data-build-filter-kind]");if(!input)return;
+          const kind=input.dataset.buildFilterKind,isAll=input.dataset.buildFilterAll==="1",value=input.dataset.buildFilterValue;
+          if(isAll){state.ui.buildMapSettings[kind]=[];}
+          else{
+            const values=new Set(state.ui.buildMapSettings[kind]||[]);
+            input.checked?values.add(value):values.delete(value);
+            state.ui.buildMapSettings[kind]=Array.from(values);
+          }
+          renderBuildMap();scheduleBuildVariantAutosave();
+        });
+        $("buildFavoritesOnly")?.addEventListener("change",event=>{state.ui.buildMapSettings.favoritesOnly=!!event.target.checked;renderBuildMap();scheduleBuildVariantAutosave();});
+        $("buildSelectedOnly")?.addEventListener("change",event=>{state.ui.buildMapSettings.selectedOnly=!!event.target.checked;renderBuildMap();scheduleBuildVariantAutosave();});
+        [["buildCardSize","size"],["buildRowGap","rowGap"],["buildColumnGap","columnGap"]].forEach(([id,key])=>$(id)?.addEventListener("input",event=>{
+          state.ui.buildMapSettings[key]=Number(event.target.value)||0;applyBuildMapLayout();
+          scheduleBuildVariantAutosave();
+        }));
+        const divider=$("buildDivider"),workspace=$("buildWorkspace");
+        if(divider&&workspace){
+          divider.addEventListener("pointerdown",event=>{
+            event.preventDefault();divider.setPointerCapture?.(event.pointerId);divider.classList.add("is-dragging");
+            buildDividerDrag={pointerId:event.pointerId};
+          });
+          divider.addEventListener("pointermove",event=>{
+            if(!buildDividerDrag)return;
+            const rect=workspace.getBoundingClientRect();
+            const pct=clamp((event.clientX-rect.left)/Math.max(1,rect.width)*100,25,75);
+            state.ui.buildMapSettings.splitPct=Math.round(pct*10)/10;
+            applyBuildMapLayout();scheduleBuildVariantAutosave();
+          });
+          const finish=()=>{if(!buildDividerDrag)return;buildDividerDrag=null;divider.classList.remove("is-dragging");scheduleBuildVariantAutosave();};
+          divider.addEventListener("pointerup",finish);divider.addEventListener("pointercancel",finish);
+          divider.addEventListener("keydown",event=>{
+            if(event.key!=="ArrowLeft"&&event.key!=="ArrowRight")return;
+            event.preventDefault();state.ui.buildMapSettings.splitPct=clamp(state.ui.buildMapSettings.splitPct+(event.key==="ArrowRight"?2:-2),25,75);applyBuildMapLayout();scheduleBuildVariantAutosave();
+          });
+        }
+        document.addEventListener("keydown",event=>{
+          if(event.key==="Escape"&&$("buildImportBackdrop")?.classList.contains("is-open")){event.preventDefault();closeBuildImportDialog();}
+        },true);
+        window.addEventListener("resize",()=>{updateBuildStackPageScale();rescaleBuildMapPreviews();});
+        TemplateRegistry.onChange(()=>{if($("buildModeSurface")){updateBuildVariantControls();renderBuildMap();}});
+      }
+
+      function handleBuildVariantShellAction(data){
+        if(!data||typeof data!=="object")return;
+        if(data.action==="getState"){scheduleBuildVariantShellState();return;}
+        if(data.action==="switch")switchBuildVariant(data.id);
+        else if(data.action==="duplicate")duplicateActiveBuildVariant();
+        else if(data.action==="clear")clearActiveBuildVariant();
+        else if(data.action==="rename")renameActiveBuildVariant(data.name);
+        else if(data.action==="export")copyBuildStackJson();
+        else if(data.action==="download")downloadBuildStackJson();
+        else if(data.action==="import")requestBuildStackImport();
+        else if(data.action==="create")addBuildVariant(data.name);
+      }
+
+      window.BuildVariantsAPI={
+        getState:getBuildVariantShellState,
+        add:addBuildVariant,switch:switchBuildVariant,rename:renameActiveBuildVariant,
+        duplicate:duplicateActiveBuildVariant,clear:clearActiveBuildVariant,
+        exportJson:buildStackExportObject,copyJson:copyBuildStackJson,downloadJson:downloadBuildStackJson,
+        requestImport:requestBuildStackImport,validateImport:validateBuildStackJson,
+        handleShellAction:handleBuildVariantShellAction,enterMode:enterBuildMode,exitMode:exitBuildMode
+      };
+
       function ensureStateShapeBase(s){
+
         s.ui = Object.assign({
           preview:false,
           selectedPageId:null,
@@ -11112,6 +12339,8 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         s.ui.leftDock = ["menu","textlib","aipc"].includes(s.ui.leftDock) ? s.ui.leftDock : "menu";
         s.ui.hotkeys = normalizeHotkeysState(s.ui.hotkeys);
         s.pages = Array.isArray(s.pages) ? s.pages : [];
+        normalizeBuildVariantsState(s);
+        s.ui.buildMapSettings = normalizeBuildMapSettings(s.ui.buildMapSettings);
         s.imagePool = s.imagePool || { items:[] };
         s.imagePool.rootPath = typeof s.imagePool.rootPath === "string"
           ? s.imagePool.rootPath
@@ -11186,6 +12415,11 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           });
           markFullBleedBlocksForNoRadius(page);
         });
+        const activeBuildVariant = (s.buildVariants || []).find(v => v.id === s.activeBuildVariantId);
+        if (activeBuildVariant) {
+          activeBuildVariant.pages = deepClone(s.pages);
+          activeBuildVariant.selectedPageId = s.ui.selectedPageId || null;
+        }
       }
 
       /*
@@ -11620,12 +12854,13 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           
           let catKey = null;
           
-          // 1. Ищем категорию по точному ID шаблона (включая кастомные)
+          // 1. Сначала канонический Registry (включая library-scoped runtime ID).
           if (p.templateId && p.templateId !== "blank" && p.templateId !== "csv-import") {
-            for (const key of Object.keys(PAGE_TEMPLATE_LIBRARY)) {
-              if (PAGE_TEMPLATE_LIBRARY[key].templates.some(t => t.id === p.templateId)) {
-                catKey = key;
-                break;
+            const boundRecord = TemplateRegistry.getById(p.templateId);
+            if (boundRecord?.categoryKey) catKey = boundRecord.categoryKey;
+            if (!catKey) {
+              for (const key of Object.keys(PAGE_TEMPLATE_LIBRARY)) {
+                if (PAGE_TEMPLATE_LIBRARY[key].templates.some(t => t.id === p.templateId)) { catKey = key; break; }
               }
             }
           }
@@ -11814,11 +13049,51 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         };
       }
 
-      function pushHistory(){
+      function pushHistory(options = {}){
         history = history.slice(0, historyIndex + 1);
-        history.push(getHistorySnapshot());
+        history.push(getHistorySnapshot(options));
         if (history.length > HISTORY_LIMIT) history.shift();
         historyIndex = history.length - 1;
+        scheduleBuildVariantAutosave();
+      }
+
+      function sameHistoryValue(a,b){
+        if(Object.is(a,b))return true;
+        if(a===null||b===null||typeof a!=="object"||typeof b!=="object")return false;
+        const aArray=Array.isArray(a),bArray=Array.isArray(b);
+        if(aArray!==bArray)return false;
+        if(aArray&&a.length!==b.length)return false;
+        const aKeys=Object.keys(a),bKeys=Object.keys(b);
+        if(aKeys.length!==bKeys.length)return false;
+        for(const key of aKeys){if(!Object.prototype.hasOwnProperty.call(b,key)||!sameHistoryValue(a[key],b[key]))return false;}
+        return true;
+      }
+
+      /*
+        Some legacy editor actions capture history immediately before mutation,
+        while text input captures it after an idle window. Before an Adapt action,
+        ensure the actual current stack exists as an undo point; then the post-action
+        snapshot makes Adapt one native undo/redo step without replacing page identity.
+      */
+      function ensureCurrentHistorySnapshot(){
+        const current=getHistorySnapshot({includeAllBuildVariants:true});
+        const last=history[historyIndex];
+        let matches=!!last&&sameHistoryValue(last.ui,current.ui)&&sameHistoryValue(last.pages,current.pages)&&
+          last.activeBuildVariantId===current.activeBuildVariantId;
+        if(matches){
+          const previousVariants=last.buildVariants||[],currentVariants=current.buildVariants||[];
+          matches=previousVariants.length===currentVariants.length&&previousVariants.every((variant,index)=>{
+            const now=currentVariants[index];
+            if(!now||variant.id!==now.id||variant.number!==now.number||variant.name!==now.name||variant.selectedPageId!==now.selectedPageId)return false;
+            return last.buildVariantsFull!==true||sameHistoryValue(variant.pages,now.pages);
+          });
+        }
+        if(matches)return false;
+        history=history.slice(0,historyIndex+1);
+        history.push(current);
+        if(history.length>HISTORY_LIMIT)history.shift();
+        historyIndex=history.length-1;
+        return true;
       }
 
       function undo(){
@@ -12187,7 +13462,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         if (!textEditor) return;
         if (state.ui.selectedBlockIds.length === 1 && state.ui.selectedBlockIds[0] === blockId && state.ui.selectedPageId === pageId) {
           const nextValue = htmlToTextareaValue(content);
-          if (textEditor.value !== nextValue) textEditor.value = nextValue;
+          if (textEditor.value !== nextValue) { textEditor.value = nextValue; resizeSelectionTextEditor(textEditor); }
         }
       }
 
@@ -12399,10 +13674,10 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           <div class="page-toolbar editor-only">
             <div class="page-toolbar-left">
               <div class="page-chip pp-multi-btn ${(state.ui.selectedPageIds || []).includes(page.id) ? "is-multi" : ""}" data-page-toggle="${page.id}" title="Клик — выбрать. Shift/Ctrl — добавить к выбору">${pageIndex + 1}</div>
-              <div class="mini-pill">${getCompactTemplateDisplayName(page)}</div>
+              <div class="mini-pill">${escapeHtml(getCompactTemplateDisplayName(page))}</div>
               <div class="mini-pill">Concept ${page.conceptIndex || 0}</div>
               <div class="mini-pill">Subfolder ${(page.conceptSubfolder || "all").toUpperCase()}</div>
-              <div class="mini-pill">${page.visualStyle === "editorial-blue" ? "Editorial Blue" : "Cinematic"}</div>
+              <div class="mini-pill">${escapeHtml(getProgramStyleDisplayName(page.visualStyle, getTemplateMetaById(page.templateId)?.visualStyleDisplayName))}</div>
               <div class="page-move-buttons">
                 <button type="button" data-page-up="${page.id}" title="Move page up">↑</button>
                 <button type="button" data-page-down="${page.id}" title="Move page down">↓</button>
@@ -12678,430 +13953,360 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
       }
 
       /* =========================================================
-         TEXT AUTO ADAPTATION V1 (TEMPLATE/UI PATCH)
-         Только для текстовых блоков. Существующая модель блоков
-         {x,y,w,h} не меняется: пересчитывается фактическая высота
-         текста, блок получает новую h, все блоки ниже в той же
-         колонке сдвигаются на delta (отступы сохраняются точно).
-         Undo/redo не затрагиваются: адаптация идёт через pushHistory.
+         TEXT AUTO ADAPTATION — Presentation integration of Sandbox v8.
+         Text-only reflow, per-pair source gaps, Range, Normalize All,
+         Normalize Selected, Copy/Apply Gap, and one native undo step.
          ========================================================= */
       const TEXT_AUTO_ADAPT_STORAGE_KEY = "portfolio_editor_text_auto_adapt_v1";
-      const TEXT_AUTO_ADAPT_DEBOUNCE_MS = 700;
+      const TEXT_ADAPT_SCOPE_STORAGE_KEY = "portfolio_editor_text_adapt_scope_v1";
+      const TEXT_ADAPT_NORMALIZE_ALL_STORAGE_KEY = "portfolio_editor_text_adapt_normalize_all_v1";
+      const TEXT_ADAPT_GAP_STORAGE_KEY = "portfolio_editor_text_adapt_gap_v1";
+      const TEXT_AUTO_ADAPT_DEBOUNCE_MS = 400;
+      const TEXT_ADAPT_MIN_HEIGHT = 14;
+      const TEXT_ADAPT_MIN_GAP = 8;
+      const TEXT_ADAPT_COLUMN_OVERLAP = 0.34;
       let textAutoAdaptTimer = null;
-      let textAutoAdaptPending = null; /* {pageId, blockId} */
-      let textAutoAdaptMeasureOverride = null; /* тестовый хук (jsdom без layout) */
+      let textAutoAdaptPending = null;
+      let textAutoAdaptMeasureOverride = null;
+      let lastCopiedTextGap = (() => {
+        try { const raw=window.localStorage.getItem(TEXT_ADAPT_GAP_STORAGE_KEY); if(raw==null||String(raw).trim()==="")return NaN; const value=Number(raw); return Number.isFinite(value)?value:NaN; }
+        catch (error) { return NaN; }
+      })();
 
       function isTextAutoAdaptEnabled(){
-        try { return window.localStorage.getItem(TEXT_AUTO_ADAPT_STORAGE_KEY) === "1"; } catch (e) { return false; }
+        try { return window.localStorage.getItem(TEXT_AUTO_ADAPT_STORAGE_KEY) === "1"; } catch (error) { return false; }
       }
-
       function setTextAutoAdaptEnabled(enabled){
-        try { window.localStorage.setItem(TEXT_AUTO_ADAPT_STORAGE_KEY, enabled ? "1" : "0"); } catch (e) {}
+        const on=!!enabled;
+        try { window.localStorage.setItem(TEXT_AUTO_ADAPT_STORAGE_KEY, on ? "1" : "0"); } catch (error) {}
+        if(!on){clearTimeout(textAutoAdaptTimer);textAutoAdaptTimer=null;textAutoAdaptPending=null;}
       }
-
-      /*
-        Режим ручной адаптации "учитывать только выделенные":
-        диапазон от первого до последнего выделенного блока
-        (включая выделенные и всё между ними). Блоки ниже
-        диапазона НЕ сдвигаются.
-      */
-      const TEXT_ADAPT_SCOPE_STORAGE_KEY = "portfolio_editor_text_adapt_scope_v1";
-
       function isTextAdaptScopeEnabled(){
-        try { return window.localStorage.getItem(TEXT_ADAPT_SCOPE_STORAGE_KEY) === "1"; } catch (e) { return false; }
+        try { return window.localStorage.getItem(TEXT_ADAPT_SCOPE_STORAGE_KEY) === "1"; } catch (error) { return false; }
       }
-
       function setTextAdaptScopeEnabled(enabled){
-        try { window.localStorage.setItem(TEXT_ADAPT_SCOPE_STORAGE_KEY, enabled ? "1" : "0"); } catch (e) {}
+        try { window.localStorage.setItem(TEXT_ADAPT_SCOPE_STORAGE_KEY, enabled ? "1" : "0"); } catch (error) {}
+      }
+      function isTextAdaptNormalizeAllEnabled(){
+        try { return window.localStorage.getItem(TEXT_ADAPT_NORMALIZE_ALL_STORAGE_KEY) === "1"; } catch (error) { return false; }
+      }
+      function setTextAdaptNormalizeAllEnabled(enabled){
+        try { window.localStorage.setItem(TEXT_ADAPT_NORMALIZE_ALL_STORAGE_KEY, enabled ? "1" : "0"); } catch (error) {}
       }
 
       function measureTextBlockNaturalHeight(pageId, blockId){
-        if (typeof textAutoAdaptMeasureOverride === "function") {
-          return textAutoAdaptMeasureOverride(pageId, blockId);
-        }
-        const edit =
-          document.querySelector(`.block[data-id="${blockId}"][data-page-id="${pageId}"] .editable`) ||
+        if (typeof textAutoAdaptMeasureOverride === "function") return textAutoAdaptMeasureOverride(pageId,blockId);
+        const edit = document.querySelector(`.block[data-id="${blockId}"][data-page-id="${pageId}"] .editable`) ||
           document.querySelector(`.block[data-id="${blockId}"] .editable`);
         if (!edit) return 0;
-        /* Точная высота строк контента (не контейнера height:100%):
-           Range по содержимому editable даёт реальные line-box'ы. */
         try {
-          const range = document.createRange();
+          const range=document.createRange();
           range.selectNodeContents(edit);
-          const rects = Array.from(range.getClientRects ? range.getClientRects() : []);
-          let top = Infinity, bottom = -Infinity;
-          rects.forEach(r => {
-            if (!r || !r.height) return;
-            top = Math.min(top, r.top);
-            bottom = Math.max(bottom, r.bottom);
-          });
-          let contentH = top === Infinity ? 0 : bottom - top;
-          if (!contentH) contentH = Math.max((edit.scrollHeight || 0) - (edit.clientHeight || 0), 0);
-          let padY = 0;
-          try {
-            const cs = window.getComputedStyle(edit);
-            padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
-          } catch (e) {}
-          if (!contentH) {
-            /* пустой текст — одна строка текущего шрифта */
-            let fs = 18, lh = 1.2;
-            try {
-              const cs = window.getComputedStyle(edit);
-              fs = parseFloat(cs.fontSize) || 18;
-              lh = parseFloat(cs.lineHeight) || fs * 1.2;
-            } catch (e) {}
-            contentH = fs * (lh > 0 ? lh : 1.2);
+          const rects=Array.from(range.getClientRects ? range.getClientRects() : []).filter(rect=>rect&&rect.height>0);
+          let top=Infinity,bottom=-Infinity;
+          rects.forEach(rect=>{top=Math.min(top,rect.top);bottom=Math.max(bottom,rect.bottom);});
+          let scale=1;
+          const stage=edit.closest(".page-stage");
+          const stageRect=stage?.getBoundingClientRect();
+          if(stageRect?.width)scale=Math.max(.01,stageRect.width/PAGE_W);
+          const computed=window.getComputedStyle(edit);
+          const padding=(parseFloat(computed.paddingTop)||0)+(parseFloat(computed.paddingBottom)||0);
+          let contentHeight=top===Infinity?0:(bottom-top)/scale;
+          if(!contentHeight){
+            const fontSize=parseFloat(computed.fontSize)||18;
+            const lineHeightValue=parseFloat(computed.lineHeight);
+            const lineHeight=Number.isFinite(lineHeightValue)?lineHeightValue:fontSize*1.2;
+            const scrollHeight=Number(edit.scrollHeight)||0,clientHeight=Number(edit.clientHeight)||0;
+            contentHeight=Math.max((scrollHeight-clientHeight)/scale,fontSize*1.2,lineHeight);
           }
-          return contentH + padY;
-        } catch (e) {
-          return 0;
-        }
+          return Math.max(1,Math.round(contentHeight+padding));
+        } catch (error) { return 0; }
       }
 
-      /*
-        Чистая функция: план адаптации БЕЗ применения.
-        followers = блоки той же колонки, у которых верхний край
-        находится ниже низа текстового блока (связанные/пересекающиеся
-        по вертикали). Все сдвигаются на одинаковую delta, поэтому
-        существующие отступы между ними сохраняются точно.
-      */
-      function computeTextAdaptation(page, blockId, measuredHeight){
-        if (!page || !Array.isArray(page.blocks)) return null;
-        const block = page.blocks.find(b => b.id === blockId);
-        if (!block || block.kind !== "text") return null;
-        const currentH = Math.round(Number(block.h) || 0);
-        const rawMeasured = Math.round(Number(measuredHeight) || 0);
-        if (!rawMeasured) return null; /* нет данных измерения — блок не трогаем */
-        const targetH = Math.max(14, rawMeasured);
-        const delta = targetH - currentH;
-        if (Math.abs(delta) < 2) return null;
-        const bx = Number(block.x) || 0;
-        const bw = Number(block.w) || 0;
-        const oldBottom = (Number(block.y) || 0) + currentH;
-        const followerIds = [];
-        page.blocks.forEach(other => {
-          if (!other || other.id === block.id) return;
-          if (other.visible === false) return;
-          const oy = Number(other.y) || 0;
-          if (oy < oldBottom - 1) return; /* не ниже текстового блока */
-          const ox = Number(other.x) || 0;
-          const ow = Number(other.w) || 0;
-          const overlap = Math.min(bx + bw, ox + ow) - Math.max(bx, ox);
-          const minWidth = Math.max(8, Math.min(bw, ow));
-          if (overlap < minWidth * 0.34) return; /* другая колонка */
-          followerIds.push(other.id);
+      function getVisibleTextBlocks(page){
+        return (page?.blocks||[]).filter(block=>block&&block.kind==="text"&&block.visible!==false)
+          .slice().sort((a,b)=>(Number(a.y)||0)-(Number(b.y)||0)||(Number(a.x)||0)-(Number(b.x)||0));
+      }
+      function textBlocksOverlapColumn(a,b){
+        const ax=Number(a.x)||0,aw=Math.max(1,Number(a.w)||0),bx=Number(b.x)||0,bw=Math.max(1,Number(b.w)||0);
+        const overlap=Math.min(ax+aw,bx+bw)-Math.max(ax,bx);
+        return overlap>=Math.max(8,Math.min(aw,bw)*TEXT_ADAPT_COLUMN_OVERLAP);
+      }
+      function getTextAdaptationRange(ordered,selectedIds){
+        const indexes=[];
+        ordered.forEach((block,index)=>{if(selectedIds.has(block.id))indexes.push(index);});
+        if(!indexes.length)return ordered;
+        return ordered.slice(indexes[0],indexes[indexes.length-1]+1);
+      }
+      function getMeasuredHeight(measurements,blockId){
+        if(measurements instanceof Map)return Number(measurements.get(blockId))||0;
+        return Number(measurements?.[blockId])||0;
+      }
+
+      /* Sandbox-style pure planner. Only text blocks in scope are ever updated. */
+      function computeTemplateTextAdaptation(page,measurements,selectedIds=[],restricted=false,normalizeHeights=false){
+        const ordered=getVisibleTextBlocks(page);
+        if(!ordered.length)return null;
+        const selectedSet=new Set((selectedIds||[]).filter(Boolean));
+        const scope=restricted&&selectedSet.size?getTextAdaptationRange(ordered,selectedSet):ordered;
+        if(!scope.length)return null;
+        const heights=new Map(),ys=new Map();
+        const oldHeight=block=>Math.max(0,Number(block.h)||0);
+        scope.forEach(block=>{
+          const measured=getMeasuredHeight(measurements,block.id),old=oldHeight(block);
+          const next=measured>0
+            ? (normalizeHeights?Math.max(TEXT_ADAPT_MIN_HEIGHT,Math.round(measured)):Math.max(old,Math.round(measured)))
+            : old;
+          heights.set(block.id,next);
         });
-        return { blockId, currentH, targetH, delta, followerIds };
-      }
-
-      function applyTextAdaptation(page, plan){
-        if (!page || !plan) return false;
-        const block = page.blocks.find(b => b.id === plan.blockId);
-        if (!block) return false;
-        block.h = plan.targetH;
-        plan.followerIds.forEach(id => {
-          const follower = page.blocks.find(b => b.id === id);
-          if (follower) follower.y = (Number(follower.y) || 0) + plan.delta;
+        scope.forEach((block,index)=>{
+          const oldY=Number(block.y)||0;
+          let previous=null;
+          for(let i=index-1;i>=0;i--){if(textBlocksOverlapColumn(scope[i],block)){previous=scope[i];break;}}
+          let nextY=oldY;
+          if(previous){
+            const previousOldY=Number(previous.y)||0,previousOldH=oldHeight(previous);
+            const sourceGap=oldY-(previousOldY+previousOldH);
+            const gap=sourceGap>=0?sourceGap:TEXT_ADAPT_MIN_GAP;
+            nextY=(ys.get(previous.id)??previousOldY)+(heights.get(previous.id)??previousOldH)+gap;
+          }
+          ys.set(block.id,nextY);
         });
-        return true;
+        const moves=[];
+        scope.forEach(block=>{
+          const nextY=Math.round(ys.get(block.id)??(Number(block.y)||0));
+          const nextH=Math.round(heights.get(block.id)??oldHeight(block));
+          if(Math.abs(nextY-(Number(block.y)||0))>.5||Math.abs(nextH-oldHeight(block))>.5){
+            moves.push({blockId:block.id,newY:nextY,newH:nextH});
+          }
+        });
+        return {moves,changed:moves.length>0,scopeIds:scope.map(block=>block.id)};
       }
 
-      function runTextAdaptation(pageId, blockId, opts = {}){
-        const page = getPageById(pageId);
-        if (!page) return false;
-        const measured = opts.measuredHeight != null
-          ? opts.measuredHeight
-          : measureTextBlockNaturalHeight(pageId, blockId);
-        const plan = computeTextAdaptation(page, blockId, measured);
-        if (!plan) return false;
-        if (!opts.skipHistory) pushHistory();
-        applyTextAdaptation(page, plan);
+      function computeTextAdaptation(page,blockId,measuredHeight,options={}){
+        if(!page||!Array.isArray(page.blocks))return null;
+        const measured=new Map();
+        getVisibleTextBlocks(page).forEach(block=>measured.set(block.id,block.id===blockId?Number(measuredHeight)||0:0));
+        const selectedIds=options.selectedIds||[blockId];
+        return computeTemplateTextAdaptation(page,measured,selectedIds,!!options.restricted,!!options.normalizeAll);
+      }
+      function applyTextAdaptation(page,plan){
+        if(!page||!plan||!Array.isArray(plan.moves)||!plan.moves.length)return false;
+        let changed=false;
+        plan.moves.forEach(move=>{
+          const block=page.blocks.find(item=>item.id===move.blockId&&item.kind==="text");
+          if(!block)return;
+          block.y=move.newY;block.h=move.newH;changed=true;
+        });
+        return changed;
+      }
+      function runTextAdaptation(pageId,blockId,options={}){
+        const page=getPageById(pageId);if(!page)return false;
+        const selectedIds=Array.isArray(options.selectedIds)?options.selectedIds:[];
+        const normalizeAll=!!options.normalizeAll;
+        const restricted=!!options.restricted&&!normalizeAll;
+        const scope=restricted&&selectedIds.length?getTextAdaptationRange(getVisibleTextBlocks(page),new Set(selectedIds)):getVisibleTextBlocks(page);
+        const measurements=new Map();
+        scope.forEach(block=>measurements.set(block.id,block.id===blockId&&options.measuredHeight!=null
+          ? Number(options.measuredHeight)||0 : measureTextBlockNaturalHeight(pageId,block.id)));
+        const plan=computeTemplateTextAdaptation(page,measurements,selectedIds,restricted,normalizeAll);
+        if(!plan?.changed)return false;
+        if(!options.skipHistory)ensureCurrentHistorySnapshot();
+        applyTextAdaptation(page,plan);
+        if(!options.skipHistory)pushHistory();
         renderAll();
         return true;
       }
-
-      function scheduleTextAutoAdapt(pageId, blockId){
-        if (!isTextAutoAdaptEnabled()) return;
-        textAutoAdaptPending = { pageId, blockId };
+      function applyTextAdaptationToPage(pageId,options={}){
+        const page=getPageById(pageId);if(!page)return {changed:false,count:0};
+        const selectedIds=Array.isArray(options.selectedIds)?options.selectedIds.slice():[];
+        const normalizeAll=!!options.normalizeAll;
+        const restricted=!!options.restricted&&!normalizeAll&&selectedIds.length>0;
+        const ordered=getVisibleTextBlocks(page);
+        const scope=restricted?getTextAdaptationRange(ordered,new Set(selectedIds)):ordered;
+        const measurements=new Map();
+        scope.forEach(block=>measurements.set(block.id,measureTextBlockNaturalHeight(pageId,block.id)));
+        const plan=computeTemplateTextAdaptation(page,measurements,selectedIds,restricted,normalizeAll);
+        if(!plan?.changed)return {changed:false,count:0,plan};
+        if(!options.skipHistory)ensureCurrentHistorySnapshot();
+        applyTextAdaptation(page,plan);
+        if(!options.skipHistory)pushHistory();
+        renderAll();
+        applyUI();
+        return {changed:true,count:plan.moves.length,plan};
+      }
+      function scheduleTextAutoAdapt(pageId,blockId){
+        if(!isTextAutoAdaptEnabled())return;
+        textAutoAdaptPending={pageId,blockId};
         clearTimeout(textAutoAdaptTimer);
-        textAutoAdaptTimer = setTimeout(() => {
-          const job = textAutoAdaptPending;
-          textAutoAdaptPending = null;
-          if (!job) return;
-          /* пользователь всё ещё редактирует этот блок — отложить */
-          const active = document.activeElement;
-          const activeIsThis = active && active.classList && active.classList.contains("editable") &&
-            active.closest && active.closest(`.block[data-id="${job.blockId}"]`);
-          if (activeIsThis) {
-            scheduleTextAutoAdapt(job.pageId, job.blockId);
-            return;
-          }
-          runTextAdaptation(job.pageId, job.blockId);
-        }, TEXT_AUTO_ADAPT_DEBOUNCE_MS);
+        textAutoAdaptTimer=setTimeout(()=>{
+          const job=textAutoAdaptPending;textAutoAdaptPending=null;
+          if(!job)return;
+          const active=document.activeElement;
+          const activeIsThis=active&&active.classList&&active.classList.contains("editable")&&
+            active.closest&&active.closest(`.block[data-id="${job.blockId}"][data-page-id="${job.pageId}"]`);
+          if(activeIsThis){scheduleTextAutoAdapt(job.pageId,job.blockId);return;}
+          applyTextAdaptationToPage(job.pageId,{skipHistory:false});
+        },TEXT_AUTO_ADAPT_DEBOUNCE_MS);
+      }
+      function flushPendingTextAutoAdapt(pageId,blockId){
+        if(!isTextAutoAdaptEnabled()||!textAutoAdaptPending||textAutoAdaptPending.blockId!==blockId||textAutoAdaptPending.pageId!==pageId)return;
+        clearTimeout(textAutoAdaptTimer);textAutoAdaptPending=null;
+        applyTextAdaptationToPage(pageId,{skipHistory:false});
       }
 
-      /* выход из inline-редактирования: применить отложенную адаптацию сразу */
-      function flushPendingTextAutoAdapt(pageId, blockId){
-        if (!isTextAutoAdaptEnabled()) return;
-        if (!textAutoAdaptPending || textAutoAdaptPending.blockId !== blockId) return;
-        clearTimeout(textAutoAdaptTimer);
-        textAutoAdaptPending = null;
-        runTextAdaptation(pageId, blockId);
+      function computeSelectionRangeAdaptation(page,selectedIds,measureFn){
+        if(!page||!Array.isArray(page.blocks))return null;
+        const ordered=getVisibleTextBlocks(page);
+        const selectedTextIds=(selectedIds||[]).filter(id=>ordered.some(block=>block.id===id));
+        const selectedSet=new Set(selectedTextIds);
+        const scope=selectedTextIds.length?getTextAdaptationRange(ordered,selectedSet):ordered;
+        const measurements=new Map();
+        scope.forEach(block=>measurements.set(block.id,typeof measureFn==="function"?measureFn(block.id):0));
+        return computeTemplateTextAdaptation(page,measurements,selectedTextIds,selectedTextIds.length>0,false);
       }
-
-      /*
-        Диапазонная адаптация (режим "учитывать только выделенные").
-        Чистая функция: диапазон = выделенные блоки + всё, что между
-        ними по вертикали в той же колонке (пересечение с общим
-        bbox выделения). Текстовые блоки диапазона приводятся к
-        фактической высоте, последующие блоки ВНУТРИ диапазона
-        получают кумулятивный сдвиг. Блоки ниже диапазона не двигаются.
-      */
-      function computeSelectionRangeAdaptation(page, selectedIds, measureFn){
-        if (!page || !Array.isArray(page.blocks) || !Array.isArray(selectedIds) || !selectedIds.length) return null;
-        const selBlocks = page.blocks.filter(b => b && selectedIds.includes(b.id));
-        if (!selBlocks.length) return null;
-        const top = Math.min(...selBlocks.map(b => Number(b.y) || 0));
-        const bottom = Math.max(...selBlocks.map(b => (Number(b.y) || 0) + (Number(b.h) || 0)));
-        const bx0 = Math.min(...selBlocks.map(b => Number(b.x) || 0));
-        const bx1 = Math.max(...selBlocks.map(b => (Number(b.x) || 0) + (Number(b.w) || 0)));
-        const bboxW = Math.max(1, bx1 - bx0);
-        const inRange = page.blocks
-          .filter(b => {
-            if (!b || b.visible === false) return false;
-            if (selectedIds.includes(b.id)) return true;
-            const y = Number(b.y) || 0;
-            if (y < top - 0.5 || y > bottom + 0.5) return false;
-            const overlap = Math.min(bx1, (Number(b.x) || 0) + (Number(b.w) || 0)) - Math.max(bx0, Number(b.x) || 0);
-            return overlap >= Math.max(8, bboxW * 0.34);
-          })
-          .sort((a, b) => (Number(a.y) || 0) - (Number(b.y) || 0));
-
-        const moves = [];
-        let shift = 0;
-        inRange.forEach(b => {
-          const y0 = (Number(b.y) || 0) + shift;
-          if (b.kind === "text") {
-            const curH = Math.round(Number(b.h) || 0);
-            const rawMeasured = Math.round(Number(measureFn(b.id)) || 0);
-            /* нет данных измерения — блок не адаптируем (сдвиг сохраняем) */
-            if (rawMeasured && Math.abs(Math.max(14, rawMeasured) - curH) >= 2) {
-              const measured = Math.max(14, rawMeasured);
-              moves.push({ blockId: b.id, newY: Math.round(y0), newH: measured });
-              shift += measured - curH;
-              return;
-            }
-          }
-          if (shift !== 0) {
-            moves.push({ blockId: b.id, newY: Math.round(y0), newH: b.h });
-          }
-        });
-        return { moves, changed: moves.length > 0 };
-      }
-
-      function applySelectionRangeAdaptation(page, plan){
-        if (!page || !plan || !Array.isArray(plan.moves)) return false;
-        plan.moves.forEach(m => {
-          const b = page.blocks.find(x => x.id === m.blockId);
-          if (!b) return;
-          b.y = m.newY;
-          if (m.newH != null) b.h = m.newH;
-        });
-        return true;
-      }
-
-      /*
-        Ручная адаптация по ТЕКУЩЕМУ выделению (кнопка Adapt Now):
-        - scope-режим ВКЛЮЧЁН: адаптируется диапазон "от-до" по выделенным,
-          всё, что ниже диапазона, не сдвигается;
-        - scope-режим ВЫКЛЮЧЕН: каждый выделенный текстовый блок
-          адаптируется полностью (с переносом последователей),
-          обработка снизу вверх для консистентных сдвигов.
-      */
+      function applySelectionRangeAdaptation(page,plan){return applyTextAdaptation(page,plan);}
       function adaptSelectedTextNow(pageId){
-        const page = getPageById(pageId);
-        if (!page) return false;
-        const selectedIds = Array.isArray(state.ui.selectedBlockIds) ? state.ui.selectedBlockIds.slice() : [];
-        if (!selectedIds.length) return false;
-        if (isTextAdaptScopeEnabled()) {
-          const measure = id => (typeof textAutoAdaptMeasureOverride === "function")
-            ? textAutoAdaptMeasureOverride(pageId, id)
-            : measureTextBlockNaturalHeight(pageId, id);
-          const plan = computeSelectionRangeAdaptation(page, selectedIds, measure);
-          if (!plan || !plan.changed) return false;
-          pushHistory();
-          applySelectionRangeAdaptation(page, plan);
-          renderAll();
-          return true;
-        }
-        const textBlocks = page.blocks
-          .filter(b => selectedIds.includes(b.id) && b.kind === "text")
-          .sort((a, b) => (Number(b.y) || 0) - (Number(a.y) || 0));
-        if (!textBlocks.length) return false;
-        let changedAny = false;
-        textBlocks.forEach(tb => {
-          if (runTextAdaptation(pageId, tb.id)) changedAny = true;
+        const selected=getSelectedBlocks().filter(block=>block&&block.kind==="text");
+        const selectedIds=selected.map(block=>block.id);
+        const normalizeAll=isTextAdaptNormalizeAllEnabled();
+        const restricted=isTextAdaptScopeEnabled()&&selectedIds.length>0&&!normalizeAll;
+        const result=applyTextAdaptationToPage(pageId,{selectedIds,restricted,normalizeAll});
+        return result.changed;
+      }
+
+      function normalizeSelectedText(pageId){
+        const page=getPageById(pageId);if(!page)return {changed:false,count:0};
+        const selected=getSelectedBlocks().filter(block=>block&&block.kind==="text"&&block.visible!==false);
+        if(!selected.length)return {changed:false,count:0};
+        const updates=[];
+        selected.forEach(block=>{
+          const measured=measureTextBlockNaturalHeight(pageId,block.id);
+          if(!(measured>0))return;
+          const nextH=Math.max(TEXT_ADAPT_MIN_HEIGHT,Math.round(measured));
+          if(Math.abs(nextH-(Number(block.h)||0))>.5)updates.push({block,nextH});
         });
-        return changedAny;
-      }
-
-      /*
-        RESET LAYOUT: вернуть геометрию блоков страницы (x/y/w/h) к
-        исходному шаблону. Текст, стили, картинки и добавленные
-        вручную блоки НЕ трогаются. Undo — одна запись истории.
-
-        Источники оригинала (по приоритету):
-          1) page.templateGeometry — снапшот, снятый при создании
-             страницы (самый точный);
-          2) блоки из фабрики шаблона, матч по id — работает для
-             библиотечных/импортных шаблонов со статическими id;
-          3) блоки из фабрики, матч ПО ПОРЯДКУ + kind + role — для
-             builtin-шаблонов, чьи фабрики генерируют случайные id
-             (uid("b")): последовательность генерации детерминирована,
-             поэтому пары по индексу корректны.
-      */
-      function resetTemplateLayout(pageId){
-        const page = getPageById(pageId);
-        if (!page) return false;
-
-        let originals = null;
-        let origin = null;
-
-        if (Array.isArray(page.templateGeometry) && page.templateGeometry.length) {
-          originals = page.templateGeometry.map(g => ({
-            id: g.id, kind: null, role: null,
-            x: Number(g.x), y: Number(g.y), w: Number(g.w), h: Number(g.h)
-          }));
-          origin = "snapshot";
-        } else {
-          const record = page.templateId ? TemplateRegistry.getById(page.templateId) : null;
-          if (!record || !record.meta || typeof record.meta.factory !== "function") {
-            toast("Исходный шаблон страницы не найден");
-            return false;
-          }
-          try { originals = record.meta.factory() || []; } catch (e) {
-            toast("Не удалось получить исходный шаблон");
-            return false;
-          }
-          if (!Array.isArray(originals) || !originals.length) {
-            toast("Исходный шаблон пуст");
-            return false;
-          }
-          origin = "factory";
-        }
-
-        const finite = (v) => Number.isFinite(Number(v));
-        let restored = 0;
-
-        if (origin === "snapshot") {
-          const byId = new Map(originals.map(g => [g.id, g]));
-          page.blocks.forEach(b => {
-            const src = byId.get(b && b.id);
-            if (!src) return;
-            if (![src.x, src.y, src.w, src.h].every(finite)) return;
-            if (Number(b.x) !== src.x || Number(b.y) !== src.y ||
-                Number(b.w) !== src.w || Number(b.h) !== src.h) restored++;
-            b.x = src.x; b.y = src.y; b.w = src.w; b.h = src.h;
-          });
-        } else {
-          /* фабрика: сперва по id, затем по порядку (случайные uid) */
-          const byId = new Map(originals.map(b => [b && b.id, b]));
-          page.blocks.forEach(b => {
-            const src = byId.get(b && b.id);
-            if (!src) return;
-            if (![src.x, src.y, src.w, src.h].every(finite)) return;
-            if (Number(b.x) !== Number(src.x) || Number(b.y) !== Number(src.y) ||
-                Number(b.w) !== Number(src.w) || Number(b.h) !== Number(src.h)) restored++;
-            b.x = Number(src.x);
-            b.y = Number(src.y);
-            b.w = Number(src.w);
-            b.h = Number(src.h);
-          });
-
-          if (!restored && originals.length === page.blocks.length) {
-            /* порядок+тип: фабрики генерируют блоки в детерминированной
-               последовательности; пары по индексу с проверкой kind/role */
-            const sameShape = page.blocks.every((b, i) => {
-              const src = originals[i];
-              return src && b.kind === src.kind &&
-                (!b.role || !src.role || String(b.role) === String(src.role));
-            });
-            if (sameShape) {
-              page.blocks.forEach((b, i) => {
-                const src = originals[i];
-                if (![src.x, src.y, src.w, src.h].every(finite)) return;
-                if (Number(b.x) !== Number(src.x) || Number(b.y) !== Number(src.y) ||
-                    Number(b.w) !== Number(src.w) || Number(b.h) !== Number(src.h)) restored++;
-                b.x = Number(src.x);
-                b.y = Number(src.y);
-                b.w = Number(src.w);
-                b.h = Number(src.h);
-              });
-            }
-          }
-        }
-
-        if (!restored) {
-          toast("Геометрия уже соответствует шаблону");
-          return false;
-        }
+        if(!updates.length)return {changed:false,count:0};
+        ensureCurrentHistorySnapshot();
+        updates.forEach(({block,nextH})=>block.h=nextH);
         pushHistory();
-        renderAll();
-        toast("Layout сброшен к шаблону (текст сохранён)");
-        return true;
+        renderAll();applyUI();
+        return {changed:true,count:updates.length};
       }
 
-      /* Единая привязка контролов адаптации (одиночный текст и мульти-выбор) */
+      function getSelectedTextGapPair(){
+        const selected=getSelectedBlocks().filter(block=>block&&block.kind==="text");
+        if(selected.length!==2)return null;
+        const page=getSelectedPage();if(!page)return null;
+        const ordered=selected.slice().sort((a,b)=>(Number(a.y)||0)-(Number(b.y)||0)||(Number(a.x)||0)-(Number(b.x)||0));
+        return {page,upper:ordered[0],lower:ordered[1]};
+      }
+      function copySelectedTextGap(){
+        const pair=getSelectedTextGapPair();
+        if(!pair){toast("Copy Gap requires exactly two selected text blocks on one page");return false;}
+        lastCopiedTextGap=(Number(pair.lower.y)||0)-((Number(pair.upper.y)||0)+(Number(pair.upper.h)||0));
+        try{window.localStorage.setItem(TEXT_ADAPT_GAP_STORAGE_KEY,String(lastCopiedTextGap));}catch(error){}
+        renderSelection();toast("Gap copied: "+lastCopiedTextGap+" px");return true;
+      }
+      function applyCopiedTextGap(){
+        const pair=getSelectedTextGapPair();
+        if(!pair){toast("Apply Gap requires exactly two selected text blocks on one page");return false;}
+        if(!Number.isFinite(lastCopiedTextGap)){toast("No gap saved. Copy Gap first.");return false;}
+        const {page,upper,lower}=pair;
+        const oldY=Number(lower.y)||0,oldBottom=oldY+(Number(lower.h)||0);
+        const newY=(Number(upper.y)||0)+(Number(upper.h)||0)+lastCopiedTextGap,delta=newY-oldY;
+        if(Math.abs(delta)<.5){toast("Gap already matches "+lastCopiedTextGap+" px");return false;}
+        const overlapX=(a,b)=>Math.min((Number(a.x)||0)+(Number(a.w)||0),(Number(b.x)||0)+(Number(b.w)||0))-Math.max(Number(a.x)||0,Number(b.x)||0)>0;
+        const followers=(page.blocks||[]).filter(block=>block!==upper&&block!==lower&&(Number(block.y)||0)>=oldBottom-.5&&overlapX(lower,block));
+        ensureCurrentHistorySnapshot();
+        lower.y=newY;followers.forEach(block=>block.y=(Number(block.y)||0)+delta);
+        pushHistory();
+        renderAll();applyUI();toast("Apply Gap: "+lastCopiedTextGap+" px · shifted "+followers.length+" lower blocks");return true;
+      }
+
+      function normalizePageImageWindows(pageId){
+        const page=getPageById(pageId);if(!page)return {changed:false,count:0};
+        const finite=(value,fallback=0)=>{const number=Number(value);return Number.isFinite(number)?number:fallback;};
+        const updates=[];
+        (page.blocks||[]).forEach(block=>{
+          if(!block||block.kind!=="image")return;
+          const x=finite(block.x),y=finite(block.y),w=finite(block.w),h=finite(block.h);
+          const fullBleed=block.fullBleed===true||block.isFullBleed===true||(x<=0&&y<=0&&x+w>=PAGE_W&&y+h>=PAGE_H);
+          let next;
+          if(fullBleed)next={x:0,y:0,w:PAGE_W,h:PAGE_H};
+          else{
+            const nx=Math.min(PAGE_W,Math.max(0,x)),ny=Math.min(PAGE_H,Math.max(0,y));
+            next={x:nx,y:ny,w:Math.min(PAGE_W-nx,Math.max(0,w)),h:Math.min(PAGE_H-ny,Math.max(0,h))};
+          }
+          const transform=block.imageTransform||{};
+          const needsTransform=Number(transform.scale)!==1||Number(transform.offsetX)!==0||Number(transform.offsetY)!==0;
+          const needsGeometry=Number(block.x)!==next.x||Number(block.y)!==next.y||Number(block.w)!==next.w||Number(block.h)!==next.h;
+          if(needsGeometry||needsTransform)updates.push({block,next});
+        });
+        if(!updates.length){toast("Image windows are already normalized");return {changed:false,count:0};}
+        ensureCurrentHistorySnapshot();
+        updates.forEach(({block,next})=>{Object.assign(block,next);block.imageTransform={scale:1,offsetX:0,offsetY:0};});
+        pushHistory();
+        renderAll();applyUI();toast("Normalized "+updates.length+" image window(s)");return {changed:true,count:updates.length};
+      }
+
+      function resetTemplateLayout(pageId){
+        const page=getPageById(pageId);if(!page)return false;
+        let originals=null,origin="";
+        if(Array.isArray(page.templateGeometry)&&page.templateGeometry.length){
+          originals=page.templateGeometry.map(item=>({id:item.id,x:Number(item.x),y:Number(item.y),w:Number(item.w),h:Number(item.h)}));origin="snapshot";
+        }else{
+          const record=page.templateId?TemplateRegistry.getById(page.templateId):null;
+          if(!record||!record.meta||typeof record.meta.factory!=="function"){toast("Original page template not found");return false;}
+          try{originals=record.meta.factory()||[];}catch(error){toast("Could not read original template geometry");return false;}
+          if(!Array.isArray(originals)||!originals.length){toast("Original template is empty");return false;}
+          origin="factory";
+        }
+        const finite=value=>Number.isFinite(Number(value));
+        const updates=[];
+        if(origin==="snapshot"){
+          const byId=new Map(originals.map(item=>[item.id,item]));
+          (page.blocks||[]).forEach(block=>{const source=byId.get(block?.id);if(!source||![source.x,source.y,source.w,source.h].every(finite))return;
+            if(Number(block.x)!==source.x||Number(block.y)!==source.y||Number(block.w)!==source.w||Number(block.h)!==source.h)updates.push({block,source});});
+        }else{
+          const byId=new Map(originals.map(block=>[block?.id,block]));
+          (page.blocks||[]).forEach(block=>{const source=byId.get(block?.id);if(!source||![source.x,source.y,source.w,source.h].every(finite))return;
+            if(Number(block.x)!==Number(source.x)||Number(block.y)!==Number(source.y)||Number(block.w)!==Number(source.w)||Number(block.h)!==Number(source.h))updates.push({block,source});});
+          if(!updates.length&&originals.length===(page.blocks||[]).length){
+            const sameShape=page.blocks.every((block,index)=>{const source=originals[index];return source&&block.kind===source.kind&&(!block.role||!source.role||String(block.role)===String(source.role));});
+            if(sameShape)(page.blocks||[]).forEach((block,index)=>{const source=originals[index];if(![source.x,source.y,source.w,source.h].every(finite))return;
+              if(Number(block.x)!==Number(source.x)||Number(block.y)!==Number(source.y)||Number(block.w)!==Number(source.w)||Number(block.h)!==Number(source.h))updates.push({block,source});});
+          }
+        }
+        if(!updates.length){toast("Geometry already matches the template");return false;}
+        ensureCurrentHistorySnapshot();
+        updates.forEach(({block,source})=>{block.x=Number(source.x);block.y=Number(source.y);block.w=Number(source.w);block.h=Number(source.h);});
+        pushHistory();
+        renderAll();applyUI();toast("Layout reset to template geometry; text and images preserved");return true;
+      }
+
       function bindTextAdaptationControls(pageId){
-        const autoToggle = $("textAutoAdaptToggle");
-        if (autoToggle) {
-          autoToggle.checked = isTextAutoAdaptEnabled();
-          autoToggle.onchange = e => {
-            setTextAutoAdaptEnabled(!!e.target.checked);
-            toast(e.target.checked ? "Auto Adaptation включена" : "Auto Adaptation выключена");
-          };
-        }
-        const scopeToggle = $("textAdaptScopeToggle");
-        if (scopeToggle) {
-          scopeToggle.checked = isTextAdaptScopeEnabled();
-          scopeToggle.onchange = e => {
-            setTextAdaptScopeEnabled(!!e.target.checked);
-            toast(e.target.checked
-              ? "Ручная адаптация: только выделенный диапазон (от–до)"
-              : "Ручная адаптация: стандартный режим");
-          };
-        }
-        const adaptNowBtn = $("adaptNowBtn");
-        if (adaptNowBtn) {
-          adaptNowBtn.onclick = () => {
-            const changed = adaptSelectedTextNow(pageId);
-            toast(changed ? "Layout адаптирован" : "Адаптация не требуется");
-          };
-        }
-        const resetLayoutBtn = $("resetTemplateLayoutBtn");
-        if (resetLayoutBtn) {
-          resetLayoutBtn.onclick = () => { resetTemplateLayout(pageId); };
-        }
+        const autoToggle=$("textAutoAdaptToggle");if(autoToggle){autoToggle.checked=isTextAutoAdaptEnabled();autoToggle.onchange=event=>{setTextAutoAdaptEnabled(!!event.target.checked);toast(event.target.checked?"Auto Adaptation enabled":"Auto Adaptation disabled");};}
+        const rangeToggle=$("textAdaptScopeToggle");if(rangeToggle){rangeToggle.checked=isTextAdaptScopeEnabled();rangeToggle.onchange=event=>{setTextAdaptScopeEnabled(!!event.target.checked);toast(event.target.checked?"Range: adapt from first to last selected text":"Range off: adapt all text");};}
+        const normalizeToggle=$("textAdaptNormalizeAllToggle");if(normalizeToggle){normalizeToggle.checked=isTextAdaptNormalizeAllEnabled();normalizeToggle.onchange=event=>{setTextAdaptNormalizeAllEnabled(!!event.target.checked);toast(event.target.checked?"Normalize All is enabled for Adapt":"Normalize All is disabled");};}
+        const adaptButton=$("adaptNowBtn");if(adaptButton)adaptButton.onclick=()=>{const changed=adaptSelectedTextNow(pageId);toast(changed?"Text layout adapted":"No measurable text changes");};
+        const normalizeButton=$("normalizeSelectedTextBtn");if(normalizeButton)normalizeButton.onclick=()=>{const result=normalizeSelectedText(pageId);toast(result.changed?"Normalized "+result.count+" selected text block(s)":"Select measurable text blocks to normalize");};
+        const resetButton=$("resetTemplateLayoutBtn");if(resetButton)resetButton.onclick=()=>resetTemplateLayout(pageId);
+        const copyGapButton=$("copyTextGapBtn");if(copyGapButton){copyGapButton.disabled=getSelectedTextGapPair()==null;copyGapButton.onclick=copySelectedTextGap;}
+        const applyGapButton=$("applyTextGapBtn");if(applyGapButton){applyGapButton.disabled=getSelectedTextGapPair()==null||!Number.isFinite(lastCopiedTextGap);applyGapButton.onclick=applyCopiedTextGap;}
+        const gapValue=$("textGapValue");if(gapValue)gapValue.textContent=Number.isFinite(lastCopiedTextGap)?"Gap: "+lastCopiedTextGap+" px":"Gap: —";
       }
-
-      /* тестовые/диагностические хуки (логика доступна без DOM-layout) */
-      window.__textAdaptTestHooks = {
-        setMeasureOverride(fn){ textAutoAdaptMeasureOverride = typeof fn === "function" ? fn : null; },
-        computeTextAdaptation,
-        applyTextAdaptation,
-        runTextAdaptation,
-        scheduleTextAutoAdapt,
-        flushPendingTextAutoAdapt,
-        isTextAutoAdaptEnabled,
-        setTextAutoAdaptEnabled,
-        isTextAdaptScopeEnabled,
-        setTextAdaptScopeEnabled,
-        computeSelectionRangeAdaptation,
-        applySelectionRangeAdaptation,
-        adaptSelectedTextNow,
-        resetTemplateLayout,
-        __getSelectedPage(){ try { return getSelectedPage(); } catch (e) { return null; } }
+      window.__textAdaptTestHooks={
+        setMeasureOverride(fn){textAutoAdaptMeasureOverride=typeof fn==="function"?fn:null;},
+        computeTextAdaptation,applyTextAdaptation,computeTemplateTextAdaptation,
+        runTextAdaptation,applyTextAdaptationToPage,scheduleTextAutoAdapt,flushPendingTextAutoAdapt,
+        isTextAutoAdaptEnabled,setTextAutoAdaptEnabled,isTextAdaptScopeEnabled,setTextAdaptScopeEnabled,
+        isTextAdaptNormalizeAllEnabled,setTextAdaptNormalizeAllEnabled,
+        computeSelectionRangeAdaptation,applySelectionRangeAdaptation,adaptSelectedTextNow,
+        normalizeSelectedText,normalizePageImageWindows,copySelectedTextGap,applyCopiedTextGap,
+        resetTemplateLayout,__getSelectedPage(){try{return getSelectedPage();}catch(error){return null;}}
       };
+
 
       /* =========================================================
          AUTO EDITOR ROUTING V1 (TEMPLATE/UI PATCH)
@@ -13133,22 +14338,16 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           text block              -> Text Inspector   ("text")
           frame (коллаж)          -> Frame Inspector  ("frame")
           image (обычная)         -> Concept Editing  ("concept")
-          image полнокадровая     -> Template Library ("templates")
-          shape (плашка/фон)      -> Template Library ("templates")
-          страница/канвас/пусто   -> Template Library ("templates")
+          full-page image / shape / canvas -> no implicit panel route
+          Template Library opens only through explicit Alt+click on page background.
       */
       function getAutoEditorSectionForBlocks(blocks){
-        if (!Array.isArray(blocks)) return null;
-        if (blocks.length > 1) return null; /* мульти-выбор — панель не переключаем */
-        if (!blocks.length) return "templates";
+        if (!Array.isArray(blocks) || blocks.length > 1 || !blocks.length) return null;
         const first = blocks[0];
         const kind = first && first.kind;
         if (kind === "text") return "text";
         if (kind === "frame") return "frame";
-        if (kind === "image") {
-          return isFullPageBlock(first) ? "templates" : "concept";
-        }
-        if (kind === "shape") return "templates";
+        if (kind === "image") return isFullPageBlock(first) ? null : "concept";
         return null;
       }
 
@@ -13189,13 +14388,45 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
         resetLastSection(section){ autoEditorPanelLastSection = section || "concept"; }
       };
 
+      function textAdaptationControlsMarkup(){
+        return `
+          <div class="field text-adapt-panel">
+            <label>Text Layout Adaptation</label>
+            <label class="check-row" style="margin-top:4px;"><input type="checkbox" id="textAutoAdaptToggle"><span>Auto Adaptation</span></label>
+            <label class="check-row" style="margin-top:4px;"><input type="checkbox" id="textAdaptScopeToggle"><span>Range · first to last selected text</span></label>
+            <label class="check-row" style="margin-top:4px;"><input type="checkbox" id="textAdaptNormalizeAllToggle"><span>Normalize All before Adapt</span></label>
+            <div class="text-adapt-actions">
+              <button type="button" class="btn" id="adaptNowBtn">Adapt</button>
+              <button type="button" class="btn" id="normalizeSelectedTextBtn">Normalize Selected</button>
+            </div>
+            <div class="text-gap-actions">
+              <button type="button" class="btn" id="copyTextGapBtn">Copy Gap</button>
+              <button type="button" class="btn" id="applyTextGapBtn">Apply Gap</button>
+              <div class="selection-note" id="textGapValue">Gap: —</div>
+            </div>
+            <button type="button" class="btn" id="resetTemplateLayoutBtn" style="width:100%;margin-top:6px;" title="Return block geometry to the source template; preserve content and assignments">Reset Layout</button>
+            <div class="selection-note" style="margin-top:6px;">Only text blocks move during Adapt. Authored gaps and columns are preserved; overlapping text pairs get an 8 px safety gap.</div>
+            <button type="button" class="btn text-image-normalize-btn" id="normalizeImageWindowsBtn">Normalize Image Windows</button>
+          </div>`;
+      }
+      function imageNormalizationButtonMarkup(){
+        return `<button type="button" class="btn text-image-normalize-btn" id="normalizeImageWindowsBtn">Normalize Image Windows</button>`;
+      }
+      function resizeSelectionTextEditor(textarea){
+        if(!textarea)return;
+        textarea.style.height="auto";
+        const max=Math.max(140,Math.floor((window.innerHeight||800)*.65));
+        const next=Math.min(max,Math.max(72,textarea.scrollHeight||72));
+        textarea.style.height=next+"px";
+        textarea.style.overflowY=(textarea.scrollHeight>max)?"auto":"hidden";
+      }
+
       function renderSelection(){
         const blocks = getSelectedBlocks();
         if (!blocks.length) {
           els.selectionContent.innerHTML = `
-            <div class="selection-note">
-              Select any block to edit. Double click text to edit inline. Double click image to replace.
-            </div>
+            <div class="selection-note">Select any block to edit. Double click text to edit inline. Double click image to replace.</div>
+            ${imageNormalizationButtonMarkup()}
           `;
           return;
         }
@@ -13209,22 +14440,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
           const hasText = blocks.some(x => x && x.kind === "text");
           els.selectionContent.innerHTML = `
             <div class="selection-note">${blocks.length} items selected.</div>
-            ${hasText ? `
-            <div style="height:8px"></div>
-            <h3>Text Adaptation</h3>
-            <label class="check-row" style="margin-top:4px;">
-              <input type="checkbox" id="textAutoAdaptToggle">
-              <span>Auto Adaptation</span>
-            </label>
-            <label class="check-row" style="margin-top:4px;">
-              <input type="checkbox" id="textAdaptScopeToggle">
-              <span>Selection range only (&#1086;&#1090;&#8211;&#1076;&#1086;)</span>
-            </label>
-            <div style="height:6px"></div>
-            <button type="button" class="btn" id="adaptNowBtn" style="width:100%;">Adapt Now</button>
-            <button type="button" class="btn" id="resetTemplateLayoutBtn" style="width:100%;margin-top:6px;" title="Вернуть геометрию блоков к исходному шаблону; текст сохраняется">Reset Layout</button>
-            <div class="selection-note" style="margin-top:6px;">Адаптирует выделенные тексты и всё между ними; блоки ниже диапазона не сдвигаются.</div>
-            ` : ""}
+            ${hasText ? textAdaptationControlsMarkup() : imageNormalizationButtonMarkup()}
           `;
           if (hasText) bindTextAdaptationControls(state.ui.selectedPageId);
           return;
@@ -13239,6 +14455,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
               <div><label>Fill</label><input type="color" id="shapeFill" value="${toHexColor(b.style?.fill, "#ffffff")}"></div>
               <div><label>Radius</label><input type="number" id="shapeRadius" value="${b.style?.radius || 0}"></div>
             </div>
+            ${imageNormalizationButtonMarkup()}
           `;
           bindStableColorInput($("shapeFill"), e => { b.style.fill = e.target.value; renderAll(); }, () => pushHistory());
           $("shapeRadius").oninput = e => { b.style.radius = parseInt(e.target.value, 10) || 0; renderAll(); };
@@ -13262,6 +14479,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             </div>
             <div style="height:8px"></div>
             <div class="selection-note">Fixed: ${b.randomFixed ? "Yes" : "No"}</div>
+            ${imageNormalizationButtonMarkup()}
           `;
           $("selResetImageBtn").onclick = () => resetImageTransform(state.ui.selectedPageId, b.id);
           $("convertToFrameBtn").onclick = () => convertSelectedImageToFrame();
@@ -13326,6 +14544,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             <div style="height:8px"></div>
             <div class="selection-note">Selected slot: ${slot ? (b.slots.indexOf(slot)+1) : "Frame"}</div>
             <div class="selection-note">Fixed: ${(slot ? slot.randomFixed : b.randomFixed) ? "Yes" : "No"}</div>
+            ${imageNormalizationButtonMarkup()}
           `;
           $("frameLayoutSelect").onchange = e => {
             pushHistory();
@@ -13400,22 +14619,7 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
             <label for="selectionTextEditor">Text Content Editor</label>
             <textarea id="selectionTextEditor">${escapeHtmlForTextarea(currentTextValue)}</textarea>
           </div>
-          <div style="height:10px"></div>
-          <div class="field">
-            <label>Text Layout Adaptation</label>
-            <label class="check-row" style="margin-top:4px;">
-              <input type="checkbox" id="textAutoAdaptToggle">
-              <span>Auto Adaptation</span>
-            </label>
-            <label class="check-row" style="margin-top:4px;">
-              <input type="checkbox" id="textAdaptScopeToggle">
-              <span>Selection range only (&#1086;&#1090;&#8211;&#1076;&#1086;)</span>
-            </label>
-            <div style="height:6px"></div>
-            <button type="button" class="btn" id="adaptNowBtn" style="width:100%;">Adapt Now</button>
-            <button type="button" class="btn" id="resetTemplateLayoutBtn" style="width:100%;margin-top:6px;" title="Вернуть геометрию блоков к исходному шаблону; текст сохраняется">Reset Layout</button>
-            <div class="selection-note" style="margin-top:6px;">Пересчёт высоты текстового блока и сдвиг связанных блоков ниже с сохранением отступов. Только для текстовых блоков.</div>
-          </div>
+          ${textAdaptationControlsMarkup()}
         `;
 
         const applyStyleChange = (mutate) => {
@@ -13450,22 +14654,28 @@ PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
 
         const textEditor = $("selectionTextEditor");
         textEditor.value = currentTextValue;
+        resizeSelectionTextEditor(textEditor);
         textEditor.style.background = "#ffffff";
         textEditor.style.color = "#111111";
 
         textEditor.oninput = e => {
           b.content = textareaValueToHtml(e.target.value);
           b.userModified = true;
+          resizeSelectionTextEditor(e.target);
           syncLiveTextBlockDOM(state.ui.selectedPageId, b.id, b.content);
-          /* TEXT_AUTO_ADAPT_V1: автопересчёт после паузы ввода */
-          scheduleTextAutoAdapt(state.ui.selectedPageId, b.id);
           clearTimeout(selectionTextareaTimer);
           selectionTextareaTimer = setTimeout(() => pushHistory(), 400);
+          /* Text auto-adaptation shares the editor's 400 ms idle window. */
+          scheduleTextAutoAdapt(state.ui.selectedPageId, b.id);
         };
         textEditor.onchange = () => pushHistory();
       }
 
       function renderAll(){
+        syncActiveBuildVariantSnapshot();
+        scheduleBuildVariantShellState();
+        updateBuildVariantControls();
+        scheduleBuildVariantAutosave();
 // Глобальное состояние и функции фильтров TEMPLATE LIBRARY
 if (typeof window.TL_FILTER_FAV_ONLY !== "boolean") {
   window.TL_FILTER_FAV_ONLY = false;
@@ -13631,6 +14841,8 @@ if (typeof window.TL_FILTER_ALL_CONCEPTS !== "boolean") {
           }
           renderSelection();
           renderTextLibraryPanel();
+          renderBuildStackCount();
+          if (document.body.classList.contains("build-mode-active")) updateBuildStackPageScale();
           scheduleMemoryStatsUpdate();
         });
       }
@@ -13648,9 +14860,13 @@ if (typeof window.TL_FILTER_ALL_CONCEPTS !== "boolean") {
         }
       }
 
-      function insertPageAfterSelected(page){
+      function insertPageAfterSelected(page, options = {}){
+        const hasExplicitIndex = Number.isInteger(options.insertIndex);
         const idx = state.ui.selectedPageId ? state.pages.findIndex(p => p.id === state.ui.selectedPageId) : -1;
-        if (idx >= 0) state.pages.splice(idx + 1, 0, page);
+        if (hasExplicitIndex) {
+          const at = Math.max(0, Math.min(state.pages.length, options.insertIndex));
+          state.pages.splice(at, 0, page);
+        } else if (idx >= 0) state.pages.splice(idx + 1, 0, page);
         else state.pages.push(page);
         state.ui.selectedPageId = page.id;
         state.ui.selectedBlockIds = [];
@@ -13982,7 +15198,7 @@ function addAllTemplatesInOrder(){
         });
       }
       function onMouseDown(e){
-        if (state.ui.preview || e.button !== 0 || e.target.closest(".selection-toolbar,.left-panel,.text-library-panel,.image-overlay-controls,.aipc-panel,.page-toolbar,.pages-panel,.aipc-preset-overlay,.textlib-manager-overlay,.textlib-group-manager-overlay,.ai-deck-overlay,.split-hotkeys-overlay,.split-hotkeys-modal")) return;
+        if (state.ui.preview || e.button !== 0 || e.target.closest(".selection-toolbar,.left-panel,.text-library-panel,.image-overlay-controls,.aipc-panel,.page-toolbar,.pages-panel,.aipc-preset-overlay,.textlib-manager-overlay,.textlib-group-manager-overlay,.ai-deck-overlay,.split-hotkeys-overlay,.split-hotkeys-modal,#buildMapPane,.build-topbar,#buildDivider,.build-import-backdrop")) return;
 
         // Если кликаем внутри блока, который сейчас редактируется — не мешаем выделять/ставить курсор мышью.
         if (state.ui.editingBlockId) {
@@ -13994,6 +15210,12 @@ function addAllTemplatesInOrder(){
         const stageEl = e.target.closest(".page-stage");
         const imageFrame = e.target.closest(".image-frame");
         const frameSlot = e.target.closest(".frame-slot");
+
+        if (stageEl && !blockEl && e.altKey) {
+          e.preventDefault();
+          requestAutoEditorPanel("templates");
+          return;
+        }
 
         if ((frameSlot || imageFrame) && blockEl && e.altKey) {
           const page = getPageById(blockEl.dataset.pageId);
@@ -14237,7 +15459,8 @@ function addAllTemplatesInOrder(){
           known.add(style);
           const opt = document.createElement("option");
           opt.value = style;
-          opt.textContent = style + " Only";
+          const styleRecord = TemplateRegistry.all().find(r => r.visualStyle === style);
+          opt.textContent = getProgramStyleDisplayName(style, styleRecord?.visualStyleDisplayName) + " Only";
           select.appendChild(opt);
         });
         /* если выбранный ранее стиль исчез вместе с библиотекой — безопасный откат в auto */
@@ -14446,10 +15669,7 @@ function populateTemplateSelect(categoryKey) {
     const opt = document.createElement("option");
 
     opt.value = template.id;
-    opt.textContent = getCompactTemplateDisplay(
-      group.label,
-      template.id
-    );
+    opt.textContent = getCompactTemplateDisplay(template.label || group.label, template.id);
 
     els.templateSelect.appendChild(opt);
   });
@@ -14471,7 +15691,7 @@ function populateTemplateSelect(categoryKey) {
       }
 
       function addTemplatePageFromUI(){
-        const template = TEMPLATE_INDEX[state.ui.templateId];
+        const template = getTemplateMetaById(state.ui.templateId);
         if (!template) return;
         const page = createTemplatePage(template);
         pushHistory();
@@ -15886,7 +17106,17 @@ if (els.refreshImagePoolConceptBtn) {
         populateTemplateSelect(state.ui.templateCategory);
         populateGlobalTypePresetSelect();
         computeMemoryStats();
+        bindBuildModeControls();
         bindEvents();
+        if (els.selectionContent && !els.selectionContent.dataset.imageNormalizationBound) {
+          els.selectionContent.dataset.imageNormalizationBound = "1";
+          els.selectionContent.addEventListener("click", event => {
+            if (event.target.closest("#normalizeImageWindowsBtn")) {
+              event.preventDefault();
+              normalizePageImageWindows(state.ui.selectedPageId);
+            }
+          });
+        }
         pushHistory();
         renderAll();
         applyUI();
@@ -16571,6 +17801,8 @@ a{text-decoration:none;color:inherit}
   <meta name="generator" content="Presentation Editor HTML Export">
   <style>
 ${exportCss}
+
+
 </style>
 </head>
 <body>
@@ -16749,35 +17981,40 @@ async function exportSiteToZip() {
         syncSiteExportUI();
       };
 
-        function applyTemplateToSelectedPage(){
+        function applyTemplateToSelectedPage(templateIdOverride){
         const oldPageForTextTransfer = state.pages.find(p => p.id === state.ui.selectedPageId);
         const oldPage = oldPageForTextTransfer ? JSON.parse(JSON.stringify(oldPageForTextTransfer)) : null;
 
         function transferModifiedTexts(oldP, newP) {
           if (!oldP || !newP) return;
-          const memory = oldP.textMemory || {};
-          (oldP.blocks || []).forEach(b => {
-            if (b.kind === 'text' && b.userModified) {
-              if (b.role) {
-                memory[b.role] = b.content;
-              } else if (b.style && b.style.semanticType) {
-                memory['type_' + b.style.semanticType] = b.content;
-              }
+          const memory = oldP.textMemory && typeof oldP.textMemory === "object" ? deepClone(oldP.textMemory) : {};
+          const oldTexts = (oldP.blocks || []).filter(block => block && block.kind === "text");
+          const newTexts = (newP.blocks || []).filter(block => block && block.kind === "text");
+          const edited = oldTexts.map((block,index)=>({block,index})).filter(item=>item.block.userModified===true);
+          const usedNew = new Set();
+          const nearest = (candidates,index) => candidates.slice().sort((a,b)=>Math.abs(a.index-index)-Math.abs(b.index-index))[0] || null;
+          edited.forEach(item=>{
+            const source=item.block;
+            if(source.role)memory[source.role]=source.content;
+            else if(source.style?.semanticType)memory["type_"+source.style.semanticType]=source.content;
+            let candidates=newTexts.map((block,index)=>({block,index})).filter(target=>!usedNew.has(target.block.id)&&source.role&&target.block.role===source.role);
+            let target=nearest(candidates,item.index);
+            if(!target&&source.style?.semanticType){
+              candidates=newTexts.map((block,index)=>({block,index})).filter(candidate=>!usedNew.has(candidate.block.id)&&candidate.block.style?.semanticType===source.style.semanticType);
+              target=nearest(candidates,item.index);
             }
+            if(!target&&newTexts[item.index]&&!usedNew.has(newTexts[item.index].id))target={block:newTexts[item.index],index:item.index};
+            if(target){target.block.content=source.content;target.block.userModified=true;usedNew.add(target.block.id);}
           });
-          (newP.blocks || []).forEach(b => {
-            if (b.kind === 'text') {
-              let matchedContent = undefined;
-              if (b.role && memory[b.role] !== undefined) {
-                matchedContent = memory[b.role];
-              } else if (b.style && b.style.semanticType && memory['type_' + b.style.semanticType] !== undefined) {
-                matchedContent = memory['type_' + b.style.semanticType];
-              }
-              if (matchedContent !== undefined) {
-                b.content = matchedContent;
-                b.userModified = true; 
-              }
-            }
+          /* Older textMemory entries remain compatible, but each semantic key is applied
+             only once so duplicate roles cannot overwrite every matching text block. */
+          const appliedMemoryKeys=new Set();
+          newTexts.forEach(block=>{
+            if(usedNew.has(block.id))return;
+            const key=block.role&&memory[block.role]!==undefined?block.role:
+              (block.style?.semanticType&&memory["type_"+block.style.semanticType]!==undefined?"type_"+block.style.semanticType:null);
+            if(!key||appliedMemoryKeys.has(key))return;
+            block.content=memory[key];block.userModified=true;appliedMemoryKeys.add(key);usedNew.add(block.id);
           });
           newP.textMemory = memory;
         }
@@ -16819,7 +18056,8 @@ async function exportSiteToZip() {
         }
 
         const currentPage = getSelectedPage();
-        const template = TEMPLATE_INDEX[state.ui.templateId];
+        const currentPageSnapshot = currentPage ? deepClone(currentPage) : null;
+        const template = getTemplateMetaById(templateIdOverride || state.ui.templateId);
         if (!currentPage) return toast("Select page");
         if (!template) return toast("Select template");
 
@@ -16827,9 +18065,14 @@ async function exportSiteToZip() {
 
         const newPage = createTemplatePage(template);
         newPage.id = currentPage.id;
-        newPage.sourceLabel = currentPage.sourceLabel || template.label;
+        newPage.sourceLabel = currentPage.sourceLabel || template.label || template.name;
         newPage.conceptIndex = currentPage.conceptIndex || 0;
         newPage.conceptSubfolder = normalizeConceptSubfolder(currentPage.conceptSubfolder || "all");
+        const replacementOwnedKeys = new Set(["id","templateGroup","templateId","sourceLabel","visualStyle","blocks","templateGeometry","originalTemplateId","templateLibraryId","templateLibraryName"]);
+        if (currentPageSnapshot) Object.keys(currentPageSnapshot).forEach(key => {
+          if (replacementOwnedKeys.has(key)) return;
+          newPage[key] = deepClone(currentPageSnapshot[key]);
+        });
 
         const index = state.pages.findIndex(p => p.id === currentPage.id);
         if (index >= 0) state.pages[index] = newPage;
@@ -16923,22 +18166,16 @@ function switchTemplateRelative(step = 1) {
 
         const pageTemplateId = selectedPage?.templateId || "";
 
-        if (
-          pageTemplateId &&
-          pageTemplateId !== "blank" &&
-          TEMPLATE_INDEX[pageTemplateId]
-        ) {
-          return {
-            template: TEMPLATE_INDEX[pageTemplateId],
-            source: "canvas"
-          };
+        if (pageTemplateId && pageTemplateId !== "blank") {
+          const pageTemplate = getTemplateMetaById(pageTemplateId);
+          if (pageTemplate) return { template:pageTemplate, source:"canvas" };
         }
 
         const libraryTemplateId = state?.ui?.templateId || "";
 
-        if (libraryTemplateId && TEMPLATE_INDEX[libraryTemplateId]) {
+        if (libraryTemplateId && getTemplateMetaById(libraryTemplateId)) {
           return {
-            template: TEMPLATE_INDEX[libraryTemplateId],
+            template: getTemplateMetaById(libraryTemplateId),
             source: "library"
           };
         }
@@ -20505,8 +21742,12 @@ function shellUiSetAipcVisible(visible) {
 }
 
 function shellUiApplyMode(mode) {
+  const wasBuild = document.body.classList.contains("build-mode-active");
+  const isBuild = mode === "build";
   const isSplit = mode === "split" || mode === "editor";
   const isPresentation = mode === "pres";
+  if (isBuild) window.BuildVariantsAPI?.enterMode();
+  else if (wasBuild) window.BuildVariantsAPI?.exitMode();
 
   window.__shellPresentationMode = mode;
 
@@ -20690,6 +21931,10 @@ window.addEventListener("message", function(event){
     // 2. Единственный owner Shell mode/toggle integration в presentation bridge.
     if (data.type === "SHELL_MODE") {
       shellUiApplyMode(data.mode);
+      return;
+    }
+    if (data.type === "SHELL_BUILD_VARIANT_ACTION") {
+      window.BuildVariantsAPI?.handleShellAction(data);
       return;
     }
 
@@ -20936,7 +22181,7 @@ window.addEventListener("message", function(event){
   }
 
   function aiDeckGetTemplateImageSlotCount(templateId){
-    const template = TEMPLATE_INDEX[templateId];
+    const template = getTemplateMetaById(templateId);
 
     if (!template) return 0;
 
@@ -20957,7 +22202,7 @@ window.addEventListener("message", function(event){
   }
 
   function aiDeckGetTemplateTextRoles(templateId){
-    const template = TEMPLATE_INDEX[templateId];
+    const template = getTemplateMetaById(templateId);
 
     if (!template) return [];
 
@@ -21091,7 +22336,7 @@ window.addEventListener("message", function(event){
         return;
       }
 
-      const template = TEMPLATE_INDEX[page.templateId];
+      const template = getTemplateMetaById(page.templateId);
       const conceptIndex = normalizeConceptNumber(page.conceptIndex || 0);
       const conceptSubfolder = normalizeConceptSubfolder(
         page.conceptSubfolder || "all"
@@ -21221,7 +22466,7 @@ window.addEventListener("message", function(event){
     }
 
     aiEls.preview.innerHTML = plan.pages.map((page, index) => {
-      const template = TEMPLATE_INDEX[page.templateId];
+      const template = getTemplateMetaById(page.templateId);
 
       const title =
         page.label ||
@@ -21374,7 +22619,7 @@ window.addEventListener("message", function(event){
   }
 
   function aiDeckCompilePage(pagePlan, usedImageIds){
-    const template = TEMPLATE_INDEX[pagePlan.templateId];
+    const template = getTemplateMetaById(pagePlan.templateId);
 
     if (!template) {
       throw new Error(`Template "${pagePlan.templateId}" не найден.`);

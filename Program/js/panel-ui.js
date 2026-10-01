@@ -10,26 +10,24 @@
     - ручка правой границы  -> ширина панели (кнопки/вкладки
       перестраиваются: .approved-dock-tabs grid auto-fit);
     - ручка правого нижнего угла -> масштаб панели (scale 0.5–1.6);
-    - поп-ап по хоткею Alt+O (действие "panelAppearance" в менеджере
-      хоткеев): прозрачность всей панели целиком (20–100 %), Reset;
     - режим FIT: AUTO — при каждом переключении панели её высота
-      подстраивается под фактический контент (до максимума "под
-      длину приложения"); USER (по умолчанию) — высота остаётся
+      подстраивается под фактический контент; USER — высота остаётся
       как зафиксировано существующими стилями/пользователем.
+    - Alt+O / legacy action "panelAppearance" открывает настройки
+      панели в Shell Gear. Отдельный floating popup не используется.
 
   ПУБЛИЧНЫЙ API (стабильный, для будущих редизайнов):
     window.PanelUI.fit()            — подогнать высоту под контент сейчас
     window.PanelUI.setAutoFit(bool) — включить/выключить режим AUTO
     window.PanelUI.isAutoFit()      — текущий режим
-    window.PanelUI.togglePopup()    — показать/скрыть поп-ап (Alt+O)
+    window.PanelUI.togglePopup()    — compatibility alias для Shell Gear
     window.PanelUI.setWidth(px) / setScale(v) / setOpacity(v) / reset()
 
   Правила совместимости:
     - НЕ трогать: id ручек (#panelUiResizeEdge/#panelUiResizeCorner),
-      id поп-апа (#panelUiOpacityPopup), ключ storage
+      id legacy-поверхности (#panelUiOpacityPopup), ключ storage
       (portfolio_editor_panel_ui_v1), имена хуков __panelUiV1*;
-    - презентация вызывает только window.__panelUiV1TogglePopup;
-    - состояние: { w, scale, opacity, autoFit }.
+    - сохранить PanelUI API и состояние: { w, scale, opacity, autoFit }.
   =============================================================
 */
 (function setupPanelUiV1(){
@@ -92,8 +90,9 @@
     .panel-ui-handle.panel-ui-edge:hover{ background:transparent; }
     .panel-ui-handle.panel-ui-corner:hover{ background:transparent; border-top-left-radius:14px; }
 
-    /* ---------- поп-ап (Alt+O) ---------- */
+    /* Legacy popup retained for API/storage compatibility, never shown in the user flow. */
     #panelUiOpacityPopup{
+      display:none!important;
       position:fixed; z-index:4600; width:236px; padding:10px 12px;
       background:var(--panelui-popup-bg); border:1px solid var(--panelui-popup-border);
       border-radius:var(--panelui-popup-radius); box-shadow:var(--panelui-popup-shadow);
@@ -214,11 +213,15 @@
     clearTimeout(fitTimer);
     fitTimer = setTimeout(fitPanel, 180);
   }
+  function notifyShell(){
+    try { if (window.parent && window.parent !== window) window.parent.postMessage({type:"PANEL_UI_STATE",state:Object.assign({},st)},"*"); } catch (e) {}
+  }
   function setAutoFit(on){
     st.autoFit = !!on;
     writeState();
     if (st.autoFit) fitPanel(); else clearFit();
     syncFitButtons();
+    notifyShell();
   }
 
   /* переключения панели/вкладок и изменения контента -> переподгон */
@@ -251,6 +254,7 @@
       writeState();
       if (st.autoFit) fitPanel(); /* после смены ширины контент перетёк */
       syncHandles();
+      notifyShell();
     };
     document.addEventListener("mousemove", move);
     document.addEventListener("mouseup", up);
@@ -321,10 +325,18 @@
     popup.style.top = Math.round(top) + "px";
   }
 
-  function isPopupOpen(){ return popup.style.display !== "none"; }
-  function openPopup(){ syncPopupControls(); positionPopup(); popup.style.display = "block"; syncHandles(); }
-  function closePopup(){ popup.style.display = "none"; }
-  function togglePopup(){ isPopupOpen() ? closePopup() : openPopup(); }
+  function requestAppearanceSettings(action){
+    try {
+      if(window.parent&&window.parent!==window){
+        const type=action==="toggle"?"SHELL_TOGGLE_SETTINGS_PANEL":action==="close"?"SHELL_CLOSE_SETTINGS_PANEL":"SHELL_OPEN_SETTINGS_PANEL";
+        window.parent.postMessage({type},"*");
+      }
+    } catch (e) {}
+  }
+  function isPopupOpen(){ return false; }
+  function openPopup(){ requestAppearanceSettings("open"); }
+  function closePopup(){ popup.style.display = "none"; requestAppearanceSettings("close"); }
+  function togglePopup(){ requestAppearanceSettings("toggle"); }
 
   popup.querySelector(".panel-popup-close").addEventListener("click", closePopup);
 
@@ -354,10 +366,11 @@
   }, true);
 
   panel.addEventListener("scroll", syncHandles);
-  window.addEventListener("resize", () => { syncHandles(); if (isPopupOpen()) positionPopup(); if (st.autoFit) scheduleFit(); });
+  window.addEventListener("resize", () => { syncHandles(); if (st.autoFit) scheduleFit(); });
   setInterval(syncHandles, 700);
 
   applyAll();
+  notifyShell();
   /* после boot карточки раскладываются асинхронно — переподгон по факту */
   if (st.autoFit) { setTimeout(fitPanel, 350); setTimeout(fitPanel, 900); }
 
@@ -819,26 +832,38 @@
     setAutoFit,
     isAutoFit(){ return !!st.autoFit; },
     togglePopup, openPopup, closePopup,
-    setWidth(px){ st.w = px; applyWidth(); syncHandles(); },
-    setScale(v){ st.scale = v; applyScale(); syncHandles(); },
-    setOpacity(v){ st.opacity = v; applyOpacity(); writeState(); },
+    getState(){ return Object.assign({},st); },
+    setWidth(px){ st.w = px == null ? null : Math.min(Math.max(Number(px)||260,260),Math.max(280,(window.innerWidth||1280)*.6)); if(st.w)applyWidth();else clearWidth(); if(st.autoFit)fitPanel(); writeState(); syncHandles(); notifyShell(); },
+    setScale(v){ st.scale = Math.min(1.6,Math.max(.5,Number(v)||1)); applyScale(); if(st.autoFit)fitPanel(); writeState(); syncHandles(); notifyShell(); },
+    setOpacity(v){ const n=Number(v); st.opacity=Number.isFinite(n)?Math.min(1,Math.max(.15,n)):1; applyOpacity(); writeState(); syncPopupControls(); notifyShell(); },
     reset(){
-      st = { w: null, scale: 1, opacity: 1, autoFit: false };
+      const keepAutoFit=!!st.autoFit;
+      st = { w: null, scale: 1, opacity: 1, autoFit: keepAutoFit };
       clearWidth();
       panel.style.transform = "";
       panel.style.opacity = "";
-      clearFit();
+      if(st.autoFit)fitPanel();else clearFit();
       writeState();
       syncPopupControls();
       syncHandles();
+      notifyShell();
     }
   };
+  window.addEventListener("message", event => {
+    if (event.source !== window.parent || !event.data || event.data.type !== "PANEL_UI_COMMAND") return;
+    const {action,value} = event.data;
+    if (action === "getState") { notifyShell(); return; }
+    if (action === "setOpacity") window.PanelUI.setOpacity(Number(value));
+    else if (action === "setScale") window.PanelUI.setScale(Number(value));
+    else if (action === "setAutoFit") window.PanelUI.setAutoFit(!!value);
+    else if (action === "reset") window.PanelUI.reset();
+  });
   window.__panelUiV1TestHooks = {
     getState(){ return Object.assign({}, st); },
     syncHandles,
-    setWidth(px){ st.w = px; applyWidth(); syncHandles(); },
-    setScale(v){ st.scale = v; applyScale(); syncHandles(); },
-    setOpacity(v){ st.opacity = v; applyOpacity(); writeState(); },
+    setWidth(px){ st.w = px == null ? null : Number(px); if(st.w)applyWidth();else clearWidth(); writeState(); syncHandles(); notifyShell(); },
+    setScale(v){ st.scale = Math.min(1.6,Math.max(.5,Number(v)||1)); applyScale(); writeState(); syncHandles(); notifyShell(); },
+    setOpacity(v){ const n=Number(v); st.opacity=Number.isFinite(n)?Math.min(1,Math.max(.15,n)):1; applyOpacity(); writeState(); notifyShell(); },
     togglePopup, isPopupOpen, openPopup, closePopup,
     fit: fitPanel,
     setAutoFit,
