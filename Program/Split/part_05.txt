@@ -1,0 +1,4438 @@
+===== PART 5/5 START =====
+    const oldToggle = document.querySelector(".main-menu-toggle-host");
+
+    if (oldToggle) {
+      oldToggle.style.display = "none";
+    }
+
+    return;
+  }
+
+  return _splitGuardOriginalMainMenuV4RenderToggle();
+};
+
+/* END_SPLIT_LEGACY_TEXTLIB_RUNTIME_GUARD_V1 */
+/* APPROVED_SPLIT_SITE_EXPORT_RUNTIME_V1 */
+
+/*
+  Site & Export:
+  не создаём новые кнопки и не дублируем обработчики.
+  Берём существующие production-buttons из approved dock
+  и перемещаем сами DOM-элементы в #approvedSplitExportSlot.
+*/
+
+function approvedSplitExportNormalizeText(value){
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function approvedSplitExportFindButton(aliases){
+  const root = document.getElementById("approvedDockRoot");
+
+  if (!root) return null;
+
+  const normalizedAliases = aliases.map(approvedSplitExportNormalizeText);
+
+  const buttons = Array.from(
+    root.querySelectorAll("button, input[type='button'], input[type='submit']")
+  );
+
+  return buttons.find((button) => {
+    /*
+      Не ищем кнопку повторно внутри уже собранного Export runtime.
+    */
+    if (button.closest("#approvedSplitExportRuntime")) {
+      return false;
+    }
+
+    const rawText =
+      button.tagName === "INPUT"
+        ? button.value
+        : button.textContent;
+
+    const buttonText = approvedSplitExportNormalizeText(rawText);
+
+    return normalizedAliases.some((alias) => buttonText === alias);
+  }) || null;
+}
+
+function approvedSplitExportCreateCard(title){
+  const card = document.createElement("section");
+  card.className = "approved-export-card";
+
+  const heading = document.createElement("h3");
+  heading.className = "approved-export-title";
+  heading.textContent = title;
+
+  const grid = document.createElement("div");
+  grid.className = "approved-export-grid";
+
+  card.append(heading, grid);
+
+  return { card, grid };
+}
+
+function approvedSplitExportAppendButton(grid, button, wide){
+  if (!button) return false;
+
+  if (wide) {
+    button.classList.add("approved-export-wide");
+  } else {
+    button.classList.remove("approved-export-wide");
+  }
+
+  /*
+    appendChild перемещает настоящий элемент.
+    Его ID, onclick, addEventListener и внутреннее состояние сохраняются.
+  */
+  grid.appendChild(button);
+  return true;
+}
+
+function approvedSplitExportAppendMissing(grid, text){
+  const note = document.createElement("div");
+  note.className = "approved-export-missing";
+  note.textContent = text;
+  grid.appendChild(note);
+}
+function rebuildApprovedSplitExportRuntime(){
+  const exportSlot = document.getElementById("approvedSplitExportSlot");
+
+  if (!exportSlot) return;
+
+  let runtime = document.getElementById("approvedSplitExportRuntime");
+
+  if (!runtime) {
+    runtime = document.createElement("div");
+    runtime.id = "approvedSplitExportRuntime";
+    exportSlot.appendChild(runtime);
+  }
+
+  if (runtime.dataset.ready === "1") {
+    return;
+  }
+
+  const htmlCard = approvedSplitExportCreateCard("HTML");
+  const pdfCard = approvedSplitExportCreateCard("PDF");
+  const imagesCard = approvedSplitExportCreateCard("Images");
+  const dataCard = approvedSplitExportCreateCard("Data");
+
+  runtime.append(
+    htmlCard.card,
+    pdfCard.card,
+    imagesCard.card,
+    dataCard.card
+  );
+
+  const previewButton = approvedSplitExportFindButton([
+    "preview export html",
+    "preview html",
+    "предпросмотр",
+    "превью"
+  ]);
+
+  const finalHtmlButton = approvedSplitExportFindButton([
+    "export final html",
+    "export html",
+    "final html",
+    "экспорт финального html",
+    "экспорт html"
+  ]);
+
+  const pdfButton = approvedSplitExportFindButton([
+    "pdf",
+    "export pdf",
+    "экспорт pdf"
+  ]);
+
+  const techPdfButton = approvedSplitExportFindButton([
+    "export tech pdf",
+    "tech pdf",
+    "экспорт tech pdf",
+    "экспорт технического pdf"
+  ]);
+
+  const slideButton = approvedSplitExportFindButton([
+    "export slide",
+    "export slide (jpeg)",
+    "slide jpeg",
+    "jpeg",
+    "экспорт слайда",
+    "экспорт слайда (jpeg)"
+  ]);
+
+  const imagesZipButton = approvedSplitExportFindButton([
+    "export images zip",
+    "images zip",
+    "export zip",
+    "экспорт изображений zip",
+    "экспорт zip"
+  ]);
+
+  const exportCsvButton = approvedSplitExportFindButton([
+    "export csv",
+    "экспорт csv"
+  ]);
+
+  const importCsvButton = approvedSplitExportFindButton([
+    "import csv",
+    "импорт csv"
+  ]);
+
+  let htmlCount = 0;
+  let pdfCount = 0;
+  let imagesCount = 0;
+  let dataCount = 0;
+
+  if (approvedSplitExportAppendButton(htmlCard.grid, previewButton, false)) {
+    htmlCount++;
+  }
+
+  if (approvedSplitExportAppendButton(htmlCard.grid, finalHtmlButton, false)) {
+    htmlCount++;
+  }
+
+  if (approvedSplitExportAppendButton(pdfCard.grid, pdfButton, false)) {
+    pdfCount++;
+  }
+
+  if (approvedSplitExportAppendButton(pdfCard.grid, techPdfButton, false)) {
+    pdfCount++;
+  }
+
+  if (approvedSplitExportAppendButton(imagesCard.grid, slideButton, false)) {
+    imagesCount++;
+  }
+
+  if (approvedSplitExportAppendButton(imagesCard.grid, imagesZipButton, false)) {
+    imagesCount++;
+  }
+
+  if (approvedSplitExportAppendButton(dataCard.grid, exportCsvButton, false)) {
+    dataCount++;
+  }
+
+  if (approvedSplitExportAppendButton(dataCard.grid, importCsvButton, false)) {
+    dataCount++;
+  }
+
+  if (!htmlCount) {
+    approvedSplitExportAppendMissing(
+      htmlCard.grid,
+      "HTML controls not found."
+    );
+  }
+
+  if (!pdfCount) {
+    approvedSplitExportAppendMissing(
+      pdfCard.grid,
+      "PDF controls not found."
+    );
+  }
+
+  if (!imagesCount) {
+    approvedSplitExportAppendMissing(
+      imagesCard.grid,
+      "Image export controls not found."
+    );
+  }
+
+  if (!dataCount) {
+    approvedSplitExportAppendMissing(
+      dataCard.grid,
+      "CSV controls not found."
+    );
+  }
+
+  runtime.dataset.ready = "1";
+}
+/*
+  setupApprovedDock() и перенос production cards могут завершаться
+  после загрузки страницы. Несколько безопасных попыток гарантируют,
+  что функция выполнится после появления approved slots.
+*/
+setTimeout(rebuildApprovedSplitExportRuntime, 0);
+setTimeout(rebuildApprovedSplitExportRuntime, 350);
+setTimeout(rebuildApprovedSplitExportRuntime, 1200);
+/* APPROVED_SPLIT_PANEL_RESIZE_V4 */
+(function initApprovedSplitPanelResizeV4(){
+  const STORAGE_KEY = "approvedSplitPanelHeightsV4";
+  const MIN_HEIGHT = 220;
+  const VIEWPORT_BOTTOM_GAP = 24;
+  const HANDLE_ID = "approvedSplitOuterResizeHandle";
+
+  let resizeState = null;
+  let initialized = false;
+
+  function getPanel(){
+    return document.querySelector("body.shell-split-active .left-panel");
+  }
+
+  function getSectionSelect(){
+    return document.getElementById("approvedSplitSectionSelect");
+  }
+
+  function getCurrentSection(){
+    const select = getSectionSelect();
+
+    return (
+      select?.value ||
+      document.body.dataset.approvedSplitSection ||
+      "default"
+    );
+  }
+
+  function isResizableSplitPanel(panel){
+    if (!document.body.classList.contains("shell-split-active")) {
+      return false;
+    }
+
+    if (!panel) {
+      return false;
+    }
+
+    const style = window.getComputedStyle(panel);
+
+    return (
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      panel.getBoundingClientRect().width > 0
+    );
+  }
+
+  function readHeights(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+
+      if (!raw) {
+        return {};
+      }
+
+      const value = JSON.parse(raw);
+
+      return value && typeof value === "object" ? value : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveHeights(heights){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(heights));
+    } catch (error) {
+      /* localStorage can be unavailable. */
+    }
+  }
+
+  /*
+    Максимум считается от настоящего верха ВНЕШНЕЙ панели.
+    Поэтому Concept / Load Deck могут расти вниз до края окна.
+  */
+  function getMaximumHeight(panel){
+    if (!panel) {
+      return MIN_HEIGHT;
+    }
+
+    const top = panel.getBoundingClientRect().top;
+
+    return Math.max(
+      MIN_HEIGHT,
+      Math.floor(window.innerHeight - top - VIEWPORT_BOTTOM_GAP)
+    );
+  }
+
+  function clampHeight(panel, value){
+    const number = Number(value) || MIN_HEIGHT;
+
+    return Math.max(
+      MIN_HEIGHT,
+      Math.min(getMaximumHeight(panel), Math.round(number))
+    );
+  }
+
+  function getDefaultHeight(panel){
+    const actualHeight = Math.round(panel.getBoundingClientRect().height);
+
+    if (actualHeight >= MIN_HEIGHT) {
+      return clampHeight(panel, actualHeight);
+    }
+
+    return Math.min(380, getMaximumHeight(panel));
+  }
+
+  function setPanelHeight(panel, value){
+    if (!panel) {
+      return;
+    }
+
+    const height = clampHeight(panel, value);
+    const maxHeight = getMaximumHeight(panel);
+
+    panel.style.setProperty(
+      "--approved-split-outer-height",
+      `${height}px`
+    );
+
+    panel.style.setProperty(
+      "--approved-split-outer-max-height",
+      `${maxHeight}px`
+    );
+
+    panel.style.height = `${height}px`;
+    panel.style.maxHeight = `${maxHeight}px`;
+
+    updateHandle();
+  }
+
+  function applyCurrentSectionHeight(){
+    const panel = getPanel();
+
+    if (!isResizableSplitPanel(panel)) {
+      updateHandle();
+      return;
+    }
+
+    const heights = readHeights();
+    const section = getCurrentSection();
+    const stored = heights[section];
+
+    setPanelHeight(panel, stored || getDefaultHeight(panel));
+  }
+
+  function persistCurrentHeight(){
+    const panel = getPanel();
+
+    if (!panel || !isResizableSplitPanel(panel)) {
+      return;
+    }
+
+    const heights = readHeights();
+
+    heights[getCurrentSection()] = clampHeight(
+      panel,
+      panel.getBoundingClientRect().height
+    );
+
+    saveHeights(heights);
+  }
+
+  function getHandle(){
+    let handle = document.getElementById(HANDLE_ID);
+
+    if (handle) {
+      return handle;
+    }
+
+    handle = document.createElement("div");
+    handle.id = HANDLE_ID;
+    handle.className = "approved-split-outer-resize-handle";
+    handle.setAttribute("role", "separator");
+    handle.setAttribute("aria-label", "Resize Split panel");
+    handle.setAttribute("aria-orientation", "horizontal");
+
+    document.body.appendChild(handle);
+
+    handle.addEventListener("pointerdown", startResize);
+
+    return handle;
+  }
+
+  function updateHandle(){
+    const handle = getHandle();
+    const panel = getPanel();
+
+    if (!isResizableSplitPanel(panel) || resizeState?.panel !== panel) {
+      if (!isResizableSplitPanel(panel)) {
+        handle.classList.remove("is-visible");
+        return;
+      }
+    }
+
+    if (!isResizableSplitPanel(panel)) {
+      handle.classList.remove("is-visible");
+      return;
+    }
+
+    const rect = panel.getBoundingClientRect();
+
+    handle.style.left = `${Math.round(rect.left + 10)}px`;
+    handle.style.width = `${Math.max(0, Math.round(rect.width - 20))}px`;
+
+    /*
+      Handle расположен СНАРУЖИ:
+      начинается на внешней нижней границе и уходит вниз.
+      Он не находится в content-area панели.
+    */
+    handle.style.top = `${Math.round(rect.bottom - 1)}px`;
+    handle.classList.add("is-visible");
+  }
+
+  function startResize(event){
+    const panel = getPanel();
+
+    if (
+      event.button !== 0 ||
+      resizeState ||
+      !isResizableSplitPanel(panel)
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    resizeState = {
+      pointerId: event.pointerId,
+      panel,
+      startY: event.clientY,
+      startHeight: panel.getBoundingClientRect().height
+    };
+
+    document.body.classList.add("approved-split-panel-is-resizing");
+
+    if (event.currentTarget.setPointerCapture) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+
+    window.addEventListener("pointermove", moveResize, true);
+    window.addEventListener("pointerup", endResize, true);
+    window.addEventListener("pointercancel", endResize, true);
+  }
+
+  function moveResize(event){
+    if (!resizeState) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const nextHeight =
+      resizeState.startHeight +
+      (event.clientY - resizeState.startY);
+
+    setPanelHeight(resizeState.panel, nextHeight);
+  }
+
+  function endResize(){
+    if (!resizeState) {
+      return;
+    }
+
+    persistCurrentHeight();
+
+    resizeState = null;
+
+    document.body.classList.remove("approved-split-panel-is-resizing");
+
+    window.removeEventListener("pointermove", moveResize, true);
+    window.removeEventListener("pointerup", endResize, true);
+    window.removeEventListener("pointercancel", endResize, true);
+
+    updateHandle();
+  }
+
+  function bindSectionSelect(){
+  const select = getSectionSelect();
+
+  if (!select || select.dataset.resizeV4Bound === "1") {
+    return;
+  }
+
+  select.dataset.resizeV4Bound = "1";
+
+  select.addEventListener("change", function(){
+    /*
+      Раньше здесь были три setTimeout: 0 / 80 / 250.
+      Из-за них панель несколько раз меняла высоту и визуально
+      «достраивалась» после переключения раздела.
+
+      Теперь высота применяется один раз на ближайшем render-frame,
+      после того как setSplitSection() уже поменял section/class state.
+    */
+    requestAnimationFrame(function(){
+      applyCurrentSectionHeight();
+      updateHandle();
+    });
+  });
+}
+
+  function install(){
+    getHandle();
+    bindSectionSelect();
+    applyCurrentSectionHeight();
+    updateHandle();
+  }
+
+  function boot(){
+    if (!initialized) {
+      initialized = true;
+
+      window.addEventListener("resize", function(){
+        applyCurrentSectionHeight();
+        updateHandle();
+      });
+
+      /*
+        При переключении Split / AIPC / Pages layout может меняться
+        без resize окна.
+      */
+      new MutationObserver(function(){
+        updateHandle();
+      }).observe(document.body, {
+        attributes:true,
+        attributeFilter:["class"]
+      });
+    }
+
+    install();
+
+    setTimeout(install, 300);
+    setTimeout(install, 1000);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once:true });
+  } else {
+    boot();
+  }
+})();
+/* END_APPROVED_SPLIT_PANEL_RESIZE_V4 */
+/* END_APPROVED_SPLIT_SITE_EXPORT_RUNTIME_V1 */
+
+      /* PDF_PRINT_FIX_FINAL_V3_JS */
+
+      /*
+        PDF PRINT FIX V3 JS
+        - обычный PDF без технической информации;
+        - Export Tech PDF временно включает pdf-only;
+        - после печати возвращает прежний режим.
+      */
+
+      let __pdfPrintFixV3PrevTechInfoMode = null;
+      let __pdfPrintFixV3WasPrinting = false;
+
+      beginPrintCycle = function(showTech){
+        __pdfPrintFixV3WasPrinting = true;
+        __pdfPrintFixV3PrevTechInfoMode = state && state.ui ? state.ui.techInfoMode : null;
+
+        if (!state.ui) state.ui = {};
+
+        state.ui.isPrintingNow = !!showTech;
+
+        // Плашка печатается в PDF если:
+        // - явно нажат Export Tech PDF (showTech),
+        // - ИЛИ включён режим лейблов labels-on (обычный PDF тоже с плашкой).
+        const labelsAlwaysOn = state.ui.techInfoMode === "labels-on";
+
+        if (showTech || labelsAlwaysOn) {
+          if (showTech) state.ui.techInfoMode = "pdf-only";
+          document.body.classList.add("tech-info-printing");
+        } else {
+          document.body.classList.remove("tech-info-printing");
+        }
+
+        renderAll();
+        applyUI();
+      };
+
+      endPrintCycle = function(){
+        if (!state.ui) state.ui = {};
+
+        state.ui.isPrintingNow = false;
+
+        if (__pdfPrintFixV3PrevTechInfoMode != null) {
+          state.ui.techInfoMode = __pdfPrintFixV3PrevTechInfoMode;
+        }
+
+        __pdfPrintFixV3PrevTechInfoMode = null;
+        __pdfPrintFixV3WasPrinting = false;
+
+        document.body.classList.remove("tech-info-printing");
+
+        renderAll();
+        applyUI();
+      };
+
+      window.addEventListener("afterprint", function(){
+        if (__pdfPrintFixV3WasPrinting || (state && state.ui && state.ui.isPrintingNow)) {
+          endPrintCycle();
+        }
+      });
+
+      /* END_PDF_PRINT_FIX_FINAL_V3_JS */
+
+      /* PAGES_PANEL_V1_JS */
+      (function setupPagesPanel(){
+ 
+        let panel = null;
+        let bookmark = null;
+        let isOpen = false;
+        let ppSelectedIds = [];
+        let ppAnchorId = null;
+
+        function getPanelWidth(){
+          state.ui = state.ui || {};
+          const w = parseInt(state.ui.pagesPanelWidth, 10);
+          return Number.isFinite(w) && w >= 260 ? w : 340;
+        }
+
+        function setPanelWidth(px){
+          const maxW = Math.max(220, window.innerWidth - 32);
+          const clamped = Math.max(200, Math.min(maxW, Math.round(px)));
+          state.ui = state.ui || {};
+          state.ui.pagesPanelWidth = clamped;
+          if (panel) panel.style.setProperty("--pp-width", clamped + "px");
+          return clamped;
+        }
+        function ensurePanel(){
+          if (panel) return panel;
+          panel = document.createElement("aside");
+          panel.className = "pages-panel";
+          panel.id = "pagesPanel";
+          document.body.appendChild(panel);
+          return panel;
+        }
+
+        function buildThumb(page){
+          // Лёгкое схематичное превью: картинки реальные (media://), текст — плашки.
+          let html = '<div class="pp-thumb">';
+          (page.blocks || []).forEach(b => {
+            if (b.visible === false) return;
+            const left = (b.x / PAGE_W) * 100;
+            const top = (b.y / PAGE_H) * 100;
+            const w = (b.w / PAGE_W) * 100;
+            const h = (b.h / PAGE_H) * 100;
+            const pos = 'left:'+left+'%;top:'+top+'%;width:'+w+'%;height:'+h+'%;';
+
+            if (b.kind === "image") {
+              const data = getImageRenderData(b);
+              if (data.src && !b.isTemplatePlaceholder) {
+                html += '<div class="pp-block" style="'+pos+'"><img src="'+escapeAttr(data.src)+'" loading="lazy"></div>';
+              } else {
+                html += '<div class="pp-block" style="'+pos+'background:#e7e5df;"></div>';
+              }
+            } else if (b.kind === "frame") {
+              const rects = getFrameSlotRects(b);
+              html += '<div class="pp-block" style="'+pos+'background:#f0eee8;">';
+              rects.forEach((r, idx) => {
+                const slot = (b.slots || [])[idx];
+                const sl = (r.x / b.w) * 100;
+                const st = (r.y / b.h) * 100;
+                const sw = (r.w / b.w) * 100;
+                const sh = (r.h / b.h) * 100;
+                const spos = 'position:absolute;left:'+sl+'%;top:'+st+'%;width:'+sw+'%;height:'+sh+'%;overflow:hidden;';
+                const sdata = slot ? getImageRenderData(slot) : { src:"" };
+                if (sdata.src && slot && !slot.isTemplatePlaceholder) {
+                  html += '<div style="'+spos+'"><img src="'+escapeAttr(sdata.src)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>';
+                } else {
+                  html += '<div style="'+spos+'background:#e7e5df;"></div>';
+                }
+              });
+              html += '</div>';
+            } else if (b.kind === "shape") {
+              html += '<div class="pp-block" style="'+pos+'background:'+escapeAttr(b.style && b.style.fill ? b.style.fill : "#fff")+';"></div>';
+            } else if (b.kind === "text") {
+              html += '<div class="pp-block pp-text" style="'+pos+'"></div>';
+            }
+          });
+          html += '</div>';
+          return html;
+        }
+
+        function renderPanel(){
+  if (!panel || !isOpen) return;
+
+  /*
+    Сохраняем реальный selection state.
+    Это production Pages engine, не mock.
+  */
+  ppSelectedIds = ppSelectedIds.filter(id =>
+    state.pages.some(page => page.id === id)
+  );
+
+  let listHtml = "";
+
+  if (!state.pages.length) {
+    listHtml = `
+      <div class="pp-empty-state">
+        No pages
+      </div>
+    `;
+  } else {
+    listHtml = state.pages.map((page, index) => {
+      const selected = ppSelectedIds.includes(page.id);
+      const current = page.id === state.ui.selectedPageId;
+
+      const pageTitle =
+        page.sourceLabel ||
+        page.templateId ||
+        `Page ${index + 1}`;
+
+      const templateMeta = getCompactTemplateDisplayName(page);
+
+      return `
+        <div
+          class="pp-item thumb-card ${selected ? "selected" : ""} ${current ? "current" : ""}"
+          data-pp-id="${escapeHtml(page.id)}"
+        >
+          <div class="pp-thumb-wrap">
+            ${buildThumb(page)}
+
+            <div class="pp-copy">
+              <div
+                class="pp-title"
+                title="${escapeAttr(`${index + 1}. ${pageTitle}`)}"
+              >
+                ${escapeHtml(`${index + 1}. ${pageTitle}`)}
+              </div>
+
+              <div
+                class="pp-label"
+                title="${escapeAttr(templateMeta)}"
+              >
+                ${escapeHtml(templateMeta)}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  /*
+    ppUpBtn / ppDownBtn / ppDupBtn / ppDelBtn остаются в DOM.
+    В Split они визуально скрыты, потому что верхние approved-кнопки
+    вызывают именно эти реальные controls через click().
+  */
+  panel.innerHTML = `
+    <div class="pages-panel-head">
+      <h3 class="pages-panel-title">Pages</h3>
+      <button class="pages-panel-close" id="ppCloseBtn" title="Close">×</button>
+    </div>
+
+    <div class="pages-panel-actions">
+      <button class="pages-panel-btn" id="ppUpBtn" title="Move selected up">↑ Up</button>
+      <button class="pages-panel-btn" id="ppDownBtn" title="Move selected down">↓ Down</button>
+      <button class="pages-panel-btn" id="ppDupBtn" title="Duplicate selected">Duplicate</button>
+      <button class="pages-panel-btn danger" id="ppDelBtn" title="Delete selected">Delete</button>
+    </div>
+
+    <div class="pages-panel-list" id="ppList">
+      ${listHtml}
+    </div>
+  `;
+
+  $("ppCloseBtn").onclick = closePanel;
+  $("ppUpBtn").onclick = moveSelectedUp;
+  $("ppDownBtn").onclick = moveSelectedDown;
+  $("ppDupBtn").onclick = duplicateSelected;
+  $("ppDelBtn").onclick = deleteSelected;
+
+  if (!panel.querySelector(".pages-panel-resize-handle")) {
+    const handle = document.createElement("div");
+    handle.className = "pages-panel-resize-handle";
+    handle.title = "Resize";
+
+    panel.appendChild(handle);
+
+    handle.onmousedown = e => {
+      e.preventDefault();
+
+      const startX = e.clientX;
+      const startW = getPanelWidth();
+
+      const move = event => {
+        setPanelWidth(startW + (startX - event.clientX));
+      };
+
+      const up = () => {
+        document.removeEventListener("mousemove", move);
+        document.removeEventListener("mouseup", up);
+      };
+
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", up);
+    };
+  }
+
+  panel.style.setProperty("--pp-width", getPanelWidth() + "px");
+
+  Array.from(panel.querySelectorAll(".pp-item")).forEach(item => {
+    const id = item.dataset.ppId;
+
+    item.onclick = event => {
+      if (event.detail === 2) return;
+      onItemClick(id, event);
+    };
+
+    item.ondblclick = () => {
+      ppSelectedIds = [id];
+      ppAnchorId = id;
+
+      selectPage(id);
+      scrollWorkspaceToPage(id);
+      renderPanel();
+    };
+  });
+}
+
+function onItemClick(id, e){
+          if (e.shiftKey && ppAnchorId) {
+            const a = state.pages.findIndex(p => p.id === ppAnchorId);
+            const b = state.pages.findIndex(p => p.id === id);
+            if (a >= 0 && b >= 0) {
+              const lo = Math.min(a, b), hi = Math.max(a, b);
+              ppSelectedIds = state.pages.slice(lo, hi + 1).map(p => p.id);
+            }
+          } else if (e.ctrlKey || e.metaKey) {
+            if (ppSelectedIds.includes(id)) ppSelectedIds = ppSelectedIds.filter(x => x !== id);
+            else ppSelectedIds = [...ppSelectedIds, id];
+            ppAnchorId = id;
+          } else {
+            ppSelectedIds = [id];
+            ppAnchorId = id;
+          }
+          // Клик в панели = ТОЛЬКО выбор для операций (Move/Delete/Duplicate).
+          // НЕ перестраиваем innerHTML (иначе сбрасывается прокрутка),
+          // а только обновляем классы выделения у существующих элементов.
+          updateSelectionClasses();
+        }
+
+        function updateSelectionClasses(){
+          if (!panel) return;
+          Array.from(panel.querySelectorAll(".pp-item")).forEach(el => {
+            el.classList.toggle("selected", ppSelectedIds.includes(el.dataset.ppId));
+            el.classList.toggle("current", el.dataset.ppId === state.ui.selectedPageId);
+          });
+        }
+
+        function getSelectedIndicesSorted(){
+          return ppSelectedIds
+            .map(id => state.pages.findIndex(p => p.id === id))
+            .filter(i => i >= 0)
+            .sort((a, b) => a - b);
+        }
+
+        function moveSelectedUp(){
+          const indices = getSelectedIndicesSorted();
+          if (!indices.length || indices[0] === 0) return;
+          pushHistory();
+          indices.forEach(i => {
+            const tmp = state.pages[i - 1];
+            state.pages[i - 1] = state.pages[i];
+            state.pages[i] = tmp;
+          });
+          renderAll();
+          applyUI();
+          renderPanel();
+        }
+
+        function moveSelectedDown(){
+          const indices = getSelectedIndicesSorted();
+          if (!indices.length || indices[indices.length - 1] === state.pages.length - 1) return;
+          pushHistory();
+          for (let k = indices.length - 1; k >= 0; k--){
+            const i = indices[k];
+            const tmp = state.pages[i + 1];
+            state.pages[i + 1] = state.pages[i];
+            state.pages[i] = tmp;
+          }
+          renderAll();
+          applyUI();
+          renderPanel();
+        }
+
+        function duplicateSelected(){
+          const indices = getSelectedIndicesSorted();
+          if (!indices.length) return;
+          pushHistory();
+          // дублируем с конца, чтобы индексы не сбивались
+          const newIds = [];
+          for (let k = indices.length - 1; k >= 0; k--){
+            const i = indices[k];
+            const copy = reIdPage(state.pages[i]);
+            state.pages.splice(i + 1, 0, copy);
+            newIds.push(copy.id);
+          }
+          ppSelectedIds = newIds;
+          ppAnchorId = newIds[0] || null;
+          state.ui.selectedPageId = newIds[0] || state.ui.selectedPageId;
+          renderAll();
+          applyUI();
+          renderPanel();
+        }
+
+        function deleteSelected(){
+          if (!ppSelectedIds.length) return;
+          const ok = window.confirm("Delete selected page(s)? ("+ppSelectedIds.length+")");
+          if (!ok) return;
+          pushHistory();
+          const firstIdx = getSelectedIndicesSorted()[0];
+          state.pages = state.pages.filter(p => !ppSelectedIds.includes(p.id));
+          ppSelectedIds = [];
+          ppAnchorId = null;
+          const next = state.pages[firstIdx] || state.pages[firstIdx - 1] || state.pages[0] || null;
+          state.ui.selectedPageId = next ? next.id : null;
+          state.ui.selectedBlockIds = [];
+          state.ui.selectedBlockId = null;
+          state.ui.selectedSlotId = null;
+          state.ui.editingBlockId = null;
+          renderAll();
+          applyUI();
+          renderPanel();
+        }
+
+              function ensureBookmark(){
+          if (bookmark) return bookmark;
+          bookmark = document.createElement("div");
+          bookmark.className = "pages-panel-bookmark";
+          bookmark.id = "pagesPanelBookmark";
+          bookmark.title = "Open Pages";
+               // Текст на корешке отключён. Чтобы вернуть надпись — раскомментируй строку ниже:
+          // bookmark.innerHTML = "<span>Pages</span>";
+          bookmark.innerHTML = "";
+          document.body.appendChild(bookmark);
+          // клик — открыть
+          bookmark.onclick = openPanel;
+          // лёгкое "потянуть" влево тоже открывает
+          bookmark.onmousedown = e => {
+            const startX = e.clientX;
+            const move = ev => {
+              if (startX - ev.clientX > 6) {
+                document.removeEventListener("mousemove", move);
+                document.removeEventListener("mouseup", up);
+                openPanel();
+              }
+            };
+            const up = () => {
+              document.removeEventListener("mousemove", move);
+              document.removeEventListener("mouseup", up);
+            };
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", up);
+          };
+          return bookmark;
+        }
+
+        function showBookmark(){
+          ensureBookmark();
+          bookmark.style.display = "flex";
+        }
+
+        function hideBookmark(){
+          if (bookmark) bookmark.style.display = "none";
+        }
+
+        function openPanel(){
+          ensurePanel();
+          isOpen = true;
+          panel.classList.add("open");
+          hideBookmark();
+          if (state.ui.selectedPageId) {
+            ppSelectedIds = [state.ui.selectedPageId];
+            ppAnchorId = state.ui.selectedPageId;
+          }
+          renderPanel();
+        }
+
+        function closePanel(){
+          isOpen = false;
+          if (panel) panel.classList.remove("open");
+          showBookmark();
+        }
+
+        function togglePanel(){
+          if (isOpen) closePanel();
+          else openPanel();
+        }
+        window.__pagesPanel = {
+          open: openPanel,
+          close: closePanel,
+          toggle: togglePanel,
+          isOpen: () => isOpen
+        };
+        // прокрутка рабочей области к нужной странице
+        function scrollWorkspaceToPage(pageId){
+          requestAnimationFrame(() => {
+            const stage = document.querySelector('.page-stage[data-id="'+pageId+'"]');
+            const shell = stage ? stage.closest('.page-shell') : null;
+            const target = shell || stage;
+            if (target && target.scrollIntoView) {
+              target.scrollIntoView({ behavior:"smooth", block:"center" });
+            }
+          });
+        }
+
+        // ЛЁГКОЕ обновление: переключаем классы, НЕ перестраивая HTML (не ломает кнопки).
+        let __ppThumbsRaf = null;
+        function softSync(){
+          if (!panel || !isOpen) return;
+          const existingIds = state.pages.map(p => p.id).join("|");
+          const renderedIds = Array.from(panel.querySelectorAll(".pp-item"))
+            .map(el => el.dataset.ppId).join("|");
+          // если состав/порядок страниц изменился — нужна полная перерисовка
+          if (existingIds !== renderedIds) {
+            renderPanel();
+            return;
+          }
+          // классы выделения/подсветки обновляем сразу (дёшево)
+          updateSelectionClasses();
+          // превью обновляем с дебаунсом через rAF, чтобы при Random All
+          // не было сотни перерисовок подряд. Картинки те же media:// — браузер кеширует.
+          if (__ppThumbsRaf) cancelAnimationFrame(__ppThumbsRaf);
+          __ppThumbsRaf = requestAnimationFrame(() => {
+            __ppThumbsRaf = null;
+            refreshThumbsInPlace();
+          });
+        }
+
+        // Перерисовываем ТОЛЬКО внутренности превью, не трогая структуру/прокрутку/кнопки.
+        function refreshThumbsInPlace(){
+          if (!panel || !isOpen) return;
+          Array.from(panel.querySelectorAll(".pp-item")).forEach(el => {
+            const id = el.dataset.ppId;
+            const page = state.pages.find(p => p.id === id);
+            const wrap = el.querySelector(".pp-thumb-wrap");
+            if (!page || !wrap) return;
+            const oldThumb = wrap.querySelector(".pp-thumb");
+            if (!oldThumb) return;
+            const tmp = document.createElement("div");
+            tmp.innerHTML = buildThumb(page);
+            const newThumb = tmp.firstElementChild;
+            if (newThumb) wrap.replaceChild(newThumb, oldThumb);
+          });
+        }
+
+        // даём другим частям кода обновлять панель, если она открыта
+        window.__refreshPagesPanel = function(){
+          softSync();
+        };
+        // даём другим частям кода прокручивать рабочую область к странице
+        window.__scrollWorkspaceToPage = scrollWorkspaceToPage;
+
+        // привязываем кнопку (она появляется после init/bindEvents)
+        function bindOpenButton(){
+          const btn = $("openPagesPanelBtn");
+          if (btn && !btn.dataset.ppBound) {
+            btn.dataset.ppBound = "1";
+            btn.onclick = togglePanel;
+          }
+        }
+        // пробуем сразу и с небольшой задержкой (на случай поздней инициализации)
+        bindOpenButton();
+        setTimeout(bindOpenButton, 0);
+        setTimeout(bindOpenButton, 300);
+
+        // показываем закладку-корешок, пока панель закрыта
+        setTimeout(() => { if (!isOpen) showBookmark(); }, 0);
+        setTimeout(() => { if (!isOpen) showBookmark(); }, 300);
+      })();
+      /* END_PAGES_PANEL_V1_JS */
+/* ===== МОСТ С ТАБЛИЦЕЙ ===== */
+(function setupTableBridge(){
+    // Прячем Text Library + меню в сплите и подтягиваем страницу влево
+
+
+
+    function formatPresentationMetaText(text) {
+    if (typeof text !== 'string') return text;
+    let parts = [];
+    if (text.includes('|')) {
+      parts = text.split('|').map(p => p.trim());
+    } else if (text.includes('\n')) {
+      parts = text.split('\n').map(p => p.trim());
+    } else {
+      parts = [text.trim()];
+    }
+    let formattedParts = [];
+    parts.forEach(part => {
+      if (!part) return;
+      const eqIndex = part.indexOf('=');
+      if (eqIndex !== -1) {
+        const keyName = part.substring(0, eqIndex).trim();
+        const val = part.substring(eqIndex + 1).trim();
+        formattedParts.push(`${keyName}:\n${val}`);
+      } else {
+        formattedParts.push(part);
+      }
+    });
+    return formattedParts.join('\n\n');
+  }
+  function insertTextFromTable(rawText){
+    const blocks = getSelectedBlocks();
+    if (blocks.length !== 1 || blocks[0].kind !== "text") {
+      toast("Выделите ОДИН текст-блок в слайде");
+      return;
+    }
+    pushHistory();
+    let textToInsert = rawText;
+    const targetBlock = blocks[0];
+    if (targetBlock && (targetBlock.role === "sub" || targetBlock.role === "sub1" || targetBlock.role === "sub2" || targetBlock.role === "meta")) {
+      textToInsert = formatPresentationMetaText(rawText);
+    }
+    targetBlock.content = textareaValueToHtml(textToInsert || "");
+    targetBlock.userModified = true;
+    syncLiveTextBlockDOM(state.ui.selectedPageId, targetBlock.id, targetBlock.content);
+    renderAll();
+    toast("Текст вставлен из таблицы");
+  }
+function shellUiClosePagesPanel() {
+  if (window.__pagesPanel && window.__pagesPanel.isOpen()) {
+    window.__pagesPanel.close();
+  }
+}
+
+function shellUiSetAipcVisible(visible) {
+  document.body.classList.toggle("shell-aipc-open", !!visible);
+
+  if (visible) {
+    shellUiClosePagesPanel();
+  }
+}
+
+function shellUiApplyMode(mode) {
+  const isSplit = mode === "split" || mode === "editor";
+  const isPresentation = mode === "pres";
+
+  window.__shellPresentationMode = mode;
+
+  document.body.classList.toggle("shell-split-active", isSplit);
+  document.body.classList.toggle("shell-pres-active", isPresentation);
+
+  document.body.classList.remove(
+    "shell-aipc-open",
+    "shell-split-aipc-active",
+    "shell-split-pages-active",
+    "shell-split-textlib-active"
+  );
+
+  if (isSplit) {
+    shellUiClosePagesPanel();
+    document.body.dataset.approvedSplitSection =
+      document.body.dataset.approvedSplitSection || "concept";
+  }
+
+  if (isPresentation) {
+    document.body.dataset.approvedMasterTab =
+      document.body.dataset.approvedMasterTab || "concept";
+  }
+
+  applyShellMode(mode);
+
+  if (window.__approvedDock) {
+    window.__approvedDock.applyMode(mode);
+  }
+}
+
+function shellUiHandleToggle(panel) {
+  const isSplit = document.body.classList.contains("shell-split-active");
+
+  if (window.__approvedDock) {
+    window.__approvedDock.handleShellPanel(panel, isSplit);
+    return;
+  }
+
+  if (isSplit) {
+    document.body.dataset.approvedSplitSection =
+      panel === "concept" ? "concept" :
+      panel === "menu" ? "deck" :
+      panel === "ai" ? "aipc" :
+      panel === "thumbs" ? "pages" :
+      panel === "hotkeys" ? "hotkeys" :
+      "concept";
+
+    if (panel === "ai") {
+      document.body.classList.add("shell-split-aipc-active");
+      shellUiClosePagesPanel();
+      return;
+    }
+
+    if (panel === "thumbs") {
+      document.body.classList.add("shell-split-pages-active");
+
+      if (window.__pagesPanel) {
+        window.__pagesPanel.open();
+      }
+
+      return;
+    }
+
+    shellUiClosePagesPanel();
+    return;
+  }
+
+  if (panel === "ai") {
+    shellUiSetAipcVisible(!document.body.classList.contains("shell-aipc-open"));
+    return;
+  }
+
+  if (panel === "thumbs") {
+    shellUiSetAipcVisible(false);
+
+    if (window.__pagesPanel) {
+      window.__pagesPanel.toggle();
+    }
+
+    return;
+  }
+
+  shellUiSetAipcVisible(false);
+}
+function applyShellMode(mode){
+    var sid = "shell-split-style";
+    var old = document.getElementById(sid);
+    if (old) old.remove();
+
+    var sliderCont = document.getElementById("editor-gap-slider-container");
+
+    // Если включен любой из интерактивных режимов (split или editor)
+    if (mode === "split" || mode === "editor") {
+      // Показываем контейнер с ползунком для обоих режимов
+      if (sliderCont) sliderCont.style.display = "flex";
+      
+      // Синхронизируем текущее положение ползунка
+      var currentSlider = document.getElementById("editor-gap-slider");
+      var initialGap = currentSlider ? currentSlider.value : 0;
+      document.documentElement.style.setProperty('--editor-side-gap', initialGap);
+
+      var st = document.createElement("style");
+      st.id = sid;
+      
+      // Базовые общие стили: прячем стандартные панели оболочки и сбрасываем сетку воркспейса
+      var css =
+        ".text-library-panel, #textLibraryPanel, .left-panel, .main-menu-toggle-host {" +
+          "display: none !important;" +
+        "}" +
+        ".workspace {" +
+          "grid-template-columns: 1fr !important;" +
+          "min-width: 0 !important;" +
+          "padding-left: 0 !important;" +
+          "padding-right: 0 !important;" +
+        "}";
+
+if (mode === "split" || mode === "editor") {
+  css +=
+    ".left-panel {" +
+      "display: flex !important;" +
+    "}";
+}    
+      // Если это режим Split (с таблицей), добавляем его родные важные сбросы переменных :root
+      if (mode === "split") {
+        css += ":root{" +
+          "--textlib-w:0px !important;" +
+          "--fixed-textlib-current:0px !important;" +
+          "--fixed-panels-total-w:0px !important;" +
+          "--fixed-left-panel-expanded-w:0px !important;" +
+          "--fixed-canvas-left:0px !important;" +
+          "--fixed-main-menu-left:0px !important;" +
+          "--workspace-panel-to-page-gap:0px !important;" +
+        "}";
+      }
+
+      // Железобетонное позиционирование через ползунок (одинаковое для Split и Editor)
+      css += 
+        ".workspace .pages-wrap, " +
+        ".workspace.textlib-collapsed .pages-wrap, " +
+        ".workspace.textlib-hidden .pages-wrap, " +
+        ".workspace.mainui-collapsed .pages-wrap, " +
+        ".workspace.textlib-collapsed.mainui-collapsed .pages-wrap, " +
+        ".workspace.textlib-hidden.mainui-collapsed .pages-wrap {" +
+          "margin-left: calc((100% - var(--page-w-px)) * (var(--editor-side-gap) / 100)) !important;" +
+          "margin-right: auto !important;" +
+          "width: var(--page-w-px) !important;" +
+          "min-width: var(--page-w-px) !important;" +
+          "overflow: visible !important;" +
+          "transition: none !important;" +
+        "}";
+
+      st.textContent = css;
+      document.head.appendChild(st);
+    } 
+    else {
+      // Для всех остальных режимов (например, дефолтного) прячем ползунок
+      if (sliderCont) sliderCont.style.display = "none";
+    }
+  }
+window.addEventListener("message", function(event){
+    const data = event.data;
+    if (!data || typeof data !== "object") return;
+        if (data.type === "INIT_CONFIG") {
+      const gap = data.config && data.config.presentationGap;
+
+      if (gap !== undefined) {
+        const slider = document.getElementById("editor-gap-slider");
+
+        if (slider) {
+          slider.value = gap;
+          document.documentElement.style.setProperty("--editor-side-gap", gap);
+        }
+      }
+
+      return;
+    }
+    // 1. Вставка текста из Таблицы (полная замена контента в блоке)
+    if (data.type === "TABLE_SEND_TEXT") insertTextFromTable(data.text);
+    
+    // 2. Единственный owner Shell mode/toggle integration в presentation bridge.
+    if (data.type === "SHELL_MODE") {
+      shellUiApplyMode(data.mode);
+      return;
+    }
+
+    if (data.type === "SHELL_TOGGLE_PANEL") {
+      shellUiHandleToggle(data.panel);
+      return;
+    }    
+    // 3. НАША НОВАЯ ПРАВКА: Прием выделенного текста из Блокнота
+    if (data.type === "INSERT_TEXT_TO_PRES") {
+      const activeEl = document.activeElement;
+      
+      // Проверяем, открыто ли сейчас редактирование какого-то текста на слайде
+      if (activeEl && (activeEl.contentEditable === "true" || activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA")) {
+        if (activeEl.contentEditable === "true") {
+          // Вставляем текст ровно туда, где стоит мигающий курсор
+          document.execCommand("insertText", false, data.text);
+        } else {
+          // Для обычных input/textarea полей ввода
+          const start = activeEl.selectionStart;
+          const end = activeEl.selectionEnd;
+          activeEl.value = activeEl.value.substring(0, start) + data.text + activeEl.value.substring(end);
+          activeEl.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      } else {
+        // Умный фолбек: если курсор не активен, но текстовый блок на слайде выбран,
+        // отправляем текст в стандартную функцию вставки (как из таблицы)
+        insertTextFromTable(data.text);
+      }
+    }
+  });
+
+  let lastReady = null;
+// INIT_CONFIG обрабатывается в единственном message router выше.
+  window.parent.postMessage({ type: 'REQUEST_INITIAL_CONFIG' }, '*');
+  if (!window.__IS_PDF_EXPORT__) {
+    setInterval(function(){
+      try {
+        const blocks = getSelectedBlocks();
+        const ready = blocks.length === 1 && blocks[0].kind === "text";
+        if (ready === lastReady) return;
+        lastReady = ready;
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage(
+            { type: ready ? "PRES_BLOCK_SELECTED" : "PRES_BLOCK_DESELECTED" },
+            "*"
+          );
+        }
+      } catch (e) {}
+    }, 400);
+  }
+})();
+      // ===== АВТОСЕЙВ ПРИ ЗАКРЫТИИ (один раз, как нажатие Save) =====
+      window.addEventListener("beforeunload", function(){
+        // Если идёт Reset Project — не перезаписываем удалённый localStorage.
+        if (window.__SKIP_AUTOSAVE_ON_UNLOAD__) return;
+        // Если идёт экспорт PDF — НЕ перезаписываем fullState с картинками.
+        if (window.__IS_PDF_EXPORT__) return;
+        try {
+          localStorage.setItem(STORAGE_KEY, safeLocalStorageSnapshot());
+        } catch (e) {}
+      });
+
+/* AI_DECK_BUILDER_V2_COMPILER */
+
+(function setupAiDeckBuilderV2(){
+  const aiEls = {
+    openBtn: $("openAiDeckBuilderBtn"),
+    overlay: $("aiDeckBuilderOverlay"),
+    closeBtn: $("closeAiDeckBuilderBtn"),
+    jsonInput: $("aiDeckJsonInput"),
+    fileInput: $("aiDeckJsonImportInput"),
+    loadBtn: $("aiDeckLoadJsonBtn"),
+    validateBtn: $("aiDeckValidateBtn"),
+    previewBtn: $("aiDeckPreviewBtn"),
+    dryRunBtn: $("aiDeckDryRunBtn"),
+    buildNewBtn: $("aiDeckBuildNewBtn"),
+    insertBtn: $("aiDeckInsertBtn"),
+    updateBtn: $("aiDeckUpdateBtn"),
+    exportContextBtn: $("aiDeckExportContextBtn"),
+    exportBriefBtn: $("aiDeckExportBriefBtn"),
+    status: $("aiDeckStatus"),
+    preview: $("aiDeckPreview"),
+    projectInfo: $("aiDeckProjectInfo")
+  };
+
+  let lastAiDeckPlan = null;
+
+  function aiDeckSetStatus(message, type){
+    if (!aiEls.status) return;
+
+    aiEls.status.textContent = message || "";
+    aiEls.status.classList.remove("success", "error");
+
+    if (type) aiEls.status.classList.add(type);
+  }
+
+  function aiDeckDownloadJson(fileName, data){
+    const blob = new Blob(
+      [JSON.stringify(data, null, 2)],
+      { type:"application/json;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  function aiDeckGetImagePoolSummary(){
+    const groups = {};
+
+    (state.imagePool?.items || []).forEach(item => {
+      const conceptIndex = normalizeConceptNumber(item.concept || 0);
+      const conceptSubfolder = normalizeConceptSubfolder(item.subfolder || "root");
+      const key = `${conceptIndex}/${conceptSubfolder}`;
+
+      if (!groups[key]) {
+        groups[key] = {
+          conceptIndex,
+          conceptSubfolder,
+          imageCount:0
+        };
+      }
+
+      groups[key].imageCount++;
+    });
+
+    return Object.values(groups).sort((a, b) => {
+      if (a.conceptIndex !== b.conceptIndex) {
+        return a.conceptIndex - b.conceptIndex;
+      }
+
+      return String(a.conceptSubfolder).localeCompare(
+        String(b.conceptSubfolder),
+        undefined,
+        { numeric:true }
+      );
+    });
+  }
+
+  function aiDeckBuildProjectBrief(){
+    const contacts = state.ui?.siteLinks || {};
+    const pages = (state.pages || []).map((page, index) => ({
+      pageNumber:index + 1,
+      label:page.sourceLabel || page.templateId || `Page ${index + 1}`,
+      templateId:page.templateId || "",
+      templateGroup:page.templateGroup || "",
+      visualStyle:page.visualStyle || "cinematic",
+      conceptIndex:page.conceptIndex || 0,
+      conceptSubfolder:page.conceptSubfolder || "all",
+      textBlocks:(page.blocks || [])
+        .filter(block => block.kind === "text")
+        .map(block => ({
+          role:block.role || "text",
+          content:htmlToTextareaValue(block.content || "")
+        }))
+    }));
+
+    return {
+      schemaVersion:"ai-project-brief-v1",
+      generatedAt:new Date().toISOString(),
+      project:{
+        title:state.ui?.siteTitle || "Untitled Presentation",
+        activeDeck:state.ui?.activeDeck || "",
+        noRepeats:!!state.ui?.noRepeats
+      },
+      contacts,
+      imagePool:{
+        totalImages:(state.imagePool?.items || []).length,
+        groups:aiDeckGetImagePoolSummary()
+      },
+      existingPresentation:{
+        totalPages:pages.length,
+        pages
+      }
+    };
+  }
+
+  function aiDeckBuildLegacyContext(){
+    const templates = Object.values(PAGE_TEMPLATE_LIBRARY)
+      .flatMap(group => group.templates || [])
+      .map(template => {
+        const sample = createTemplatePage(template);
+
+        return {
+          id:template.id,
+          label:template.label,
+          templateGroup:template.templateGroup,
+          visualStyle:template.visualStyle || "cinematic",
+          textRoles:(sample.blocks || [])
+            .filter(block => block.kind === "text")
+            .map(block => block.role),
+          imageSlotCount:(sample.blocks || [])
+            .filter(block => block.kind === "image")
+            .length
+        };
+      });
+
+    return {
+      schemaVersion:"ai-template-catalog-v1",
+      generatedAt:new Date().toISOString(),
+      canvas:{
+        width:PAGE_W,
+        height:PAGE_H,
+        format:"A4 landscape"
+      },
+      templates,
+      imagePoolSummary:aiDeckGetImagePoolSummary()
+    };
+  }
+
+  function aiDeckParseInput(){
+    const raw = String(aiEls.jsonInput?.value || "").trim();
+
+    if (!raw) {
+      throw new Error("Вставьте AI JSON в поле выше.");
+    }
+
+    let plan;
+
+    try {
+      plan = JSON.parse(raw);
+    } catch (error) {
+      throw new Error(`JSON содержит ошибку: ${error.message}`);
+    }
+
+    if (!plan || typeof plan !== "object" || Array.isArray(plan)) {
+      throw new Error("AI plan должен быть JSON object.");
+    }
+
+    if (!Array.isArray(plan.pages)) {
+      throw new Error('В AI JSON отсутствует массив "pages".');
+    }
+
+    return plan;
+  }
+
+  function aiDeckGetTemplateImageSlotCount(templateId){
+    const template = TEMPLATE_INDEX[templateId];
+
+    if (!template) return 0;
+
+    const samplePage = createTemplatePage(template);
+
+    return (samplePage.blocks || []).reduce((total, block) => {
+      if (block.kind === "image") return total + 1;
+
+      if (block.kind === "frame") {
+        return total + (
+          (block.slots || []).length ||
+          getFrameLayoutCount(block.layout || "2x2")
+        );
+      }
+
+      return total;
+    }, 0);
+  }
+
+  function aiDeckGetTemplateTextRoles(templateId){
+    const template = TEMPLATE_INDEX[templateId];
+
+    if (!template) return [];
+
+    const samplePage = createTemplatePage(template);
+
+    return (samplePage.blocks || [])
+      .filter(block => block.kind === "text")
+      .map(block => String(block.role || "").trim())
+      .filter(Boolean);
+  }
+
+  function aiDeckGetImageCountForAssignment(conceptIndex, conceptSubfolder){
+    const concept = normalizeConceptNumber(conceptIndex || 0);
+    const subfolder = normalizeConceptSubfolder(conceptSubfolder || "all");
+    const pool = state.imagePool?.items || [];
+
+    if (concept === 0) {
+      return pool.length;
+    }
+
+    if (subfolder === "all") {
+      return pool.filter(item =>
+        normalizeConceptNumber(item.concept || 0) === concept
+      ).length;
+    }
+
+    return pool.filter(item =>
+      normalizeConceptNumber(item.concept || 0) === concept &&
+      normalizeConceptSubfolder(item.subfolder || "root") === subfolder
+    ).length;
+  }
+
+  function aiDeckHasConceptAssignment(conceptIndex, conceptSubfolder){
+    return aiDeckGetImageCountForAssignment(
+      conceptIndex,
+      conceptSubfolder
+    ) > 0;
+  }
+
+  function aiDeckNormalizeImageFill(page){
+    const source = (
+      page?.imageFill &&
+      typeof page.imageFill === "object" &&
+      !Array.isArray(page.imageFill)
+    )
+      ? page.imageFill
+      : {};
+
+    return {
+      mode:["auto", "none", "manual"].includes(source.mode)
+        ? source.mode
+        : "auto",
+
+      strategy:["hero-first", "all-slots", "manual"].includes(source.strategy)
+        ? source.strategy
+        : "hero-first",
+
+      noRepeats:source.noRepeats == null
+        ? !!state.ui.noRepeats
+        : !!source.noRepeats
+    };
+  }
+
+  function aiDeckValidatePlan(plan){
+    const errors = [];
+    const warnings = [];
+
+    const validTemplateIds = new Set(Object.keys(TEMPLATE_INDEX));
+    const knownTextRoles = new Set([
+      "kicker",
+      "overline",
+      "meta",
+      "meta1",
+      "meta2",
+      "title",
+      "overlay-title",
+      "subtitle",
+      "sub",
+      "sub1",
+      "sub2",
+      "body",
+      "body-right",
+      "statement",
+      "steps",
+      "services",
+      "links",
+      "small",
+      "smallMeta",
+      "values",
+      "value1"
+    ]);
+
+    const globalNoRepeatUsage = new Map();
+
+    if (plan.schemaVersion !== "ai-deck-plan-v1") {
+      errors.push(
+        'schemaVersion должен быть строго равен "ai-deck-plan-v1".'
+      );
+    }
+
+    if (!plan.pages.length) {
+      errors.push('Массив "pages" пуст.');
+    }
+
+    if (
+      plan.document?.visualStyle &&
+      !["cinematic", "editorial-blue"].includes(plan.document.visualStyle)
+    ) {
+      errors.push(
+        `document.visualStyle "${plan.document.visualStyle}" не поддерживается.`
+      );
+    }
+
+    plan.pages.forEach((page, index) => {
+      const pageNo = index + 1;
+
+      if (!page || typeof page !== "object" || Array.isArray(page)) {
+        errors.push(`Страница ${pageNo}: должна быть объектом.`);
+        return;
+      }
+
+      if (!page.templateId || typeof page.templateId !== "string") {
+        errors.push(`Страница ${pageNo}: отсутствует templateId.`);
+        return;
+      }
+
+      if (!validTemplateIds.has(page.templateId)) {
+        errors.push(
+          `Страница ${pageNo}: templateId "${page.templateId}" не существует в редакторе.`
+        );
+        return;
+      }
+
+      const template = TEMPLATE_INDEX[page.templateId];
+      const conceptIndex = normalizeConceptNumber(page.conceptIndex || 0);
+      const conceptSubfolder = normalizeConceptSubfolder(
+        page.conceptSubfolder || "all"
+      );
+
+      if (
+        page.conceptIndex != null &&
+        !Number.isFinite(Number(page.conceptIndex))
+      ) {
+        errors.push(`Страница ${pageNo}: conceptIndex должен быть числом.`);
+      }
+
+      if (
+        page.conceptSubfolder != null &&
+        !["all", "root"].includes(String(page.conceptSubfolder).toLowerCase()) &&
+        !/^\d{2}$/.test(String(page.conceptSubfolder))
+      ) {
+        errors.push(
+          `Страница ${pageNo}: недопустимый conceptSubfolder "${page.conceptSubfolder}".`
+        );
+      }
+
+      if (
+        page.text != null &&
+        (typeof page.text !== "object" || Array.isArray(page.text))
+      ) {
+        errors.push(`Страница ${pageNo}: поле text должно быть объектом.`);
+      }
+
+      const allowedTextRoles = new Set(
+        aiDeckGetTemplateTextRoles(page.templateId)
+      );
+
+      if (page.text && typeof page.text === "object") {
+        Object.entries(page.text).forEach(([role, content]) => {
+          if (!knownTextRoles.has(role)) {
+            errors.push(
+              `Страница ${pageNo}: роль текста "${role}" не поддерживается редактором.`
+            );
+            return;
+          }
+
+          if (!allowedTextRoles.has(role)) {
+            errors.push(
+              `Страница ${pageNo}: роль "${role}" отсутствует в шаблоне "${page.templateId}".`
+            );
+          }
+
+          if (
+            typeof content !== "string" &&
+            typeof content !== "number"
+          ) {
+            errors.push(
+              `Страница ${pageNo}: текст роли "${role}" должен быть строкой.`
+            );
+          }
+        });
+      }
+
+      const imageFill = aiDeckNormalizeImageFill(page);
+      const imageSlots = aiDeckGetTemplateImageSlotCount(page.templateId);
+
+      if (imageFill.mode === "manual") {
+        warnings.push(
+          `Страница ${pageNo}: imageFill.mode "manual" не использует filenames. Картинки останутся пустыми.`
+        );
+      }
+
+      if (imageFill.mode === "auto" && imageSlots > 0) {
+        const availableImages = aiDeckGetImageCountForAssignment(
+          conceptIndex,
+          conceptSubfolder
+        );
+
+        if (!availableImages) {
+          errors.push(
+            `Страница ${pageNo}: в Image Pool нет картинок для concept ${conceptIndex} / ${conceptSubfolder}.`
+          );
+        }
+
+        if (imageFill.noRepeats) {
+          const usageKey = `${conceptIndex}:${conceptSubfolder}`;
+          const currentUsage = globalNoRepeatUsage.get(usageKey) || 0;
+          const totalUsage = currentUsage + imageSlots;
+
+          globalNoRepeatUsage.set(usageKey, totalUsage);
+
+          if (totalUsage > availableImages) {
+            errors.push(
+              `Страница ${pageNo}: для concept ${conceptIndex} / ${conceptSubfolder} недостаточно изображений. ` +
+              `Нужно ${totalUsage}, доступно ${availableImages}, потому что включён noRepeats.`
+            );
+          }
+        }
+      }
+
+      if (
+        plan.document?.visualStyle &&
+        template.visualStyle &&
+        template.visualStyle !== plan.document.visualStyle
+      ) {
+        warnings.push(
+          `Страница ${pageNo}: template "${page.templateId}" имеет стиль "${template.visualStyle}", ` +
+          `а document.visualStyle указан как "${plan.document.visualStyle}".`
+        );
+      }
+    });
+
+    return {
+      valid:errors.length === 0,
+      errors,
+      warnings,
+      pagesCount:plan.pages.length
+    };
+  }
+
+  function aiDeckRenderPreview(plan, validation){
+    if (!aiEls.preview) return;
+
+    if (!plan?.pages?.length) {
+      aiEls.preview.innerHTML = `
+        <div class="ai-deck-preview-empty">
+          Нет страниц для preview.
+        </div>
+      `;
+      return;
+    }
+
+    aiEls.preview.innerHTML = plan.pages.map((page, index) => {
+      const template = TEMPLATE_INDEX[page.templateId];
+
+      const title =
+        page.label ||
+        page.text?.title ||
+        page.text?.["overlay-title"] ||
+        template?.label ||
+        page.templateId ||
+        `Page ${index + 1}`;
+
+      const concept = normalizeConceptNumber(page.conceptIndex || 0);
+      const subfolder = normalizeConceptSubfolder(
+        page.conceptSubfolder || "all"
+      );
+
+      const imageFill = aiDeckNormalizeImageFill(page);
+      const imageSlots = aiDeckGetTemplateImageSlotCount(page.templateId);
+
+      return `
+        <div class="ai-deck-plan-item">
+          <div class="ai-deck-plan-index">${index + 1}</div>
+          <div>
+            <div class="ai-deck-plan-name">${escapeHtml(String(title))}</div>
+            <div class="ai-deck-plan-meta">
+              ${escapeHtml(page.templateId || "no-template")} ·
+              ${escapeHtml(template?.visualStyle || "unknown")} ·
+              concept ${escapeHtml(String(concept))} /
+              ${escapeHtml(String(subfolder))} ·
+              ${imageSlots} image slot(s) ·
+              ${escapeHtml(imageFill.mode)}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    if (validation?.errors?.length) {
+      aiEls.preview.insertAdjacentHTML(
+        "afterbegin",
+        `
+          <div class="ai-deck-preview-empty"
+            style="margin-bottom:10px;color:#ffaaa5;border-color:rgba(255,107,107,.35);">
+            План содержит ошибок: ${validation.errors.length}
+          </div>
+        `
+      );
+    }
+  }
+
+  function aiDeckRenderProjectInfo(){
+    if (!aiEls.projectInfo) return;
+
+    const currentPage = getSelectedPage();
+    const groups = aiDeckGetImagePoolSummary();
+
+    aiEls.projectInfo.innerHTML = `
+      <div class="ai-deck-plan-item">
+        <div class="ai-deck-plan-index">${state.pages.length}</div>
+        <div>
+          <div class="ai-deck-plan-name">Current pages</div>
+          <div class="ai-deck-plan-meta">
+            Selected: ${escapeHtml(currentPage?.sourceLabel || "none")}
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-deck-plan-item">
+        <div class="ai-deck-plan-index">${state.imagePool.items.length}</div>
+        <div>
+          <div class="ai-deck-plan-name">Image Pool images</div>
+          <div class="ai-deck-plan-meta">
+            ${groups.length} real concept / subfolder group(s)
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-deck-plan-item">
+        <div class="ai-deck-plan-index">${Object.keys(TEMPLATE_INDEX).length}</div>
+        <div>
+          <div class="ai-deck-plan-name">Available templates</div>
+          <div class="ai-deck-plan-meta">
+            Cinematic, Editorial Blue and loaded custom templates
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function aiDeckValidateAndPreview(mode){
+    try {
+      const plan = aiDeckParseInput();
+      const validation = aiDeckValidatePlan(plan);
+
+      lastAiDeckPlan = plan;
+      aiDeckRenderPreview(plan, validation);
+
+      if (!validation.valid) {
+        aiDeckSetStatus(
+          `Сборка остановлена. Ошибок: ${validation.errors.length}\n\n` +
+          validation.errors.map(error => `• ${error}`).join("\n"),
+          "error"
+        );
+
+        return { plan, validation };
+      }
+
+      const warnings = validation.warnings.length
+        ? `\n\nПредупреждения:\n${validation.warnings.map(w => `• ${w}`).join("\n")}`
+        : "";
+
+      aiDeckSetStatus(
+        `${mode || "Validation"} complete.\n` +
+        `Страниц в плане: ${validation.pagesCount}.${warnings}`,
+        "success"
+      );
+
+      return { plan, validation };
+    } catch (error) {
+      lastAiDeckPlan = null;
+      aiDeckRenderPreview(null, null);
+      aiDeckSetStatus(error.message || "AI JSON error.", "error");
+      return null;
+    }
+  }
+
+  function aiDeckClearTemplateImages(page){
+    (page.blocks || []).forEach(block => {
+      if (block.kind === "image") {
+        clearImageLikeAssignment(block);
+      }
+
+      if (block.kind === "frame") {
+        (block.slots || []).forEach(slot => {
+          clearImageLikeAssignment(slot);
+        });
+      }
+    });
+  }
+
+  function aiDeckApplyTextToPage(page, text){
+    if (!text || typeof text !== "object") return;
+
+    Object.entries(text).forEach(([role, value]) => {
+      (page.blocks || [])
+        .filter(block => block.kind === "text" && block.role === role)
+        .forEach(block => {
+          block.content = textareaValueToHtml(String(value ?? ""));
+          block.userModified = true;
+        });
+    });
+  }
+
+  function aiDeckCompilePage(pagePlan, usedImageIds){
+    const template = TEMPLATE_INDEX[pagePlan.templateId];
+
+    if (!template) {
+      throw new Error(`Template "${pagePlan.templateId}" не найден.`);
+    }
+
+    const page = createTemplatePage(template);
+    const conceptIndex = normalizeConceptNumber(pagePlan.conceptIndex || 0);
+    const conceptSubfolder = normalizeConceptSubfolder(
+      pagePlan.conceptSubfolder || "all"
+    );
+
+    page.sourceLabel = String(pagePlan.label || template.label || "AI Page");
+    page.conceptIndex = conceptIndex;
+    page.conceptSubfolder = conceptSubfolder;
+
+    aiDeckApplyTextToPage(page, pagePlan.text || {});
+
+    const imageFill = aiDeckNormalizeImageFill(pagePlan);
+
+    if (imageFill.mode === "none" || imageFill.mode === "manual") {
+      aiDeckClearTemplateImages(page);
+    }
+
+    if (imageFill.mode === "auto") {
+      const targets = [];
+
+      (page.blocks || []).forEach(block => {
+        if (block.kind === "image") {
+          targets.push({ block, target:block });
+        }
+
+        if (block.kind === "frame") {
+          (block.slots || []).forEach(slot => {
+            targets.push({ block, slot, target:slot });
+          });
+        }
+      });
+
+      if (targets.length) {
+        const result = randomizeTargets(page, targets, {
+          usedGlobal:usedImageIds,
+          strictNoRepeats:imageFill.noRepeats,
+          leaveUnfilledOnExhausted:true
+        });
+
+        if (!result.changed && result.count === 0) {
+          throw new Error(
+            `Не удалось заполнить картинками страницу "${page.sourceLabel}".`
+          );
+        }
+      }
+    }
+
+    // FIX_AI_EDIT_LOCK_V1:
+    // Нормализуем ТОЛЬКО собранную страницу, не мутируя живой state.ui/document/textLibrary.
+    // Это чинит потерю inline-редактирования текста после AI Deck Builder.
+    ensureStateShape({
+      ui: deepClone(state.ui),
+      pages:[page],
+      document: deepClone(state.document),
+      imagePool: state.imagePool,
+      textLibrary: deepClone(state.textLibrary)
+    });
+
+    return page;
+  }
+
+  function aiDeckCompilePlan(plan){
+    const usedImageIds = new Set();
+
+    return plan.pages.map(pagePlan =>
+      aiDeckCompilePage(pagePlan, usedImageIds)
+    );
+  }
+
+  function aiDeckApplyContacts(plan){
+    if (!plan.contacts || typeof plan.contacts !== "object") return;
+
+    state.ui.siteLinks = Object.assign(
+      {},
+      state.ui.siteLinks || {},
+      {
+        email:plan.contacts.email || state.ui.siteLinks?.email || "",
+        telegram:plan.contacts.telegram || state.ui.siteLinks?.telegram || "",
+        website:plan.contacts.website || state.ui.siteLinks?.website || "",
+        behance:plan.contacts.behance || state.ui.siteLinks?.behance || "",
+        instagram:plan.contacts.instagram || state.ui.siteLinks?.instagram || ""
+      }
+    );
+
+    if (plan.document?.title) {
+      state.ui.siteTitle = String(plan.document.title);
+    }
+  }
+
+  function aiDeckResetSelection(firstPage){
+    // FIX_AI_EDIT_LOCK_V1: жёстко возвращаем редактор в чистое интерактивное состояние.
+    state.ui.selectedPageId = firstPage?.id || null;
+    state.ui.selectedBlockIds = [];
+    state.ui.selectedBlockId = null;
+    state.ui.selectedSlotId = null;
+    state.ui.editingBlockId = null;
+    state.ui.preview = false; // на случай, если редактор случайно остался в preview
+    ensureStateShape(state); // финальная нормализация уже ГЛОБАЛЬНОГО state (безопасно, один раз)
+    // FIX_AI_EDIT_LOCK_V2: принудительно сбрасываем кэш синхронизации меню,
+    // чтобы applyUI() заново подхватил новые AI-страницы, а не старую активную.
+    // Без этого возможен рассинхрон селекторов и "залипание" неактивного состояния UI.
+    state.ui.lastSyncedPageId = null;
+  }
+
+  function aiDeckBuildNew(plan){
+    const compiledPages = aiDeckCompilePlan(plan);
+
+    pushHistory();
+
+    state.pages = compiledPages;
+    aiDeckApplyContacts(plan);
+
+    if (plan.document?.visualStyle === "editorial-blue") {
+      state.ui.activeDeck = "EDITORIAL_BLUE_0_1";
+    }
+
+    if (plan.document?.visualStyle === "cinematic") {
+      state.ui.activeDeck = "CINEMATIC_PORTFOLIO";
+    }
+
+    aiDeckResetSelection(compiledPages[0]);
+
+    renderAll();
+    applyUI();
+    aiDeckRenderProjectInfo();
+
+    return compiledPages.length;
+  }
+
+  function aiDeckInsertAfterSelected(plan){
+    const compiledPages = aiDeckCompilePlan(plan);
+
+    pushHistory();
+
+    const selectedIndex = state.ui.selectedPageId
+      ? state.pages.findIndex(page => page.id === state.ui.selectedPageId)
+      : -1;
+
+    if (selectedIndex >= 0) {
+      state.pages.splice(selectedIndex + 1, 0, ...compiledPages);
+    } else {
+      state.pages.push(...compiledPages);
+    }
+
+    aiDeckApplyContacts(plan);
+    aiDeckResetSelection(compiledPages[0]);
+
+    renderAll();
+    applyUI();
+    aiDeckRenderProjectInfo();
+
+    return compiledPages.length;
+  }
+
+  function aiDeckUpdateExisting(plan){
+    const compiledPages = aiDeckCompilePlan(plan);
+
+    pushHistory();
+
+    compiledPages.forEach((compiledPage, index) => {
+      const existingPage = state.pages[index];
+
+      if (existingPage) {
+        compiledPage.id = existingPage.id;
+        state.pages[index] = compiledPage;
+      } else {
+        state.pages.push(compiledPage);
+      }
+    });
+
+    aiDeckApplyContacts(plan);
+    aiDeckResetSelection(state.pages[0]);
+
+    renderAll();
+    applyUI();
+    aiDeckRenderProjectInfo();
+
+    return {
+      updated:Math.min(compiledPages.length, state.pages.length),
+      added:Math.max(0, compiledPages.length - state.pages.length)
+    };
+  }
+
+  function aiDeckOpen(){
+    if (!aiEls.overlay) return;
+
+    aiEls.overlay.classList.add("open");
+    aiEls.overlay.setAttribute("aria-hidden", "false");
+
+    aiDeckRenderProjectInfo();
+
+    requestAnimationFrame(() => {
+      aiEls.jsonInput?.focus();
+    });
+  }
+
+  function aiDeckClose(){
+    if (!aiEls.overlay) return;
+
+    aiEls.overlay.classList.remove("open");
+    aiEls.overlay.setAttribute("aria-hidden", "true");
+  }
+
+  function aiDeckGetReadyPlan(actionName){
+    const result = aiDeckValidateAndPreview(actionName);
+
+    if (!result?.validation?.valid) return null;
+
+    return result.plan;
+  }
+
+  aiEls.openBtn?.addEventListener("click", aiDeckOpen);
+  aiEls.closeBtn?.addEventListener("click", aiDeckClose);
+
+  aiEls.overlay?.addEventListener("mousedown", event => {
+    if (event.target === aiEls.overlay) aiDeckClose();
+  });
+
+  aiEls.loadBtn?.addEventListener("click", () => {
+    aiEls.fileInput?.click();
+  });
+
+  aiEls.fileInput?.addEventListener("change", event => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      aiEls.jsonInput.value = String(reader.result || "");
+      aiDeckSetStatus(`Loaded AI JSON: ${file.name}`, "success");
+      aiDeckValidateAndPreview("Loaded plan validation");
+    };
+
+    reader.onerror = () => {
+      aiDeckSetStatus(`Cannot read file: ${file.name}`, "error");
+    };
+
+    reader.readAsText(file, "utf-8");
+    event.target.value = "";
+  });
+
+  aiEls.validateBtn?.addEventListener("click", () => {
+    aiDeckValidateAndPreview("Validation");
+  });
+
+  aiEls.previewBtn?.addEventListener("click", () => {
+    aiDeckValidateAndPreview("Plan preview");
+  });
+
+  aiEls.dryRunBtn?.addEventListener("click", () => {
+  const result = aiDeckGetReadyPlan("Dry run");
+
+  if (!result) return;
+
+  const templatesUsed = new Set(
+    result.pages.map(page => page.templateId)
+  ).size;
+
+  const conceptsUsed = new Set(
+    result.pages
+      .map(page => normalizeConceptNumber(page.conceptIndex || 0))
+      .filter(concept => concept > 0)
+  ).size;
+
+  aiDeckSetStatus(
+    `Dry run complete.\n` +
+    `• Future pages: ${result.pages.length}\n` +
+    `• Templates used: ${templatesUsed}\n` +
+    `• Concepts used: ${conceptsUsed}\n` +
+    `• Current presentation was not changed.`,
+    "success"
+  );
+});
+
+aiEls.buildNewBtn?.addEventListener("click", () => {
+  const plan = aiDeckGetReadyPlan("Build New Deck validation");
+
+  if (!plan) return;
+
+  try {
+    const count = aiDeckBuildNew(plan);
+
+    aiDeckSetStatus(
+      `Build New Deck complete.\n` +
+      `Создано страниц: ${count}.\n` +
+      `Предыдущий deck заменён.\n` +
+      `Используйте Undo, если хотите отменить сборку.`,
+      "success"
+    );
+
+    toast(`AI Deck built: ${count} pages`);
+  } catch (error) {
+    console.error(error);
+    aiDeckSetStatus(
+      `Build New Deck stopped.\n${error.message}`,
+      "error"
+    );
+  }
+});
+
+aiEls.insertBtn?.addEventListener("click", () => {
+  const plan = aiDeckGetReadyPlan("Insert validation");
+
+  if (!plan) return;
+
+  try {
+    const count = aiDeckInsertAfterSelected(plan);
+
+    aiDeckSetStatus(
+      `Insert After Selected complete.\n` +
+      `Добавлено страниц: ${count}.\n` +
+      `Страницы вставлены после выбранной страницы.`,
+      "success"
+    );
+
+    toast(`AI pages inserted: ${count}`);
+  } catch (error) {
+    console.error(error);
+    aiDeckSetStatus(
+      `Insert stopped.\n${error.message}`,
+      "error"
+    );
+  }
+});
+
+aiEls.updateBtn?.addEventListener("click", () => {
+  const plan = aiDeckGetReadyPlan("Update validation");
+
+  if (!plan) return;
+
+  try {
+    const pagesBefore = state.pages.length;
+    const compiledCount = plan.pages.length;
+
+    aiDeckUpdateExisting(plan);
+
+    const updated = Math.min(compiledCount, pagesBefore);
+    const added = Math.max(0, compiledCount - pagesBefore);
+
+    aiDeckSetStatus(
+      `Update Existing Deck complete.\n` +
+      `Обновлено страниц: ${updated}.\n` +
+      `Добавлено новых страниц: ${added}.\n` +
+      `Лишние старые страницы сохранены.`,
+      "success"
+    );
+
+    toast("Existing deck updated");
+  } catch (error) {
+    console.error(error);
+    aiDeckSetStatus(
+      `Update stopped.\n${error.message}`,
+      "error"
+    );
+  }
+});
+
+aiEls.exportContextBtn?.addEventListener("click", () => {
+  const context = aiDeckBuildLegacyContext();
+
+  aiDeckDownloadJson("ai-template-catalog.json", context);
+
+  aiDeckSetStatus(
+    `Legacy AI Context exported.\nTemplates: ${context.templates.length}`,
+    "success"
+  );
+});
+
+aiEls.exportBriefBtn?.addEventListener("click", () => {
+  const brief = aiDeckBuildProjectBrief();
+
+  aiDeckDownloadJson("ai-project-brief.json", brief);
+
+  aiDeckSetStatus(
+    `Project Brief exported.\nPages: ${brief.existingPresentation.totalPages}\n` +
+    `Pool files: ${brief.imagePool.totalImages}`,
+    "success"
+  );
+});
+
+document.addEventListener("keydown", event => {
+  if (!aiEls.overlay?.classList.contains("open")) return;
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    aiDeckClose();
+  }
+}, true);
+})();
+
+/* END_AI_DECK_BUILDER_V2_COMPILER */
+
+/* AI_STYLE_CATALOG_EXPORTER_V2_COMPACT */
+      (function setupAiStyleCatalogExporter(){
+        const AI_EXPORT_SHORTCUT = {
+          ctrl:true,
+          alt:true,
+          shift:true,
+          key:"e"
+        };
+
+        const AI_ROLE_DESCRIPTIONS = {
+          bg:"Фон страницы.",
+          "left-bg":"Фон левой колонки.",
+          "text-bg":"Фон текстовой зоны.",
+          "safe-plate":"Контрастная плашка для читаемого текста поверх изображения.",
+          "safe-plate-top":"Верхняя контрастная плашка поверх изображения.",
+          "safe-plate-bottom":"Нижняя контрастная плашка поверх изображения.",
+          "safe-panel":"Светлая карточка для текста поверх изображения.",
+          "contrast-plate":"Контрастная текстовая карточка.",
+          "overlay-plate":"Полупрозрачный overlay поверх изображения.",
+          line:"Декоративная или разделительная линия.",
+          "top-line":"Акцентная верхняя линия.",
+
+          kicker:"Короткая вводная строка, категория или section label.",
+          overline:"Короткий label над заголовком.",
+          meta:"Короткая служебная информация: категория, услуги, тип проекта или label.",
+          meta1:"Дополнительный служебный блок.",
+          meta2:"Дополнительный служебный блок.",
+          title:"Главный заголовок страницы.",
+          "overlay-title":"Главный заголовок поверх изображения.",
+          subtitle:"Короткий поясняющий подзаголовок.",
+          sub:"Короткая вторичная строка.",
+          sub1:"Первая дополнительная вторичная строка.",
+          sub2:"Вторая дополнительная вторичная строка.",
+          body:"Основной поясняющий текст.",
+          "body-right":"Основной текст в правой колонке.",
+          statement:"Крупное утверждение, манифест или chapter divider.",
+          steps:"Этапы процесса или последовательность шагов.",
+          services:"Услуги, project metadata или deliverables.",
+          links:"Короткий CTA, ссылки или список разделов.",
+          small:"Мелкий вспомогательный текст.",
+          smallMeta:"Мелкая служебная информация.",
+          values:"Контакты или значения в финальном блоке.",
+          value1:"Основной блок контактов.",
+
+          "full-hero":"Полноэкранное hero image.",
+          "full-bleed":"Полноэкранное изображение.",
+          "hero-image":"Главное изображение страницы.",
+          "hero-side":"Крупное боковое изображение.",
+          "left-image":"Изображение в левой колонке.",
+          "right-image":"Изображение в правой колонке.",
+          "about-image":"Изображение для страницы About.",
+          "accent-image":"Акцентное изображение.",
+          "small-image":"Небольшое supporting image.",
+          "image-main":"Главное изображение content-страницы.",
+          "full-image":"Широкое изображение на странице.",
+          "bg-image":"Крупное основное изображение.",
+          "inner-frame":"Изображение внутри паспарту.",
+          "asymmetric-hero":"Крупное асимметричное hero image.",
+
+          img1:"Изображение №1.",
+          img2:"Изображение №2.",
+          img3:"Изображение №3.",
+          img4:"Изображение №4.",
+          img5:"Изображение №5.",
+          img6:"Изображение №6.",
+          img7:"Изображение №7.",
+          img8:"Изображение №8.",
+          img9:"Изображение №9."
+        };
+
+        /*
+          Жёсткая нормализация semantic type по роли.
+
+          Это исправляет ситуацию, когда во внешних custom templates
+          роль overline / statement могла автоматически попасть
+          в semanticType body.
+        */
+        const AI_ROLE_SEMANTIC_TYPES = {
+          kicker:"meta",
+          overline:"meta",
+          meta:"meta",
+          meta1:"meta",
+          meta2:"meta",
+          smallMeta:"smallMeta",
+
+          title:"title",
+          "overlay-title":"overlayTitle",
+          statement:"statement",
+
+          subtitle:"subtitle",
+          sub:"subtitle",
+          sub1:"subtitle",
+          sub2:"subtitle",
+
+          body:"body",
+          "body-right":"body",
+          steps:"body",
+          values:"body",
+          value1:"body",
+
+          services:"meta",
+          links:"smallMeta",
+          small:"smallMeta"
+        };
+
+        const AI_STYLE_PROFILES = {
+          cinematic:{
+            id:"cinematic",
+            title:"Cinematic Portfolio",
+            language:"ru",
+            visualDirection:[
+              "Image-led visual storytelling.",
+              "Крупные эмоциональные изображения и сильные project covers.",
+              "Минимум текста на image-led страницах.",
+              "Белый или нейтральный фон в структурных content pages.",
+              "Допустимы full-bleed images, тёмные safe plates и текстовые overlay.",
+              "Типографика спокойная, editorial, с воздухом.",
+              "Не повторять одинаковый layout на соседних страницах."
+            ],
+            recommendedNarrative:[
+              "Cover",
+              "What I Do",
+              "About / Method",
+              "How I Work",
+              "Selected Works Statement",
+              "Project Cover",
+              "Project Idea / Services",
+              "Development / Gallery",
+              "Contact / Outro"
+            ],
+            restrictions:[
+              "Используй только templates из этого файла.",
+              "Не создавай несуществующие templateId.",
+              "Не меняй block coordinates в template-based режиме.",
+              "Для cover и gallery не перегружай страницу длинным текстом.",
+              "Подбирай количество image slots под доступное количество изображений в папке концепта."
+            ]
+          },
+
+          "editorial-blue":{
+            id:"editorial-blue",
+            title:"Editorial Blue",
+            language:"ru",
+            visualDirection:[
+              "Светлые фоны, синий акцент #1b16ff и модульная editorial-система.",
+              "Чёткая иерархия meta → title → subtitle → body.",
+              "Сочетание белых и светло-серых полей.",
+              "Image grids, bento, triptych и асимметричные колонки допустимы.",
+              "Акцент на visual systems, sequence, research, services и case study logic.",
+              "Не смешивать с Cinematic Portfolio без отдельного явного задания."
+            ],
+            recommendedNarrative:[
+              "Cover",
+              "Positioning / What I Do",
+              "About",
+              "Method",
+              "Statement",
+              "Project Cover",
+              "Project System / Services",
+              "Editorial Gallery / Bento",
+              "Contact"
+            ],
+            restrictions:[
+              "Используй только templates из этого файла.",
+              "Не создавай несуществующие templateId.",
+              "Сохраняй синий акцент как главный идентификатор стиля.",
+              "Не перегружай компактные editorial blocks длинными абзацами.",
+              "Для project content предпочитай ясную модульную структуру."
+            ]
+          }
+        };
+
+        function aiCatalogDownload(fileName, data){
+          const blob = new Blob(
+            [JSON.stringify(data, null, 2)],
+            { type:"application/json;charset=utf-8" }
+          );
+
+          const url = URL.createObjectURL(blob);
+          const anchor = document.createElement("a");
+
+          anchor.href = url;
+          anchor.download = fileName;
+          anchor.click();
+
+          setTimeout(() => URL.revokeObjectURL(url), 15000);
+        }
+
+        function aiCatalogGetCustomTemplateIds(){
+          return new Set(
+            (window.MY_CUSTOM_COVERS || [])
+              .map(item => String(item?.id || ""))
+              .filter(Boolean)
+          );
+        }
+
+        function aiCatalogGetSemanticType(block){
+          if (!block || block.kind !== "text") return null;
+
+          const role = String(block.role || "").trim();
+
+          if (AI_ROLE_SEMANTIC_TYPES[role]) {
+            return AI_ROLE_SEMANTIC_TYPES[role];
+          }
+
+          return (
+            block.style?.semanticType ||
+            inferSemanticType(role, "", block.content || "")
+          );
+        }
+
+        function aiCatalogGetTextCapacity(block){
+          const width = Math.max(1, Number(block.w || 1));
+          const height = Math.max(1, Number(block.h || 1));
+          const fontSize = Math.max(10, Number(block.style?.fontSize || 16));
+          const lineHeight = Math.max(0.8, Number(block.style?.lineHeight || 1.2));
+
+          const lines = height / (fontSize * lineHeight);
+          const charsPerLine = width / (fontSize * 0.48);
+          const roughCapacity = lines * charsPerLine;
+
+          if (roughCapacity <= 45) return "micro";
+          if (roughCapacity <= 110) return "short";
+          if (roughCapacity <= 280) return "medium";
+          return "long";
+        }
+
+        function aiCatalogGetTextGuidance(role, capacity){
+          const semanticType = AI_ROLE_SEMANTIC_TYPES[role] || "body";
+
+          if (semanticType === "title" || semanticType === "overlayTitle") {
+            return "Короткий сильный заголовок. Обычно 2–8 слов.";
+          }
+
+          if (semanticType === "statement") {
+            return "Короткое сильное утверждение. Обычно 2–12 слов.";
+          }
+
+          if (semanticType === "subtitle") {
+            return "Одна компактная поясняющая строка.";
+          }
+
+          if (semanticType === "meta" || semanticType === "smallMeta") {
+            return "Короткий label, категория, services или metadata. Допустимы переносы строк.";
+          }
+
+          if (role === "steps") {
+            return "Краткая последовательность этапов через переносы строк.";
+          }
+
+          if (role === "services") {
+            return "Структурированный список услуг, проекта или deliverables через переносы строк.";
+          }
+
+          if (role === "values" || role === "value1") {
+            return "Контактные данные или список значений через переносы строк.";
+          }
+
+          if (capacity === "micro") {
+            return "Очень короткий текст: 1–5 слов.";
+          }
+
+          if (capacity === "short") {
+            return "Короткая фраза или компактный абзац.";
+          }
+
+          if (capacity === "medium") {
+            return "Один короткий содержательный абзац.";
+          }
+
+          return "Один или два компактных абзаца без перегруза.";
+        }
+
+        function aiCatalogGetTemplateImageCount(blocks){
+          let count = 0;
+
+          blocks.forEach(block => {
+            if (block.kind === "image") count++;
+
+            if (block.kind === "frame") {
+              count += (block.slots || []).length || getFrameLayoutCount(block.layout || "2x2");
+            }
+          });
+
+          return count;
+        }
+
+        function aiCatalogGetUsageHint(group, imageSlotCount){
+          const groupName = String(group || "").toLowerCase();
+
+          if (groupName === "intro") {
+            return "Используй для identity, positioning, What I Do, первого впечатления или introduction.";
+          }
+
+          if (groupName === "about") {
+            return "Используй для About, approach, methodology, personal positioning или manifesto.";
+          }
+
+          if (groupName === "project cover") {
+            return "Используй только как начало конкретного кейса, concept или project.";
+          }
+
+          if (groupName === "project content") {
+            return "Используй для key idea, process, services, visual system, development или case study explanation.";
+          }
+
+          if (groupName === "gallery") {
+            return `Image-led gallery. Требуется минимум ${imageSlotCount || 1} уникальных изображение(й), если noRepeats включён.`;
+          }
+
+          if (groupName === "text") {
+            return "Используй для statement, transition, narrative pause, method или text-led explanation.";
+          }
+
+          if (groupName === "contact / outro") {
+            return "Используй только для contact, CTA или завершения презентации.";
+          }
+
+          return "Используй по смыслу страницы и количеству доступных изображений.";
+        }
+
+        function aiCatalogDescribeTemplate(template, customIds){
+          const samplePage = createTemplatePage(template);
+          const blocks = samplePage.blocks || [];
+
+          const textSlots = blocks
+            .filter(block => block.kind === "text")
+            .map(block => {
+              const role = String(block.role || "").trim();
+              const semanticType = aiCatalogGetSemanticType(block);
+              const capacity = aiCatalogGetTextCapacity(block);
+
+              return {
+                role,
+                semanticType,
+                capacity,
+                description:AI_ROLE_DESCRIPTIONS[role] || "Текстовый блок.",
+                guidance:aiCatalogGetTextGuidance(role, capacity)
+              };
+            });
+
+          const imageSlots = blocks
+            .filter(block => block.kind === "image")
+            .map(block => {
+              const isFullBleed = (
+                Number(block.x) === 0 &&
+                Number(block.y) === 0 &&
+                Number(block.w) === PAGE_W &&
+                Number(block.h) === PAGE_H
+              );
+
+              return {
+                role:String(block.role || "").trim(),
+                description:AI_ROLE_DESCRIPTIONS[block.role] || "Image slot.",
+                isFullBleed
+              };
+            });
+
+          const frameSlots = blocks
+            .filter(block => block.kind === "frame")
+            .map(block => ({
+              role:String(block.role || "").trim(),
+              description:AI_ROLE_DESCRIPTIONS[block.role] || "Frame block.",
+              layout:block.layout || "2x2",
+              slotCount:(block.slots || []).length || getFrameLayoutCount(block.layout || "2x2"),
+              gap:Number(block.gap || 0),
+              emphasis:block.emphasis || "medium",
+              asymmetry:block.asymmetry || "medium"
+            }));
+
+          const totalImageSlots = aiCatalogGetTemplateImageCount(blocks);
+          const hasFullBleedImage = imageSlots.some(slot => slot.isFullBleed);
+          const hasOverlayText = blocks.some(block => {
+            if (block.kind !== "text") return false;
+            const type = aiCatalogGetSemanticType(block);
+            return type === "overlayTitle" || type === "overlayBody";
+          });
+
+          return {
+            id:template.id,
+            label:template.label,
+            templateGroup:template.templateGroup,
+            visualStyle:template.visualStyle || "cinematic",
+            source:customIds.has(template.id) ? "custom-js" : "core-presentation-html",
+
+            usageHint:aiCatalogGetUsageHint(
+              template.templateGroup,
+              totalImageSlots
+            ),
+
+            layoutSummary:{
+              textSlotCount:textSlots.length,
+              imageSlotCount:imageSlots.length,
+              frameBlockCount:frameSlots.length,
+              totalImageSlots,
+              hasFullBleedImage,
+              hasOverlayText
+            },
+
+            textRoles:textSlots.map(slot => slot.role),
+            textSlots,
+            imageSlots,
+            frameSlots
+          };
+        }
+
+        function aiCatalogGetImagePoolManifest(){
+          const actualGroups = new Map();
+
+          (state.imagePool?.items || []).forEach(item => {
+            const conceptIndex = normalizeConceptNumber(item.concept || 0);
+            const conceptSubfolder = normalizeConceptSubfolder(item.subfolder || "root");
+
+            if (conceptIndex <= 0) return;
+
+            const key = `${conceptIndex}:${conceptSubfolder}`;
+
+            if (!actualGroups.has(key)) {
+              actualGroups.set(key, {
+                conceptIndex,
+                conceptSubfolder,
+                imageCount:0
+              });
+            }
+
+            actualGroups.get(key).imageCount++;
+          });
+
+          const groups = Array.from(actualGroups.values())
+            .sort((a, b) => {
+              if (a.conceptIndex !== b.conceptIndex) {
+                return a.conceptIndex - b.conceptIndex;
+              }
+
+              return String(a.conceptSubfolder).localeCompare(
+                String(b.conceptSubfolder),
+                undefined,
+                { numeric:true }
+              );
+            });
+
+          const conceptsMap = new Map();
+
+          groups.forEach(group => {
+            if (!conceptsMap.has(group.conceptIndex)) {
+              conceptsMap.set(group.conceptIndex, {
+                conceptIndex:group.conceptIndex,
+                totalImageCount:0,
+                allowedConceptSubfolders:["all"],
+                subfolders:[]
+              });
+            }
+
+            const concept = conceptsMap.get(group.conceptIndex);
+
+            concept.totalImageCount += group.imageCount;
+
+            if (!concept.allowedConceptSubfolders.includes(group.conceptSubfolder)) {
+              concept.allowedConceptSubfolders.push(group.conceptSubfolder);
+            }
+
+            concept.subfolders.push({
+              conceptSubfolder:group.conceptSubfolder,
+              imageCount:group.imageCount
+            });
+          });
+
+          const concepts = Array.from(conceptsMap.values())
+            .sort((a, b) => a.conceptIndex - b.conceptIndex)
+            .map(concept => {
+              concept.allowedConceptSubfolders = [
+                "all",
+                ...concept.allowedConceptSubfolders
+                  .filter(value => value !== "all")
+                  .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric:true }))
+              ];
+
+              return concept;
+            });
+
+          return {
+            schemaVersion:"ai-image-pool-manifest-v2",
+            generatedAt:new Date().toISOString(),
+
+            purpose:[
+              "Этот файл описывает доступность изображений по conceptIndex и conceptSubfolder.",
+              "Он не содержит изображения и не содержит конкретные filenames.",
+              "Нейросеть выбирает только conceptIndex и conceptSubfolder.",
+              "Редактор сам распределяет реальные изображения по image slots."
+            ],
+
+            selectionRules:[
+              "Используй только conceptIndex из concepts[].conceptIndex.",
+              "Для каждого conceptIndex используй только conceptSubfolder из allowedConceptSubfolders.",
+              "all — виртуальная агрегированная опция: использовать любые изображения внутри данного концепта.",
+              "root — использовать только изображения из корня концепта.",
+              "01–10 — использовать только соответствующую реальную подпапку.",
+              "Если noRepeats равно true, totalImageSlots выбранного template не должен превышать imageCount выбранной группы.",
+              "Для conceptSubfolder all используй totalImageCount соответствующего concept.",
+              "Не указывай filenames и не пытайся выбрать конкретную картинку."
+            ],
+
+            concepts,
+            groups
+          };
+        }
+
+        function aiCatalogGetSharedProtocol(){
+          const usedRoles = new Set();
+          const customIds = aiCatalogGetCustomTemplateIds();
+
+          Object.values(PAGE_TEMPLATE_LIBRARY).forEach(group => {
+            (group.templates || []).forEach(template => {
+              const samplePage = createTemplatePage(template);
+
+              (samplePage.blocks || []).forEach(block => {
+                if (block.kind === "text" && block.role) {
+                  usedRoles.add(block.role);
+                }
+              });
+            });
+          });
+
+          const roleGuide = Array.from(usedRoles)
+            .sort((a, b) => a.localeCompare(b))
+            .map(role => ({
+              role,
+              semanticType:AI_ROLE_SEMANTIC_TYPES[role] || "body",
+              description:AI_ROLE_DESCRIPTIONS[role] || "Текстовая роль."
+            }));
+
+          return {
+            schemaVersion:"ai-presentation-editor-protocol-v2",
+            generatedAt:new Date().toISOString(),
+
+            canvas:{
+              width:PAGE_W,
+              height:PAGE_H,
+              format:"A4 landscape"
+            },
+
+            sourceFilesDetected:[
+              "presentation.html",
+              "custom_templates.js",
+              "custom_blue.js"
+            ],
+
+            styleSelectionRule:[
+              "Для Cinematic задачи прикладывай только 01_cinematic_template_catalog.json.",
+              "Для Editorial Blue задачи прикладывай только 02_editorial_blue_template_catalog.json.",
+              "Не прикладывай оба style catalog одновременно для чистой одностильной презентации.",
+              "Hybrid допустим только при явном указании в TZ и требует отдельного future compiler workflow."
+            ],
+
+            responseContract:{
+              schemaVersion:"ai-deck-plan-v1",
+              requiredPageFields:[
+                "templateId",
+                "label",
+                "conceptIndex",
+                "conceptSubfolder",
+                "text",
+                "imageFill"
+              ],
+              allowedImageFillModes:[
+                "auto",
+                "none"
+              ],
+              allowedImageFillStrategies:[
+                "hero-first",
+                "all-slots",
+                "manual"
+              ],
+              outputRule:"Вернуть только валидный JSON без markdown, комментариев, HTML, CSS и JavaScript."
+            },
+
+            templateBasedModeRules:[
+              "Используй только templateId из приложенного style catalog.",
+              "Не создавай новые templates.",
+              "Не создавай blocks вручную.",
+              "Не добавляй x, y, w, h, CSS, colors или frame layouts.",
+              "Заполняй только text roles из textSlots выбранного template."
+            ],
+
+            textRoleGuide:roleGuide,
+
+            futureCustomLayoutSupport:{
+              note:"Этот раздел нужен только для будущего режима ai-layout-deck-plan-v1. Для ai-deck-plan-v1 custom blocks не создаются.",
+              blockKinds:[
+                "shape",
+                "text",
+                "image",
+                "frame"
+              ],
+              frameLayouts:Object.keys(FRAME_LAYOUTS).map(id => ({
+                id,
+                label:FRAME_LAYOUT_LABELS[id] || id,
+                slotCount:getFrameLayoutCount(id)
+              }))
+            },
+
+            customTemplateIds:Array.from(customIds).sort()
+          };
+        }
+
+        function aiCatalogBuildStyleCatalog(styleId){
+          const customIds = aiCatalogGetCustomTemplateIds();
+          const style = AI_STYLE_PROFILES[styleId];
+
+          const templates = Object.values(PAGE_TEMPLATE_LIBRARY)
+            .flatMap(group => group.templates || [])
+            .filter(template => (template.visualStyle || "cinematic") === styleId)
+            .map(template => aiCatalogDescribeTemplate(template, customIds));
+
+          const groupSummary = {};
+
+          templates.forEach(template => {
+            const groupName = template.templateGroup || "Other";
+
+            if (!groupSummary[groupName]) {
+              groupSummary[groupName] = 0;
+            }
+
+            groupSummary[groupName]++;
+          });
+
+          return {
+            schemaVersion:"ai-template-catalog-v3",
+            generatedAt:new Date().toISOString(),
+
+            catalogPurpose:[
+              "Технический источник истины для выбора templateId.",
+              "Используется для ai-deck-plan-v1.",
+              "Содержит только templates одного visual style.",
+              "Не содержит конкретных изображений, CSS, default texts или block coordinates."
+            ],
+
+            styleProfile:style,
+
+            canvas:{
+              width:PAGE_W,
+              height:PAGE_H
+            },
+
+            requiredRules:[
+              "Используй только templateId из templates[].id.",
+              "Заполняй только text roles, реально существующие в textSlots выбранного template.",
+              "Не указывай конкретные image filenames.",
+              "Назначай только conceptIndex и conceptSubfolder из ai-image-pool-manifest-v2.",
+              "Не создавай новые templates в template-based режиме.",
+              "Не смешивай стили: этот каталог содержит только один visual style."
+            ],
+
+            templateCount:templates.length,
+            groupSummary,
+            templates
+          };
+        }
+
+        function aiCatalogExportAll(){
+          const protocol = aiCatalogGetSharedProtocol();
+          const cinematic = aiCatalogBuildStyleCatalog("cinematic");
+          const editorialBlue = aiCatalogBuildStyleCatalog("editorial-blue");
+          const imagePool = aiCatalogGetImagePoolManifest();
+
+          aiCatalogDownload("00_ai_editor_protocol.json", protocol);
+          aiCatalogDownload("01_cinematic_template_catalog.json", cinematic);
+          aiCatalogDownload("02_editorial_blue_template_catalog.json", editorialBlue);
+          aiCatalogDownload("03_ai_image_pool_manifest.json", imagePool);
+
+          toast(
+            `AI catalogs exported: ` +
+            `${cinematic.templateCount} Cinematic / ` +
+            `${editorialBlue.templateCount} Editorial Blue / ` +
+            `${imagePool.concepts.length} image concepts`
+          );
+        }
+
+        window.exportAiStyleCatalogs = aiCatalogExportAll;
+
+        document.addEventListener("keydown", event => {
+          const isShortcut =
+            event.ctrlKey === AI_EXPORT_SHORTCUT.ctrl &&
+            event.altKey === AI_EXPORT_SHORTCUT.alt &&
+            event.shiftKey === AI_EXPORT_SHORTCUT.shift &&
+            String(event.key || "").toLowerCase() === AI_EXPORT_SHORTCUT.key;
+
+          if (!isShortcut) return;
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+
+          aiCatalogExportAll();
+        }, true);
+      })();
+
+      /* END_AI_STYLE_CATALOG_EXPORTER_V2_COMPACT */
+
+      /* AI_PAGES_COLLECTOR_PANEL_V3_JS */
+      (function setupAiPagesCollector(){
+        const panel = document.getElementById("aiPagesCollectorPanel");
+        if (!panel) return;
+
+        const M = { collapsed:false, items:[] };
+
+        function esc(str){
+          return String(str == null ? "" : str)
+            .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+        }
+        function autoSizeAll(){
+          Array.from(panel.querySelectorAll(".aipc-comment")).forEach(ta => {
+            ta.style.height = "auto";
+            ta.style.height = Math.max(60, ta.scrollHeight + 2) + "px";
+          });
+        }
+
+        // Превью: картинки реальные, текст — реальными буквами (видно содержимое).
+        function buildThumb(page){
+          let html = '<div class="aipc-thumb" style="container-type:size;">';
+          (page.blocks || []).forEach(b => {
+            if (b.visible === false) return;
+            const left = (b.x / 1123) * 100, top = (b.y / 794) * 100;
+            const w = (b.w / 1123) * 100, h = (b.h / 794) * 100;
+            const pos = 'left:'+left+'%;top:'+top+'%;width:'+w+'%;height:'+h+'%;';
+            if (b.kind === "image") {
+              const src = window.__aipcGetSrc ? window.__aipcGetSrc(b) : (b.src || "");
+              if (src && !b.isTemplatePlaceholder) html += '<div class="aipc-tb" style="'+pos+'"><img src="'+esc(src)+'" loading="lazy"></div>';
+              else html += '<div class="aipc-tb" style="'+pos+'background:#e7e5df;"></div>';
+            } else if (b.kind === "frame") {
+              html += '<div class="aipc-tb" style="'+pos+'background:#f0eee8;"></div>';
+            } else if (b.kind === "shape") {
+              const fill = (b.style && b.style.fill) ? b.style.fill : "#fff";
+              html += '<div class="aipc-tb" style="'+pos+'background:'+esc(fill)+';"></div>';
+            } else if (b.kind === "text") {
+              const txt = window.__aipcHtmlToText ? window.__aipcHtmlToText(b.content||"") : (b.content||"");
+              const fsPct = Math.max(2.4, ((b.style && b.style.fontSize) ? b.style.fontSize : 16) / 1123 * 100);
+              const col = (b.style && b.style.color) ? b.style.color : "#111";
+              const al = (b.style && b.style.textAlign) ? b.style.textAlign : "left";
+              html += '<div class="aipc-tb aipc-tb-text" style="'+pos+'font-size:'+fsPct+'cqw;color:'+esc(col)+';text-align:'+esc(al)+';">'+esc(txt)+'</div>';
+            }
+          });
+          html += '</div>';
+          return html;
+        }
+
+        function buildMeta(page){
+          const t=(page.blocks||[]).filter(b=>b.kind==="text").length;
+          const i=(page.blocks||[]).filter(b=>b.kind==="image").length;
+          const f=(page.blocks||[]).filter(b=>b.kind==="frame").length;
+          return "templateId: "+(page.templateId||"—")+" · text:"+t+" · img:"+i+" · frame:"+f;
+        }
+
+        function buildSnapshot(page){
+          const blocks = (page.blocks||[]).map(b=>{
+            const base={kind:b.kind,role:b.role||"",x:b.x,y:b.y,w:b.w,h:b.h};
+            if(b.kind==="text"){ base.textType=(b.style&&b.style.semanticType)?b.style.semanticType:"body"; base.text=window.__aipcHtmlToText?window.__aipcHtmlToText(b.content||""):(b.content||""); }
+            if(b.kind==="shape") base.fill=(b.style&&b.style.fill)?b.style.fill:"";
+            if(b.kind==="image") base.hasImage=!!(window.__aipcGetSrc&&window.__aipcGetSrc(b)&&!b.isTemplatePlaceholder);
+            if(b.kind==="frame"){ base.layout=b.layout||"2x2"; base.slotCount=(b.slots||[]).length; }
+            return base;
+          });
+          return {
+            templateId:page.templateId||"", templateGroup:page.templateGroup||"", label:page.sourceLabel||"",
+            visualStyle:page.visualStyle||"cinematic", conceptIndex:page.conceptIndex||0, conceptSubfolder:page.conceptSubfolder||"all",
+            counts:{ text:blocks.filter(b=>b.kind==="text").length, image:blocks.filter(b=>b.kind==="image").length, frame:blocks.filter(b=>b.kind==="frame").length },
+            blocks
+          };
+        }
+
+          window.__aipcCollect = function(){ collectActive(); };
+      window.__aipcCollectMany = function(){
+        // Собираем все выбранные страницы (или одну активную, если мультивыбора нет).
+        const ids = (state.ui.selectedPageIds && state.ui.selectedPageIds.length)
+          ? state.ui.selectedPageIds.slice()
+          : (state.ui.selectedPageId ? [state.ui.selectedPageId] : []);
+        if (!ids.length) { window.__aipcToast && window.__aipcToast("Нет выбранных страниц"); return; }
+        const prevActive = state.ui.selectedPageId;
+        ids.forEach(id => {
+          const p = window.__aipcGetPageById ? window.__aipcGetPageById(id) : null;
+          if (!p) return;
+          state.ui.selectedPageId = id;
+          collectActive();
+        });
+        state.ui.selectedPageId = prevActive;
+      };
+
+        function collectActive(){
+          const page = window.__aipcGetActivePage ? window.__aipcGetActivePage() : null;
+          if (!page) { window.__aipcToast && window.__aipcToast("Выберите страницу в рабочей области"); return; }
+          if (M.items.some(it => it.pageId === page.id)) { window.__aipcToast && window.__aipcToast("Эта страница уже добавлена"); return; }
+          M.items.push({ pageId:page.id, title:page.sourceLabel||page.templateId||"Page", meta:buildMeta(page), thumbHtml:buildThumb(page), snapshot:buildSnapshot(page), comment:"" });
+          render();
+          window.__aipcToast && window.__aipcToast("Страница добавлена в сбор");
+        }
+
+        function recalcAll(){
+          if (!M.items.length) { window.__aipcToast && window.__aipcToast("Список пуст"); return; }
+          const getPage = window.__aipcGetPageById; if (!getPage) return;
+          let n=0;
+          M.items.forEach(it=>{ const p=getPage(it.pageId); if(!p) return; it.title=p.sourceLabel||p.templateId||"Page"; it.meta=buildMeta(p); it.thumbHtml=buildThumb(p); it.snapshot=buildSnapshot(p); n++; });
+          render();
+          window.__aipcToast && window.__aipcToast("Пересчитано страниц: "+n);
+        }
+
+        function removeItem(id){ M.items=M.items.filter(it=>it.pageId!==id); render(); }
+        function clearAll(){ if(!M.items.length) return; if(!window.confirm("Очистить весь список?")) return; M.items=[]; render(); }
+
+        // ===== Выгрузка через модалку (не prompt) =====
+        function exportForAi(){
+          if (!M.items.length) { window.__aipcToast && window.__aipcToast("Список пуст"); return; }
+          const ov = document.createElement("div");
+          ov.className = "aipc-preset-overlay";
+          ov.innerHTML =
+            '<div class="aipc-preset-modal aipc-export-modal">' +
+              '<div class="aipc-preset-head"><h3>Инструкция для нейросети</h3>' +
+                '<button class="aipc-icon-btn" data-x>×</button></div>' +
+              '<div class="aipc-preset-body">' +
+                '<textarea id="aipcIntro">Это пример шаблонов презентации с их структурой и моими комментариями. Изучи роли блоков, расположение и назначение, чтобы генерировать похожие страницы.</textarea>' +
+              '</div>' +
+              '<div class="aipc-preset-actions">' +
+                '<button class="aipc-btn" data-x>Отмена</button>' +
+                '<button class="aipc-btn primary" id="aipcDoExport">Выгрузить файл</button>' +
+              '</div>' +
+            '</div>';
+          document.body.appendChild(ov);
+          const close = ()=> ov.remove();
+          ov.addEventListener("mousedown", e=>{ if(e.target===ov) close(); });
+          Array.from(ov.querySelectorAll("[data-x]")).forEach(b=>b.onclick=close);
+          ov.querySelector("#aipcDoExport").onclick = ()=>{
+            const intro = ov.querySelector("#aipcIntro").value || "";
+            const doc = {
+              schemaVersion:"ai-pages-examples-v1", generatedAt:new Date().toISOString(), readme:intro,
+              pages:M.items.map((it,idx)=>({ order:idx+1, title:it.title, userComment:it.comment||"", page:it.snapshot }))
+            };
+            const blob = new Blob([JSON.stringify(doc,null,2)], { type:"application/json;charset=utf-8" });
+            if (window.__aipcSaveFile) window.__aipcSaveFile("ai-pages-examples.json", blob);
+            else { const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="ai-pages-examples.json"; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),10000); }
+            close();
+            window.__aipcToast && window.__aipcToast("Файл для нейросети выгружен");
+          };
+        }
+
+        // ===== Пресеты (сохранение в проект + менеджер) =====
+        function getPresets(){ return (window.__aipcGetPresets && window.__aipcGetPresets()) || []; }
+        function setPresets(list){ if (window.__aipcSetPresets) window.__aipcSetPresets(list); }
+
+        function saveCurrentPreset(){
+          if (!M.items.length) { window.__aipcToast && window.__aipcToast("Список пуст — нечего сохранять"); return false; }
+          const name = window.prompt("Название пресета:", "Preset " + (getPresets().length + 1));
+          if (name == null) return false;
+          const list = getPresets().slice();
+          list.push({ id:"aipc_"+Math.random().toString(36).slice(2,9), name:String(name).trim()||"Preset", items:JSON.parse(JSON.stringify(M.items)) });
+          setPresets(list);
+          window.__aipcToast && window.__aipcToast("Пресет сохранён");
+          return true;
+        }
+
+        function loadPreset(id){
+          const p = getPresets().find(x=>x.id===id);
+          if (!p) return;
+          M.items = JSON.parse(JSON.stringify(p.items || []));
+          render();
+          window.__aipcToast && window.__aipcToast("Пресет загружен: "+p.name);
+        }
+
+        function deletePreset(id){
+          setPresets(getPresets().filter(x=>x.id!==id));
+        }
+
+        function openPresetManager(){
+          const ov = document.createElement("div");
+          ov.className = "aipc-preset-overlay";
+          function rowsHtml(){
+            const list = getPresets();
+            if (!list.length) return '<div class="aipc-empty">Пресетов пока нет.</div>';
+            return list.map(p =>
+              '<div class="aipc-preset-item" data-id="'+esc(p.id)+'">' +
+                '<div class="nm" title="'+esc(p.name)+'">'+esc(p.name)+' · '+((p.items&&p.items.length)||0)+' стр.</div>' +
+                '<button class="aipc-icon-btn" data-load="'+esc(p.id)+'" title="Загрузить">↧</button>' +
+                '<button class="aipc-icon-btn" data-del="'+esc(p.id)+'" title="Удалить">×</button>' +
+              '</div>'
+            ).join("");
+          }
+          function paint(){
+            ov.innerHTML =
+              '<div class="aipc-preset-modal">' +
+                '<div class="aipc-preset-head"><h3>Менеджер пресетов</h3>' +
+                  '<button class="aipc-icon-btn" data-x>×</button></div>' +
+                '<div class="aipc-preset-body" id="aipcPresetBody">' + rowsHtml() + '</div>' +
+                '<div class="aipc-preset-actions">' +
+                  '<button class="aipc-btn primary" id="aipcSaveCurrent">Сохранить текущий</button>' +
+                  '<button class="aipc-btn" data-x>Закрыть</button>' +
+                '</div>' +
+              '</div>';
+            Array.from(ov.querySelectorAll("[data-x]")).forEach(b=>b.onclick=()=>ov.remove());
+            const sc = ov.querySelector("#aipcSaveCurrent");
+            if (sc) sc.onclick = ()=>{ if (saveCurrentPreset()) paint(); };
+            Array.from(ov.querySelectorAll("[data-load]")).forEach(b=>b.onclick=()=>{ loadPreset(b.dataset.load); ov.remove(); });
+            Array.from(ov.querySelectorAll("[data-del]")).forEach(b=>b.onclick=()=>{ if(window.confirm("Удалить пресет?")){ deletePreset(b.dataset.del); paint(); } });
+          }
+          document.body.appendChild(ov);
+          ov.addEventListener("mousedown", e=>{ if(e.target===ov) ov.remove(); });
+          paint();
+        }
+
+        function render(){
+          panel.className = "aipc-panel editor-only" + (M.collapsed ? " aipc-collapsed" : "");
+
+          if (M.collapsed) {
+            panel.innerHTML =
+              '<div class="aipc-card">' +
+                '<div class="aipc-head">' +
+                  '<button class="aipc-icon-btn" id="aipcExpandBtn" title="Развернуть">☰</button>' +
+                  '<h3 class="aipc-title">AI Pages Collector</h3>' +
+                '</div>' +
+              '</div>';
+            const eb = document.getElementById("aipcExpandBtn");
+            if (eb) eb.onclick = () => { M.collapsed = false; render(); };
+            return;
+          }
+
+          const itemsHtml = !M.items.length
+            ? '<div class="aipc-empty">Список пуст.<br>Выберите страницу в рабочей области и нажмите «Собрать текущую».</div>'
+            : M.items.map((it, idx) => (
+                '<div class="aipc-item" data-aipc-id="'+esc(it.pageId)+'">' +
+                  '<div class="aipc-item-head">' +
+                    '<div class="aipc-item-index">'+(idx+1)+'</div>' +
+                    '<div class="aipc-item-title" title="'+esc(it.title)+'">'+esc(it.title)+'</div>' +
+                    '<button class="aipc-icon-btn" data-aipc-remove="'+esc(it.pageId)+'" title="Удалить из списка">−</button>' +
+                  '</div>' +
+                  '<div class="aipc-item-body">' +
+                    it.thumbHtml +
+                    '<div class="aipc-meta">'+esc(it.meta)+'</div>' +
+                    '<div class="aipc-comment-label">Комментарий для нейросети</div>' +
+                    '<textarea class="aipc-comment" data-aipc-comment="'+esc(it.pageId)+'" placeholder="Опиши, что здесь показано...">'+esc(it.comment)+'</textarea>' +
+                  '</div>' +
+                '</div>'
+              )).join("");
+
+          // Шапка: плюсик (собрать текущую) + крестик-сворачивание. Действия — кнопками по 2.
+          panel.innerHTML =
+            '<div class="aipc-card">' +
+              '<div class="aipc-head">' +
+                '<h3 class="aipc-title">AI Pages Collector</h3>' +
+                '<div class="aipc-head-btns">' +
+                  '<button class="aipc-icon-btn aipc-hide-optional" id="aipcCollectHeadBtn" title="Собрать текущую страницу">＋</button>' +
+                '</div>' +
+              '</div>' +
+              '<div class="aipc-body">' +
+                '<div class="aipc-toolbar">' +
+                  '<button class="aipc-btn" id="aipcRecalcBtn">Пересчитать</button>' +
+                  '<button class="aipc-btn danger" id="aipcClearBtn">Очистить всё</button>' +
+                  '<button class="aipc-btn" id="aipcExportBtn">Выгрузить для AI</button>' +
+                  '<button class="aipc-btn" id="aipcPresetBtn">Пресеты</button>' +
+                '</div>' +
+                '<div class="aipc-list" id="aipcList">' + itemsHtml + '</div>' +
+              '</div>' +
+            '</div>';
+
+          const byId = id => document.getElementById(id);
+          if (byId("aipcCollapseBtn")) byId("aipcCollapseBtn").onclick = () => { M.collapsed = true; render(); };
+          if (byId("aipcCollectHeadBtn")) byId("aipcCollectHeadBtn").onclick = collectActive;
+          if (byId("aipcRecalcBtn")) byId("aipcRecalcBtn").onclick = recalcAll;
+          if (byId("aipcExportBtn")) byId("aipcExportBtn").onclick = exportForAi;
+          if (byId("aipcClearBtn")) byId("aipcClearBtn").onclick = clearAll;
+          if (byId("aipcPresetBtn")) byId("aipcPresetBtn").onclick = openPresetManager;
+
+          Array.from(panel.querySelectorAll("[data-aipc-remove]")).forEach(btn => {
+            btn.onclick = () => removeItem(btn.dataset.aipcRemove);
+          });
+          Array.from(panel.querySelectorAll("[data-aipc-comment]")).forEach(ta => {
+            autoSizeAll();
+            ta.oninput = e => {
+              const it = M.items.find(x => x.pageId === e.target.dataset.aipcComment);
+              if (it) it.comment = e.target.value;
+              e.target.style.height = "auto";
+              e.target.style.height = Math.max(60, e.target.scrollHeight + 2) + "px";
+            };
+          });
+
+          requestAnimationFrame(autoSizeAll);
+        }
+
+        render();
+      })();
+      /* END_AI_PAGES_COLLECTOR_PANEL_V3_JS */
+      /* AI_PAGES_COLLECTOR_BRIDGES_V2 */
+      window.__aipcGetActivePage = function(){
+        try { return getSelectedPage(); } catch(e){ return null; }
+      };
+      window.__aipcGetPageById = function(id){
+        try { return getPageById(id); } catch(e){ return null; }
+      };
+      window.__aipcGetSrc = function(block){
+        try { return getImageRenderData(block).src || ""; } catch(e){ return ""; }
+      };
+      window.__aipcHtmlToText = function(html){
+        try { return htmlToTextareaValue(html); } catch(e){ return String(html || ""); }
+      };
+      window.__aipcToast = function(msg){
+        try { toast(msg); } catch(e){ console.log(msg); }
+      };
+           window.__aipcGetPresets = function(){
+        try {
+          state.ui = state.ui || {};
+          if (!Array.isArray(state.ui.aipcPresets)) state.ui.aipcPresets = [];
+          return state.ui.aipcPresets;
+        } catch (e) { return []; }
+      };
+      window.__aipcSetPresets = function(list){
+        try {
+          state.ui = state.ui || {};
+          state.ui.aipcPresets = Array.isArray(list) ? list : [];
+          // Сохраняем в проект (localStorage), чтобы пресеты не терялись при перезагрузке.
+          try { localStorage.setItem(STORAGE_KEY, safeLocalStorageSnapshot()); } catch (e2) {}
+        } catch (e) {}
+      };
+      window.__aipcSaveFile = async function(fileName, blob){
+        // Пытаемся открыть окно "куда сохранить", иначе обычное скачивание.
+        try {
+          if ("showSaveFilePicker" in window) {
+            const handle = await window.showSaveFilePicker({
+              suggestedName: fileName,
+              types: [{ description:"JSON", accept:{ "application/json":[".json"] } }]
+            });
+            const writable = await handle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+            return;
+          }
+        } catch (e) {
+          if (e && e.name === "AbortError") return;
+        }
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+      };
+      /* END_AI_PAGES_COLLECTOR_BRIDGES_V2 */
+      /* APPROVED_DOCK_RUNTIME_V2 */
+
+           /* APPROVED_DOCK_RUNTIME_V3 */
+
+      function setupApprovedDock() {
+  /*
+    Safety fallback.
+    Старый dock вызывает optional helper для AI-панели,
+    но в текущей сборке этот helper может отсутствовать.
+    Не даём отсутствующей AI-функции остановить весь dock.
+  */
+  if (typeof window.shellUiSetAipcVisible !== "function") {
+    window.shellUiSetAipcVisible = function() {};
+  }
+  const panel = document.querySelector(".left-panel");
+
+  if (!panel || document.getElementById("approvedDockRoot")) return;
+
+  const cards = Array.from(panel.children).filter(node =>
+    node.classList.contains("sidebar-card") ||
+    node.classList.contains("selection-toolbar")
+  );
+
+  const findCard = selector =>
+    cards.find(card => card.matches(selector) || card.querySelector(selector));
+
+  const firstCard = cards.find(card => card.querySelector("#deckSelect"));
+  const aiBuilderCard = findCard("#openAiDeckBuilderBtn");
+  const imagePoolCard = findCard("#chooseImagePoolBtn");
+  const templateCard = findCard("#templateCategorySelect");
+  const imageRadiusCard = findCard("#imageRadiusSlider");
+  const pageRadiusCard = findCard("#pageRadiusSlider");
+  const editCard = findCard("#addPageAfterBtn");
+  const pageActionsCard = findCard("#copyPageBtn");
+  const siteExportCard = findCard("#siteTitleInput");
+  const globalTypeCard = findCard("#globalTypePresetSelect");
+  const memoryCard = findCard("#memoryStatsGrid");
+  const hotkeysCard = findCard("#hotkeysCard");
+  const selectionCard = document.getElementById("selectionToolbar");
+
+  const dock = document.createElement("div");
+  dock.id = "approvedDockRoot";
+  dock.className = "approved-dock-root";
+
+
+
+
+  dock.innerHTML = `
+    <div class="approved-dock-header">
+      <div class="approved-dock-title">BRAINGY MASTER DOCK</div>
+      <button type="button" class="btn primary approved-dock-save" id="approvedDockSaveBtn">Save</button>
+    </div>
+
+    <nav class="approved-dock-tabs" aria-label="Master Dock">
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="concept">Random</button>
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="layouts">Layouts</button>
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="text">Text</button>
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="ai">AI</button>
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="page">Page</button>
+      <button type="button" class="approved-dock-tab" data-approved-master-tab="project">Project</button>
+    </nav>
+
+    <div class="approved-split-header">
+      <div class="approved-split-title">PORTFOLIO EDITOR</div>
+      <div class="approved-split-subtitle">AKINBINU AKINTAYO</div>
+
+      <div class="field">
+        <label for="approvedSplitSectionSelect">Раздел меню</label>
+        <select id="approvedSplitSectionSelect">
+          <option value="ai">AI Deck Builder</option>
+          <option value="deck">Load Deck & Project</option>
+          <option value="concept">Concept Editing</option>
+          <option value="templates">Templates</option>
+          <option value="pages">Page Structure & Thumbnails</option>
+          <option value="aipc">AI Pages Collector</option>
+          <option value="page">Page Actions</option>
+          <option value="frame">Frame Inspector</option>
+          <option value="text">Text Inspector & Global Type Styles</option>
+          <option value="export">Site & Export</option>
+          <option value="tech">Tech Info & Settings</option>
+          <option value="hotkeys">Hotkeys</option>
+        </select>
+      </div>
+      <div class="field approved-split-position-field">
+        <label for="approvedSplitPositionSelect">Положение меню</label>
+        <select id="approvedSplitPositionSelect">
+          <option value="canvas-left">Впритык к канвасу слева</option>
+          <option value="screen-left">К левому краю экрана</option>
+          <option value="middle-left">Посередине слева</option>
+          <option value="canvas-right">Впритык к канвасу справа</option>
+          <option value="screen-right">К правому краю экрана</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="project" data-split-section="deck" id="approvedSplitDeckSlot"></section>
+
+<section class="sidebar-card approved-dock-card" data-split-section="concept" id="approvedSplitConceptQuickSlot"></section>
+
+<section class="sidebar-card approved-dock-card" data-dock-tab="concept" data-split-section="concept" id="approvedSplitConceptSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="concept" data-split-section="templates" id="approvedSplitTemplatesSlot"></section>
+    <section class="sidebar-card approved-dock-card" data-dock-tab="pages" data-split-section="pages" id="approvedSplitPagesSlot">
+      <div class="approved-pages-title-row">
+        <h3 class="sidebar-title">МЕНЕДЖЕР СТРАНИЦ</h3>
+        <div class="approved-pages-actions">
+          <button type="button" class="icon-action-btn" id="approvedPagesUpBtn" title="Переместить вверх">↑</button>
+          <button type="button" class="icon-action-btn" id="approvedPagesDownBtn" title="Переместить вниз">↓</button>
+          <button type="button" class="icon-action-btn" id="approvedPagesDuplicateBtn" title="Дублировать">□</button>
+        </div>
+      </div>
+      <div id="approvedPagesPanelMount"></div>
+    </section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="ai" data-split-section="ai" id="approvedSplitAiSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="page" data-split-section="page" id="approvedSplitPageSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-split-section="frame" id="approvedSplitFrameSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-split-section="text" id="approvedSplitTextSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="project" data-split-section="export" id="approvedSplitExportSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="project" data-split-section="tech" id="approvedSplitTechSlot"></section>
+
+    <section class="sidebar-card approved-dock-card" data-dock-tab="project" data-split-section="hotkeys" id="approvedSplitHotkeysSlot"></section>
+
+    <div id="approvedSelectionParking" aria-hidden="true"></div>
+  `;
+
+  panel.appendChild(dock);
+
+  function moveCardInto(card, slotId) {
+    const slot = document.getElementById(slotId);
+
+    if (!card || !slot) return;
+
+    card.classList.add("approved-dock-card");
+    card.style.display = "";
+    slot.appendChild(card);
+  }
+
+  function getSplitHotkeysOverlay() {
+    return document.getElementById("splitHotkeysOverlay");
+  }
+
+  function getSplitHotkeysMount() {
+    return document.getElementById("splitHotkeysModalMount");
+  }
+
+  function getSplitHotkeysHome() {
+    return document.getElementById("approvedSplitHotkeysSlot");
+  }
+
+  function closeSplitHotkeysPopup() {
+    const overlay = getSplitHotkeysOverlay();
+    const mount = getSplitHotkeysMount();
+    const card = document.getElementById("hotkeysCard");
+    const home = getSplitHotkeysHome() || document.querySelector(".left-panel");
+
+    if (card && home && card.parentElement !== home) {
+      home.appendChild(card);
+      card.style.display = "";
+    }
+
+    if (overlay) {
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+
+    if (mount) mount.scrollTop = 0;
+  }  function openSplitHotkeysPopup() {
+    const overlay = getSplitHotkeysOverlay();
+    const mount = getSplitHotkeysMount();
+    const card = document.getElementById("hotkeysCard");
+    const toggleBtn = document.getElementById("hotkeysToggleBtn");
+
+    if (!document.body.classList.contains("shell-split-active")) return;
+    if (!overlay || !mount || !card) return;
+
+    card.classList.remove("is-collapsed");
+    card.style.display = "";
+    if (toggleBtn) toggleBtn.textContent = "▾";
+
+    mount.appendChild(card);
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden", "false");
+  }
+  moveCardInto(firstCard, "approvedSplitDeckSlot");
+
+    /*
+    Concept Editing:
+    оставляем исходную карточку Image Pool целиком.
+    В ней уже работает Page Concept как input[type=number],
+    Page Subfolder, Choose/Rescan и random/fix actions.
+  */
+  /* =========================================================
+     PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE START
+     ========================================================= */
+  moveCardInto(imagePoolCard, "approvedSplitConceptSlot");
+    /*
+    CONCEPT EDITING — APPROVED PANEL
+
+    One production card assembly:
+    IMAGE SCOPE → CONCEPT EDITING → ADVANCED.
+
+    Real DOM nodes only. IDs, listeners and button logic unchanged.
+  */
+  const conceptActionsRoot = imagePoolCard
+    ?.querySelector("#randomPageBtn")
+    ?.closest(".stack-actions");
+
+  if (
+    conceptActionsRoot &&
+    !document.getElementById("approvedSplitConceptSection")
+  ) {
+    const imageScopeGroup = document.createElement("div");
+    imageScopeGroup.id = "approvedSplitImageScopeGroup";
+    imageScopeGroup.className = "approved-split-image-scope-group";
+
+    const imagePoolTitle = imagePoolCard.querySelector(".sidebar-title");
+
+    const pageConceptField = document
+      .getElementById("pageConceptSelect")
+      ?.closest(".field");
+
+    const pageSubfolderField = document
+      .getElementById("pageSubfolderSelect")
+      ?.closest(".field");
+
+    if (imagePoolTitle) {
+      imagePoolTitle.textContent = "IMAGE SCOPE";
+      imageScopeGroup.appendChild(imagePoolTitle);
+    }
+
+    if (pageConceptField) {
+      imageScopeGroup.appendChild(pageConceptField);
+    }
+
+    if (pageSubfolderField) {
+      imageScopeGroup.appendChild(pageSubfolderField);
+    }
+
+    const conceptSection = document.createElement("section");
+    conceptSection.id = "approvedSplitConceptSection";
+    conceptSection.className = "approved-split-concept-section";
+
+    const conceptTitle = document.createElement("div");
+    conceptTitle.className = "approved-split-concept-section-title";
+    conceptTitle.textContent = "CONCEPT EDITING";
+
+    const primaryGrid = document.createElement("div");
+    primaryGrid.className = "approved-split-concept-primary-grid";
+
+    const advanced = document.createElement("section");
+    advanced.className = "approved-split-concept-advanced";
+
+    const advancedTitle = document.createElement("div");
+    advancedTitle.className = "approved-split-concept-advanced-title";
+    advancedTitle.innerHTML =
+      '<span>ADVANCED</span><span aria-hidden="true">⌄</span>';
+
+    const advancedGrid = document.createElement("div");
+    advancedGrid.className = "approved-split-concept-advanced-grid";
+
+    ["randomOneBtn", "randomPageBtn"].forEach((id) => {
+      const button = document.getElementById(id);
+      if (button) {
+        if (id === "randomOneBtn") button.textContent = "Random One";
+        if (id === "randomPageBtn") button.textContent = "Random Page";
+        primaryGrid.appendChild(button);
+      }
+    });
+
+    const buttonLabels = {
+      randomFrameBtn: "Random Frame",
+      randomAllBtn: "Random All",
+      fixRandomBtn: "Fix Selected",
+      unfixRandomBtn: "Unfix Selected",
+      fixAllPageBtn: "Fix Page",
+      unfixAllPageBtn: "Unfix Page",
+      fixAllBtn: "Fix All",
+      unfixAllBtn: "Unfix All"
+    };
+
+    [
+      "randomFrameBtn",
+      "randomAllBtn",
+      "fixRandomBtn",
+      "unfixRandomBtn",
+      "fixAllPageBtn",
+      "unfixAllPageBtn",
+      "fixAllBtn",
+      "unfixAllBtn"
+    ].forEach((id) => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.textContent = buttonLabels[id];
+      advancedGrid.appendChild(button);
+    });
+
+    advanced.appendChild(advancedTitle);
+    advanced.appendChild(advancedGrid);
+
+    conceptSection.appendChild(conceptTitle);
+    conceptSection.appendChild(primaryGrid);
+    conceptSection.appendChild(advanced);
+
+    /*
+      IMAGE SCOPE above Concept Editing.
+      Original Image Pool card remains the single host card.
+    */
+    conceptActionsRoot.insertAdjacentElement(
+      "beforebegin",
+      imageScopeGroup
+    );
+
+    conceptActionsRoot.appendChild(conceptSection);
+  }
+
+  /* =========================================================
+     PANEL CONTROL CENTER — CONCEPT EDITING STRUCTURE END
+     ========================================================= */
+  /*
+    IMAGE LIBRARY — техническая настройка проекта.
+
+    Реальные Choose / Rescan / Count переносятся в Tech.
+    Обработчики кнопок не переписываются: это те же DOM-узлы.
+  */
+  const imagePoolActionRow = imagePoolCard?.querySelector(
+    ".image-pool-action-row"
+  );
+
+  const imagePoolCount = imagePoolCard?.querySelector(
+    "#imagePoolCount"
+  );
+
+  const techSlot = document.getElementById(
+    "approvedSplitTechSlot"
+  );
+
+  if (techSlot && imagePoolActionRow) {
+    const imageLibraryControls = document.createElement("section");
+
+    imageLibraryControls.id = "approvedSplitImageLibraryControls";
+    imageLibraryControls.className =
+      "approved-split-image-library-controls";
+
+    const imageLibraryTitle = document.createElement("div");
+    imageLibraryTitle.className =
+      "approved-split-image-library-title";
+    imageLibraryTitle.textContent = "IMAGE LIBRARY";
+
+    imageLibraryControls.appendChild(imageLibraryTitle);
+    imageLibraryControls.appendChild(imagePoolActionRow);
+
+    if (imagePoolCount) {
+      imageLibraryControls.appendChild(imagePoolCount);
+    }
+
+    techSlot.appendChild(imageLibraryControls);
+  }
+  /*
+    Templates:
+    переносим Template Library целиком, вместе с фильтрами,
+    Favorites, category, template select и всеми существующими handlers.
+  */
+  moveCardInto(templateCard, "approvedSplitTemplatesSlot");
+
+  /*
+    Tech:
+    Radius-карточки работают как существующие DOM-узлы.
+    Никакие sliders и handlers не копируются.
+  */
+  moveCardInto(imageRadiusCard, "approvedSplitTechSlot");
+  moveCardInto(pageRadiusCard, "approvedSplitTechSlot");
+    /*
+    Quick-slot intentionally disabled.
+
+    Real controls remain inside their original working cards:
+    - Image Pool keeps all random buttons;
+    - Template Library keeps Next and Apply buttons.
+  */
+  moveCardInto(aiBuilderCard, "approvedSplitAiSlot");
+
+  moveCardInto(editCard, "approvedSplitPageSlot");
+  moveCardInto(pageActionsCard, "approvedSplitPageSlot");
+
+  moveCardInto(globalTypeCard, "approvedSplitTextSlot");
+
+  moveCardInto(siteExportCard, "approvedSplitExportSlot");
+
+  moveCardInto(memoryCard, "approvedSplitTechSlot");
+  moveCardInto(hotkeysCard, "approvedSplitHotkeysSlot");
+  if (hotkeysCard) hotkeysCard.classList.remove("is-collapsed");
+  if (selectionCard) {
+    selectionCard.classList.add("approved-dock-card");
+    document.getElementById("approvedSelectionParking").appendChild(selectionCard);
+  }
+
+  [
+    "#shuffleFrameLayoutBtn",
+    "#fixRandomBtn",
+    "#unfixRandomBtn",
+    "#fixAllPageBtn",
+    "#unfixAllPageBtn",
+    "#fixAllBtn",
+    "#unfixAllBtn",
+    "#noRepeatsCheckbox",
+    "#imagePoolCount"
+  ].forEach(selector => {
+    const control = dock.querySelector(selector);
+    const row = control?.closest(".stack-actions, .field, .check-row, .mini-pill");
+
+    if (row) row.classList.add("approved-split-concept-extra");
+  });
+
+  const saveButton = document.getElementById("approvedDockSaveBtn");
+
+  if (saveButton) {
+    saveButton.onclick = () => {
+      document.getElementById("saveBtn")?.click();
+    };
+  }
+
+  const splitHotkeysLaunchBtn = document.getElementById("splitHotkeysLaunchBtn");
+  const splitHotkeysCloseBtn = document.getElementById("splitHotkeysCloseBtn");
+  const splitHotkeysOverlay = getSplitHotkeysOverlay();
+
+  if (splitHotkeysLaunchBtn) {
+    splitHotkeysLaunchBtn.onclick = () => {
+      openSplitHotkeysPopup();
+    };
+  }
+
+  if (splitHotkeysCloseBtn) {
+    splitHotkeysCloseBtn.onclick = () => {
+      closeSplitHotkeysPopup();
+    };
+  }
+  if (splitHotkeysOverlay) {
+    splitHotkeysOverlay.addEventListener("keydown", event => {
+      if (hotkeyCapturingKey) {
+        event.stopImmediatePropagation();
+        handleHotkeyCaptureKeydown(event);
+      }
+    }, true);
+  }
+  if (splitHotkeysOverlay) {
+    splitHotkeysOverlay.addEventListener("mousedown", event => {
+      if (event.target === splitHotkeysOverlay) {
+        closeSplitHotkeysPopup();
+      }
+    });
+  }
+
+  function syncMasterButtons(tab) {
+    Array.from(dock.querySelectorAll("[data-approved-master-tab]")).forEach(button => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.approvedMasterTab === tab
+      );
+    });
+  }
+
+  function setMasterTab(tab) {
+    const safeTab = [
+      "concept",
+      "layouts",
+      "text",
+      "ai",
+      "page",
+      "project"
+    ].includes(tab) ? tab : "concept";
+
+    document.body.dataset.approvedMasterTab = safeTab;
+    syncMasterButtons(safeTab);
+
+    if (safeTab !== "ai") {
+      shellUiSetAipcVisible(false);
+    }
+  }
+
+  function getInspectorKind() {
+    try {
+      const blocks = getSelectedBlocks();
+
+      if (blocks.length !== 1) return "";
+
+      const kind = blocks[0]?.kind || "";
+
+      if (kind === "text") return "text";
+      if (kind === "image" || kind === "frame" || kind === "shape") return "frame";
+
+      return "";
+    } catch {
+      return "";
+    }
+  }
+
+  function syncInspector() {
+    const selection = document.getElementById("selectionToolbar");
+    const parking = document.getElementById("approvedSelectionParking");
+    const activeSection = document.body.dataset.approvedSplitSection || "";
+    const frameSlot = document.getElementById("approvedSplitFrameSlot");
+    const textSlot = document.getElementById("approvedSplitTextSlot");
+
+    if (!selection || !parking || !frameSlot || !textSlot) return;
+
+    frameSlot.querySelector(".approved-inspector-empty")?.remove();
+    textSlot.querySelector(".approved-inspector-empty")?.remove();
+
+    const kind = getInspectorKind();
+
+        if (activeSection === "frame" && kind === "frame") {
+      /*
+        Не appendChild повторно, если toolbar уже находится
+        в Frame Inspector. Повторный appendChild на mouseup
+        закрывает открытый native <select>.
+      */
+      if (selection.parentElement !== frameSlot) {
+        frameSlot.appendChild(selection);
+      }
+      return;
+    }
+
+    if (activeSection === "text" && kind === "text") {
+      /*
+        Та же защита для Text Inspector.
+      */
+      if (selection.parentElement !== textSlot) {
+        textSlot.appendChild(selection);
+      }
+      return;
+    }
+
+    parking.appendChild(selection);
+
+    if (activeSection === "frame") {
+      frameSlot.insertAdjacentHTML(
+        "beforeend",
+        `
+          <div class="approved-inspector-empty">
+            Select one Image, Frame or Shape block on the canvas.
+          </div>
+        `
+      );
+    }
+
+    if (activeSection === "text") {
+      textSlot.insertAdjacentHTML(
+        "beforeend",
+        `
+          <div class="approved-inspector-empty">
+            Select one Text block on the canvas.
+          </div>
+        `
+      );
+    }
+  }
+
+  function mountRealPagesPanel() {
+    const mount = document.getElementById("approvedPagesPanelMount");
+
+    if (!mount || !window.__pagesPanel) return;
+
+    window.__pagesPanel.open();
+
+    const realPanel = document.getElementById("pagesPanel");
+
+    if (realPanel && realPanel.parentElement !== mount) {
+      mount.appendChild(realPanel);
+    }
+  }
+
+  function openSplitPages() {
+    document.body.classList.remove(
+      "shell-aipc-open",
+      "shell-split-aipc-active",
+      "shell-split-textlib-active"
+    );
+
+    document.body.dataset.approvedSplitSection = "pages";
+    panel.classList.add("split-fullheight");
+
+    mountRealPagesPanel();
+
+    const select = document.getElementById("approvedSplitSectionSelect");
+
+    if (select) select.value = "pages";
+  }
+
+  function closeSplitPages() {
+    document.body.classList.remove("shell-split-pages-active");
+
+    if (window.__pagesPanel?.isOpen()) {
+      window.__pagesPanel.close();
+    }
+  }
+
+  function setSplitSection(section) {
+    const safeSection = [
+      "deck",
+      "concept",
+      "templates",
+      "pages",
+      "ai",
+      "aipc",
+      "page",
+      "frame",
+      "text",
+      "export",
+      "tech",
+      "hotkeys"
+    ].includes(section) ? section : "ai";
+
+    const splitSelect = document.getElementById("approvedSplitSectionSelect");
+
+    document.body.dataset.approvedSplitSection = safeSection;
+
+    if (splitSelect) {
+      splitSelect.value = safeSection;
+    }
+
+    document.body.classList.remove(
+      "shell-aipc-open",
+      "shell-split-aipc-active",
+      "shell-split-pages-active",
+      "shell-split-textlib-active"
+    );
+
+    if (safeSection === "pages") {
+      closeSplitHotkeysPopup();
+      openSplitPages();
+      syncInspector();
+      return;
+    }
+
+    closeSplitPages();
+
+    if (safeSection === "aipc") {
+      closeSplitHotkeysPopup();
+      panel.classList.add("split-fullheight");
+      document.body.classList.add("shell-split-aipc-active");
+      syncInspector();
+      return;
+    }
+
+    if (safeSection === "hotkeys") {
+      panel.classList.remove("split-fullheight");
+      closeSplitPages();
+      syncInspector();
+      return;
+    }
+
+    closeSplitHotkeysPopup();
+
+    if (["page", "frame", "text", "export", "tech"].includes(safeSection)) {
+      panel.classList.add("split-fullheight");
+    } else {
+      panel.classList.remove("split-fullheight");
+    }
+
+    syncInspector();
+  }
+
+  function setMenuPosition(position) {
+    const safePosition = [
+      "canvas-left",
+      "screen-left",
+      "middle-left",
+      "canvas-right",
+      "screen-right"
+    ].includes(position) ? position : "canvas-left";
+
+    document.body.dataset.approvedSplitPosition = safePosition;
+
+    if (safePosition === "screen-left") {
+      panel.style.left = "14px";
+      panel.style.right = "auto";
+      return;
+    }
+
+    if (safePosition === "middle-left") {
+      panel.style.left = "calc(50vw - (var(--page-w-px) / 2) - 382px)";
+      panel.style.right = "auto";
+      return;
+    }
+
+    if (safePosition === "canvas-right") {
+      panel.style.left = "calc(50vw + (var(--page-w-px) / 2) + 14px)";
+      panel.style.right = "auto";
+      return;
+    }
+
+    if (safePosition === "screen-right") {
+      panel.style.left = "auto";
+      panel.style.right = "14px";
+      return;
+    }
+
+    panel.style.left = "14px";
+    panel.style.right = "auto";
+  }
+
+  Array.from(dock.querySelectorAll("[data-approved-master-tab]")).forEach(button => {
+    button.onclick = () => {
+      const tab = button.dataset.approvedMasterTab;
+
+      setMasterTab(tab);
+
+      if (tab === "ai") {
+        shellUiSetAipcVisible(true);
+      }
+    };
+  });
+
+  const splitSelect = document.getElementById("approvedSplitSectionSelect");
+
+  if (splitSelect) {
+    splitSelect.onchange = event => {
+      setSplitSection(event.target.value);
+    };
+  }
+
+  const positionSelect = document.getElementById("approvedSplitPositionSelect");
+
+  if (positionSelect) {
+    positionSelect.onchange = event => {
+      setMenuPosition(event.target.value);
+    };
+  }
+
+  document.getElementById("approvedPagesUpBtn")?.addEventListener("click", () => {
+    document.getElementById("ppUpBtn")?.click();
+  });
+
+  document.getElementById("approvedPagesDownBtn")?.addEventListener("click", () => {
+    document.getElementById("ppDownBtn")?.click();
+  });
+
+  document.getElementById("approvedPagesDuplicateBtn")?.addEventListener("click", () => {
+    document.getElementById("ppDupBtn")?.click();
+  });
+
+  const selectionContent = document.getElementById("selectionContent");
+
+  if (selectionContent) {
+    new MutationObserver(() => {
+      requestAnimationFrame(syncInspector);
+    }).observe(selectionContent, {
+      childList:true,
+      subtree:true
+    });
+  }
+
+  document.addEventListener("mouseup", () => {
+    requestAnimationFrame(syncInspector);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && splitHotkeysOverlay?.classList.contains("open")) {
+      event.preventDefault();
+      closeSplitHotkeysPopup();
+    }
+  }, true);
+
+  window.__approvedDock = {
+    applyMode(mode) {
+  if (mode === "pres") {
+    closeSplitHotkeysPopup();
+    setMasterTab(document.body.dataset.approvedMasterTab || "concept");
+    return;
+  }
+
+  if (mode === "split" || mode === "editor") {
+    setSplitSection(document.body.dataset.approvedSplitSection || "concept");
+    return;
+  }
+
+  closeSplitHotkeysPopup();
+  shellUiSetAipcVisible(false);
+  closeSplitPages();
+  syncInspector();
+},
+    selectSplitSection(section) {
+      setSplitSection(section);
+    },
+    handleShellPanel(panelId, isSplit) {
+      if (!isSplit) {
+        if (panelId === "concept") setMasterTab("concept");
+        if (panelId === "menu") setMasterTab("project");
+
+        if (panelId === "ai") {
+          setMasterTab("ai");
+          shellUiSetAipcVisible(!document.body.classList.contains("shell-aipc-open"));
+        }
+
+        if (panelId === "thumbs") {
+          closeSplitHotkeysPopup();
+          shellUiSetAipcVisible(false);
+          window.__pagesPanel?.toggle();
+        }
+
+        return;
+      }
+
+      if (panelId === "concept") {
+        setSplitSection("concept");
+        return;
+      }
+
+      if (panelId === "menu") {
+        setSplitSection("ai");
+        return;
+      }
+
+      if (panelId === "ai") {
+        setSplitSection("aipc");
+        return;
+      }
+
+      if (panelId === "thumbs") {
+        setSplitSection("pages");
+        return;
+      }
+
+      if (panelId === "hotkeys") {
+        setSplitSection("hotkeys");
+      }
+    }
+  };
+
+  closeSplitHotkeysPopup();
+
+  window.__approvedDock.applyMode(
+    window.__shellPresentationMode ||
+    (document.body.classList.contains("shell-split-active") ? "split" : "pres")
+  );
+}
+
+/* END_APPROVED_DOCK_RUNTIME_V3 */
+/*
+  V4 layout is intentionally disabled.
+  Concept, Images and Templates remain controlled by APPROVED_DOCK_RUNTIME_V3.
+*/
+          init();
+setupApprovedDock();
+
+window.addEventListener("message", event => {
+  if (event.source !== window.parent) return;
+
+  const data = event.data;
+
+  if (
+    !data ||
+    data.type !== "SHELL_SELECT_PRESENTATION_PANEL"
+  ) {
+    return;
+  }
+
+  window.__approvedDock?.selectSplitSection?.(
+    data.section
+  );
+});
+/*
+  SHELL IMAGE LIBRARY BRIDGE V1
+
+  Зарезервированный bridge для будущих двух кнопок Shell,
+  расположенных после Zenith.
+
+  Shell позже отправляет:
+  { type: "SHELL_IMAGE_LIBRARY_ACTION", action: "choose" }
+  { type: "SHELL_IMAGE_LIBRARY_ACTION", action: "rescan" }
+
+  Presentation нажимает существующие production-кнопки.
+  Image loading / rescanning logic здесь не создаётся.
+*/
+window.addEventListener("message", event => {
+  if (event.source !== window.parent) return;
+
+  const data = event.data;
+
+  if (
+    !data ||
+    data.type !== "SHELL_IMAGE_LIBRARY_ACTION"
+  ) {
+    return;
+  }
+
+  if (data.action === "choose") {
+    document.getElementById("chooseImagePoolBtn")?.click();
+    return;
+  }
+
+  if (data.action === "rescan") {
+    document.getElementById(
+      "refreshImagePoolConceptBtn"
+    )?.click();
+  }
+});
+/*
+  Старый optional runtime может отсутствовать в текущем файле.
+  Не допускаем ReferenceError, который остановит дальнейший JavaScript.
+*/
+if (typeof setupApprovedSplitRuntimeV4 === "function") {
+  setupApprovedSplitRuntimeV4();
+}
+  })();
+</script>
+
+<div id="editor-gap-slider-container" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #20232a; border: 1px solid rgba(255,255,255,.15); padding: 8px 12px; border-radius: 6px; z-index: 999999; align-items: center; gap: 8px; font-size: 12px; color: #aeb6c4; box-shadow: 0 10px 30px rgba(0,0,0,.5);">
+  <span style="user-select: none;">Положение презы:</span>
+<input type="range" id="editor-gap-slider" min="0" max="100" value="0" style="cursor: pointer;" 
+    oninput="document.documentElement.style.setProperty('--editor-side-gap', this.value)"
+    onchange="window.parent.postMessage({ type: 'UPDATE_CONFIG', key: 'presentationGap', value: this.value }, '*')">
+</div>
+<!-- SHELL_PANEL_SELECTOR_CLEANUP_V1 -->
+<style>
+  /*
+    Раздел Presentation теперь выбирается из Shell.
+    Большой внутренний header больше не нужен.
+
+    Сами панели, Image Scope, Randomize и Locks
+    остаются существующими рабочими DOM-элементами.
+  */
+  #approvedDockRoot > .approved-split-header{
+    display:none !important;
+  }
+</style>
+<!-- END_SHELL_PANEL_SELECTOR_CLEANUP_V1 -->
+</body>
+</html>
+===== PART 5/5 END =====

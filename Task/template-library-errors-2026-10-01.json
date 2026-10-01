@@ -1,0 +1,1945 @@
+{
+  "format": "template-library-errors",
+  "version": 1,
+  "generatedAt": "2026-10-01T03:55:02.037Z",
+  "selectedFolder": "E:\\GoogleDrive\\Final\\_ARENA_SAFE\\2609\\Templates",
+  "lastScan": {
+    "folderPath": "E:\\GoogleDrive\\Final\\_ARENA_SAFE\\2609\\Templates",
+    "scannedAt": "2026-09-30T15:41:49.456Z",
+    "filesScanned": 5
+  },
+  "lastReloadResult": {
+    "ok": true,
+    "folderPath": "E:\\GoogleDrive\\Final\\_ARENA_SAFE\\2609\\Templates",
+    "scannedAt": "2026-09-30T15:41:49.456Z",
+    "filesScanned": 5,
+    "libraries": 5,
+    "removed": 0,
+    "changed": 0,
+    "failed": 0,
+    "activeTemplates": 110,
+    "conflicts": 9,
+    "errors": 0
+  },
+  "summary": {
+    "libraries": 5,
+    "templates": 320,
+    "active": 5,
+    "errors": 0,
+    "conflicts": 112
+  },
+  "libraries": [
+    {
+      "libraryId": "file_all_1",
+      "name": "file_all_1",
+      "version": "1",
+      "file": "ALL 1.js",
+      "status": "unchanged",
+      "enabled": true,
+      "templateCount": 142,
+      "categoryCount": 6,
+      "styleCount": 1,
+      "errors": [],
+      "warnings": [
+        {
+          "code": "MISSING_LIBRARY_ID",
+          "message": "libraryId отсутствует — использован fallback из имени файла: \"file_all_1\""
+        }
+      ],
+      "conflicts": [
+        {
+          "templateId": "editorial-blue-hero-split-01",
+          "keptBy": "file_covers_unique_templates_4_standardized",
+          "keptByLabel": "file_covers_unique_templates_4_standardized",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-concept-mechanism-01",
+          "keptBy": "file_covers_unique_templates_4_standardized",
+          "keptByLabel": "file_covers_unique_templates_4_standardized",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-hero-full-dark-01",
+          "keptBy": "file_covers_unique_templates_4_standardized",
+          "keptByLabel": "file_covers_unique_templates_4_standardized",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-frame-grid-01",
+          "keptBy": "file_covers_unique_templates_4_standardized",
+          "keptByLabel": "file_covers_unique_templates_4_standardized",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "text_intro_paragraph_copy",
+          "keptBy": "file_custom_covers_all",
+          "keptByLabel": "file_custom_covers_all",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "capture-full",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_center_pillar_monolith",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_center_spotlight",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_framed_asymmetric",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_heavy_display",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial_creative_horizontal_split",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial_ethereal_blue_split",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial_soul_horizontal_hero",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial_soul_inertia_blue",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-hero-full-dark-01",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "soul-inertia-hero",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "template_horizontal_split_creative",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "about_text_left_image_right",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_bold_statement",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_full_image_text",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_text_left_image_right",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_text_right_image_left",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial_josie_portrait_right",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-concept-mechanism-01",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-frame-grid-01",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "editorial-blue-hero-split-01",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_1",
+          "keptBy": "file_favorites_01",
+          "keptByLabel": "file_favorites_01",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "intro_full_image_title",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "intro_left_image_right_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "intro_minimal_white_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_intro_cover_full_bleed",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_intro_statement_left",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_intro_big_list",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_intro_two_column_manifesto",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_intro_minimal_topline",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "about_text_left_image_right",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "about_text_right_image_left",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "about_full_image_text_block",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_about_split",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_about_top_image_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_about_two_images",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_cover_full_bleed_hero",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_cover_hero_small_title",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_cover_split_image_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_project_cover",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_text_left_2_images_right",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_text_left_3_images_bottom",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_two_rows_mixed",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_image_grid_description",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_white_text_column_image_pair",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_4_images_key_idea",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_4_images_services",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_4_images_dense_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_6_images_key_idea",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_6_images_services",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_6_images_dense_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_1",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_2",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_3",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_4",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_bottom_5",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_only_body_left",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_text_only_body_center",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_overline_body_left",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "project_top4_overline_body_center",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_project_content_bento",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_project_content_services",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_2_images",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_3_images",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_4_images_grid",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_6_images_grid",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_9_images_grid",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "gallery_mosaic_collage",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_gallery_triptych",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_gallery_bento",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "text_intro_paragraph",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "text_body_text_column",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "text_centered_statement",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_text_statement",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "contact_minimal",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "outro_full_image_text_overlay",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_contact_clean",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_contact_overlay",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "connected_eb_intro_cover_split",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "connected_eb_about_split",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "connected_eb_project_cover",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_intro_left_image_right_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_intro_minimal_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_text_left_image_right",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_text_right_image_left",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_about_full_image_text",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_project_cover_full_bleed",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_project_cover_split",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_project_text_left_2_images_right",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_project_text_left_3_images_bottom",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_gallery_2_images",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_gallery_4_images_grid",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_gallery_mosaic",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_text_intro_paragraph",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_text_centered_statement",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_contact_minimal",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "eb_cin_outro_clean_text_image",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "stark_asymmetric_ID35",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_heavy_display",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_left_fade",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_cinemascope",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_center_spotlight",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_vertical_column",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_framed_asymmetric",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "cin_cover_bold_statement",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "connected-legacy_stark_asymmetric_ID35",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        },
+        {
+          "templateId": "classic_magazine_ID37",
+          "keptBy": "file_portfolio_template_library_all_96",
+          "keptByLabel": "file_portfolio_template_library_all_96",
+          "skippedLibrary": "file_all_1",
+          "skippedLibraryFile": "ALL 1.js",
+          "resolution": "kept"
+        }
+      ]
+    },
+    {
+      "libraryId": "file_covers_unique_templates_4_standardized",
+      "name": "file_covers_unique_templates_4_standardized",
+      "version": "1",
+      "file": "covers_unique_templates_4_standardized.js",
+      "status": "unchanged",
+      "enabled": true,
+      "templateCount": 4,
+      "categoryCount": 3,
+      "styleCount": 1,
+      "errors": [],
+      "warnings": [
+        {
+          "code": "MISSING_LIBRARY_ID",
+          "message": "libraryId отсутствует — использован fallback из имени файла: \"file_covers_unique_templates_4_standardized\""
+        }
+      ],
+      "conflicts": [
+        {
+          "templateId": "editorial-blue-hero-split-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_covers_unique_templates_4_standardized",
+          "skippedLibraryFile": "covers_unique_templates_4_standardized.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-concept-mechanism-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_covers_unique_templates_4_standardized",
+          "skippedLibraryFile": "covers_unique_templates_4_standardized.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-hero-full-dark-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_covers_unique_templates_4_standardized",
+          "skippedLibraryFile": "covers_unique_templates_4_standardized.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-frame-grid-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_covers_unique_templates_4_standardized",
+          "skippedLibraryFile": "covers_unique_templates_4_standardized.js",
+          "resolution": "skipped"
+        }
+      ]
+    },
+    {
+      "libraryId": "file_custom_covers_all",
+      "name": "file_custom_covers_all",
+      "version": "1",
+      "file": "custom_covers_all.js",
+      "status": "unchanged",
+      "enabled": true,
+      "templateCount": 55,
+      "categoryCount": 7,
+      "styleCount": 1,
+      "errors": [],
+      "warnings": [
+        {
+          "code": "MISSING_LIBRARY_ID",
+          "message": "libraryId отсутствует — использован fallback из имени файла: \"file_custom_covers_all\""
+        }
+      ],
+      "conflicts": [
+        {
+          "templateId": "text_intro_paragraph_copy",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_custom_covers_all",
+          "skippedLibraryFile": "custom_covers_all.js",
+          "resolution": "skipped"
+        }
+      ]
+    },
+    {
+      "libraryId": "file_favorites_01",
+      "name": "file_favorites_01",
+      "version": "1",
+      "file": "FAVORITES-01.js",
+      "status": "unchanged",
+      "enabled": true,
+      "templateCount": 22,
+      "categoryCount": 2,
+      "styleCount": 1,
+      "errors": [],
+      "warnings": [
+        {
+          "code": "MISSING_LIBRARY_ID",
+          "message": "libraryId отсутствует — использован fallback из имени файла: \"file_favorites_01\""
+        }
+      ],
+      "conflicts": [
+        {
+          "templateId": "capture-full",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_center_pillar_monolith",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_center_spotlight",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_framed_asymmetric",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_heavy_display",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial_creative_horizontal_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial_ethereal_blue_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial_soul_horizontal_hero",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial_soul_inertia_blue",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-hero-full-dark-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "soul-inertia-hero",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "template_horizontal_split_creative",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "about_text_left_image_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_bold_statement",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_full_image_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_text_left_image_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_text_right_image_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial_josie_portrait_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-concept-mechanism-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-frame-grid-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "editorial-blue-hero-split-01",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_1",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_favorites_01",
+          "skippedLibraryFile": "FAVORITES-01.js",
+          "resolution": "skipped"
+        }
+      ]
+    },
+    {
+      "libraryId": "file_portfolio_template_library_all_96",
+      "name": "file_portfolio_template_library_all_96",
+      "version": "1",
+      "file": "portfolio_template_library_all_96.js",
+      "status": "unchanged",
+      "enabled": true,
+      "templateCount": 97,
+      "categoryCount": 7,
+      "styleCount": 2,
+      "errors": [],
+      "warnings": [
+        {
+          "code": "MISSING_LIBRARY_ID",
+          "message": "libraryId отсутствует — использован fallback из имени файла: \"file_portfolio_template_library_all_96\""
+        },
+        {
+          "code": "MISSING_VISUAL_STYLE",
+          "message": "stark_asymmetric_ID35: visualStyle отсутствует — fallback \"cinematic\"",
+          "templateId": "stark_asymmetric_ID35"
+        },
+        {
+          "code": "MISSING_VISUAL_STYLE",
+          "message": "connected-legacy_stark_asymmetric_ID35: visualStyle отсутствует — fallback \"cinematic\"",
+          "templateId": "connected-legacy_stark_asymmetric_ID35"
+        },
+        {
+          "code": "MISSING_VISUAL_STYLE",
+          "message": "floating_glass_ID36: visualStyle отсутствует — fallback \"cinematic\"",
+          "templateId": "floating_glass_ID36"
+        },
+        {
+          "code": "MISSING_VISUAL_STYLE",
+          "message": "classic_magazine_ID37: visualStyle отсутствует — fallback \"cinematic\"",
+          "templateId": "classic_magazine_ID37"
+        }
+      ],
+      "conflicts": [
+        {
+          "templateId": "intro_full_image_title",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "intro_left_image_right_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "intro_minimal_white_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_intro_cover_full_bleed",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_intro_statement_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_intro_big_list",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_intro_two_column_manifesto",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_intro_minimal_topline",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "about_text_left_image_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "about_text_right_image_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "about_full_image_text_block",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_about_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_about_top_image_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_about_two_images",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_cover_full_bleed_hero",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_cover_hero_small_title",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_cover_split_image_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_project_cover",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_text_left_2_images_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_text_left_3_images_bottom",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_two_rows_mixed",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_image_grid_description",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_white_text_column_image_pair",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_4_images_key_idea",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_4_images_services",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_4_images_dense_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_6_images_key_idea",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_6_images_services",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_6_images_dense_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_1",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_2",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_3",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_4",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_bottom_5",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_only_body_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_text_only_body_center",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_overline_body_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "project_top4_overline_body_center",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_project_content_bento",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_project_content_services",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_2_images",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_3_images",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_4_images_grid",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_6_images_grid",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_9_images_grid",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "gallery_mosaic_collage",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_gallery_triptych",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_gallery_bento",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "text_intro_paragraph",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "text_body_text_column",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "text_centered_statement",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_text_statement",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "contact_minimal",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "outro_full_image_text_overlay",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_contact_clean",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_contact_overlay",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "connected_eb_intro_cover_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "connected_eb_about_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "connected_eb_project_cover",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_intro_left_image_right_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_intro_minimal_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_text_left_image_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_text_right_image_left",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_about_full_image_text",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_project_cover_full_bleed",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_project_cover_split",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_project_text_left_2_images_right",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_project_text_left_3_images_bottom",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_gallery_2_images",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_gallery_4_images_grid",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_gallery_mosaic",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_text_intro_paragraph",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_text_centered_statement",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_contact_minimal",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "eb_cin_outro_clean_text_image",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "stark_asymmetric_ID35",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_heavy_display",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_left_fade",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_cinemascope",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_center_spotlight",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_vertical_column",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_framed_asymmetric",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "cin_cover_bold_statement",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "connected-legacy_stark_asymmetric_ID35",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        },
+        {
+          "templateId": "classic_magazine_ID37",
+          "keptBy": "file_all_1",
+          "keptByLabel": "file_all_1",
+          "skippedLibrary": "file_portfolio_template_library_all_96",
+          "skippedLibraryFile": "portfolio_template_library_all_96.js",
+          "resolution": "skipped"
+        }
+      ]
+    }
+  ]
+}

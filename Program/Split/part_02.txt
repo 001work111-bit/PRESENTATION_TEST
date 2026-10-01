@@ -1,0 +1,4438 @@
+===== PART 2/5 START =====
+  font-weight:500!important;
+  line-height:1.35!important;
+}
+
+body.shell-split-active.shell-split-aipc-active #aiPagesCollectorPanel .aipc-comment::placeholder{
+  color:#7e889a!important;
+}
+
+body.shell-split-active.shell-split-aipc-active #aiPagesCollectorPanel .aipc-comment:focus{
+  outline:none!important;
+  border-color:#4a9eff!important;
+  box-shadow:0 0 0 2px rgba(74,158,255,.20)!important;
+}
+
+/*
+  Старый collapsed-режим не используем в утверждённом Split AIPC.
+  При необходимости потом вернём его как отдельную Shell-функцию.
+*/
+body.shell-split-active.shell-split-aipc-active #aiPagesCollectorPanel.aipc-collapsed{
+  width:350px!important;
+}
+
+body.shell-split-active.shell-split-aipc-active #aiPagesCollectorPanel.aipc-collapsed .aipc-body{
+  display:flex!important;
+}
+
+body.shell-split-active.shell-split-aipc-active #aiPagesCollectorPanel.aipc-collapsed .aipc-title{
+  writing-mode:horizontal-tb!important;
+  transform:none!important;
+  margin:0!important;
+}
+
+/* END_APPROVED_SPLIT_AIPC_VISUAL_V1 */
+/* APPROVED_SPLIT_CONCEPT_INSPECTOR_V2 */
+
+/*
+  Split / Concept Inspector:
+  используем существующие реальные production cards:
+  - Image Pool;
+  - Template Library;
+  - Image Radius;
+  - Page Radius.
+
+  Ничего не клонируется и не перепривязывается.
+  Меняется только видимость и визуальная компоновка.
+*/
+
+/* ---------------------------------------------------------- */
+/* 1. В Split скрываем второй select "Положение меню".         */
+/* ---------------------------------------------------------- */
+
+body.shell-split-active .approved-split-position-field{
+  display:none!important;
+}
+
+/*
+  После скрытия position select у шапки сохраняется корректный
+  компактный нижний отступ.
+*/
+body.shell-split-active .approved-split-header{
+  margin-bottom:12px!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 2. Показываем реальные Template и Radius cards в Concept.   */
+/* ---------------------------------------------------------- */
+
+/*
+  Ранее эти cards получили класс approved-split-concept-extra,
+  чтобы временно не мешать. Теперь возвращаем их в Concept.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-split-concept-extra{
+  display:block!important;
+}
+
+/*
+  В случае, если класс стоит не на самой card, а на её внутреннем
+  row/field, также возвращаем контрол в отображение.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-concept-extra{
+  display:block!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 3. Общий внешний вид реальных карточек в Concept.           */
+/* ---------------------------------------------------------- */
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card{
+  display:block!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:20px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+/*
+  Карточки уже находятся внутри approved slot.
+  Не допускаем появления вложенной лишней панели.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card.sidebar-card{
+  display:block!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 4. Image Pool & Randomization.                              */
+/* ---------------------------------------------------------- */
+
+/*
+  Убираем старую длинную справку: в утверждённом Split
+  под кнопками нет explanatory paragraphs.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .mini-help{
+  display:none!important;
+}
+
+/*
+  No repeats и счётчик пула пока не входят в утверждённый
+  компактный Concept Inspector. Логику не удаляем.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #noRepeatsCheckbox,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #imagePoolCount{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #noRepeatsCheckbox + span{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .check-row:has(#noRepeatsCheckbox),
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .mini-pill:has(#imagePoolCount){
+  display:none!important;
+}
+
+/*
+  В Compact Split оставляем только 4 основных random actions.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#shuffleFrameLayoutBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#fixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#unfixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#fixAllPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#unfixAllPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#fixAllBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#unfixAllBtn{
+  display:none!important;
+}
+
+/*
+  Если hidden buttons оставляют пустой stack-actions grid,
+  он остаётся аккуратной сеткой из двух колонок.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions{
+  grid-template-columns:1fr 1fr!important;
+  gap:6px!important;
+}
+
+/*
+  Choose Image Folder — всегда широкая реальная кнопка.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#chooseImagePoolBtn{
+  width:100%!important;
+  min-height:32px!important;
+  margin:0!important;
+}
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  width:100%;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row .btn{
+  width:100%!important;
+  min-height:32px!important;
+  margin:0!important;
+}
+/*
+  Реальные Concept / Subfolder остаются компактными.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#pageConceptSelect,
+body.shell-split-active[data-approved-split-section="concept"]
+#pageSubfolderSelect{
+  width:100%!important;
+  min-height:32px!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 5. Template Library.                                        */
+/* ---------------------------------------------------------- */
+
+/*
+  Template Library визуально становится второй понятной
+  частью Concept Inspector.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#templateStyleFilterSelect,
+body.shell-split-active[data-approved-split-section="concept"]
+#templateCategorySelect,
+body.shell-split-active[data-approved-split-section="concept"]
+#templateSelect{
+  width:100%!important;
+  min-height:32px!important;
+}
+
+/*
+  Кнопки шаблонов: Add занимает всю строку, остальные —
+  компактной сеткой, как в утверждённом дизайне.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#addTemplatePageBtn{
+  width:100%!important;
+  min-height:32px!important;
+  margin:0 0 6px!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#applyTemplateToPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#nextTemplateBtn{
+  min-height:32px!important;
+}
+
+/*
+  Add All Templates не входит в компактный Split Concept.
+  Остаётся доступным в обычном Editor режиме.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#addAllTemplatesBtn{
+  display:none!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 6. Image Radius + Page Radius.                              */
+/* ---------------------------------------------------------- */
+
+/*
+  Обе реальные radius cards остаются видимыми, но становятся
+  компактными: без лишнего текстового объяснения.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#imageRadiusSlider,
+body.shell-split-active[data-approved-split-section="concept"]
+#pageRadiusSlider{
+  width:100%!important;
+  min-height:26px!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#imageRadiusNumber,
+body.shell-split-active[data-approved-split-section="concept"]
+#pageRadiusNumber{
+  min-height:30px!important;
+  text-align:center!important;
+}
+
+/*
+  Убираем explanatory mini-help именно у radius cards.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#imageRadiusSlider ~ .mini-help,
+body.shell-split-active[data-approved-split-section="concept"]
+#pageRadiusSlider ~ .mini-help{
+  display:none!important;
+}
+
+/*
+  В текущем DOM mini-help обычно соседствует не напрямую со slider.
+  Поэтому для двух radius cards скрываем любой mini-help внутри.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(#imageRadiusSlider) .mini-help,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(#pageRadiusSlider) .mini-help{
+  display:none!important;
+}
+
+/*
+  Radius cards не должны иметь чрезмерную высоту.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(#imageRadiusSlider),
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(#pageRadiusSlider){
+  padding:10px 12px!important;
+}
+
+/* ---------------------------------------------------------- */
+/* 7. Уточнение компактной типографики Concept Inspector.      */
+/* ---------------------------------------------------------- */
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .sidebar-title{
+  margin:0 0 8px!important;
+  color:var(--text-2)!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .field{
+  margin-bottom:8px!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .field label{
+  color:var(--text-2)!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  letter-spacing:.10em!important;
+}
+
+/* END_APPROVED_SPLIT_CONCEPT_INSPECTOR_V2 */
+/* APPROVED_SPLIT_FRAME_TEXT_INSPECTORS_V1 */
+
+#approvedSelectionParking{
+  display:none!important;
+}
+
+/*
+  Новые секции Split.
+*/
+body.shell-split-active[data-approved-split-section="frame"]
+#approvedSplitFrameSlot,
+
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:20px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+/*
+  Реальный Selection toolbar перемещается JavaScript-логикой
+  в Frame Inspector или Text Inspector.
+*/
+body.shell-split-active[data-approved-split-section="frame"]
+#approvedSplitFrameSlot > #selectionToolbar,
+
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot > #selectionToolbar{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.025)!important;
+  box-shadow:none!important;
+}
+
+/*
+  Реальная карточка Global Type Styles отображается только
+  в Text Inspector.
+*/
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.025)!important;
+  box-shadow:none!important;
+}
+
+/*
+  Сообщение, когда в инспекторе нет подходящего выбранного блока.
+*/
+body.shell-split-active .approved-inspector-empty{
+  display:block!important;
+  padding:16px!important;
+  border:1px dashed var(--line-dark)!important;
+  border-radius:12px!important;
+  color:var(--text-2)!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  text-align:center!important;
+}
+
+/*
+  Новые инспекторы используют полную высоту панели.
+*/
+body.shell-split-active[data-approved-split-section="frame"] .left-panel,
+body.shell-split-active[data-approved-split-section="text"] .left-panel{
+  max-height:calc(100vh - 28px)!important;
+}
+
+/* END_APPROVED_SPLIT_FRAME_TEXT_INSPECTORS_V1 */
+/* APPROVED_SPLIT_CONCEPT_EXPORT_LAYOUT_V1 */
+
+/* Верхние четыре быстрые команды Concept Editing. */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptQuickSlot{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:6px!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:20px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptQuickSlot .approved-concept-quick-button{
+  display:block!important;
+  width:100%!important;
+  min-height:32px!important;
+  margin:0!important;
+}
+
+/* В Split все кнопки Concept остаются одинаковыми серыми. */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptQuickSlot .btn.primary,
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptQuickSlot .btn.btn-accent-outline,
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .btn.primary,
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .btn.btn-accent-outline{
+  background:var(--panel-2)!important;
+  color:var(--text)!important;
+  border-color:var(--line-dark)!important;
+  box-shadow:none!important;
+}
+
+/* Random Frame и Random All — две реальные кнопки в одном ряду. */
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions{
+  grid-template-columns:1fr 1fr!important;
+  gap:6px!important;
+}
+
+/* Add Template Page остаётся одной широкой логичной командой. */
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #addTemplatePageBtn{
+  width:100%!important;
+}
+
+/* Удаляем пустые контейнеры после переноса Quick Actions. */
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions:not(:has(button)){
+  display:none!important;
+}
+
+/* В Site & Export не показываем старую поясняющую подпись. */
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportSlot > .approved-dock-card:has(#siteTitleInput) .mini-help{
+  display:none!important;
+}
+
+/* Пустые старые контейнеры кнопок после переноса не занимают место. */
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportSlot > .approved-dock-card:has(#siteTitleInput) .stack-actions:not(:has(button)){
+  display:none!important;
+}
+
+/* Четыре понятные группы: HTML, PDF, Images, Data. */
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  width:100%!important;
+}
+
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-card{
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.025)!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-title{
+  margin:0 0 8px!important;
+  color:var(--text-2)!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-grid{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:6px!important;
+}
+
+/* Все export-кнопки одинаковые серые, без белого выделения. */
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-grid .btn,
+
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-grid .btn.primary{
+  display:block!important;
+  width:100%!important;
+  min-height:32px!important;
+  margin:0!important;
+  background:var(--panel-2)!important;
+  color:var(--text)!important;
+  border-color:var(--line-dark)!important;
+  box-shadow:none!important;
+}
+
+/* Служебное сообщение занимает обе колонки, если нужная кнопка не найдена. */
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-missing{
+  grid-column:1 / -1!important;
+  padding:10px!important;
+  border:1px dashed var(--line-dark)!important;
+  border-radius:10px!important;
+  color:var(--text-3)!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+  text-align:center!important;
+}
+
+/* END_APPROVED_SPLIT_CONCEPT_EXPORT_LAYOUT_V1 */
+/* APPROVED_SPLIT_PANEL_RESIZE_STYLES_V4 */
+
+/*
+  ВАЖНО:
+  Меняется высота внешней .left-panel, то есть настоящей панели
+  с фоном, border-radius, тенью и внутренним scroll.
+
+  Это перебивает старый max-height:380px для Concept и Deck.
+*/
+body.shell-split-active .left-panel{
+  height:var(--approved-split-outer-height, auto)!important;
+  min-height:220px!important;
+  max-height:var(
+    --approved-split-outer-max-height,
+    calc(100vh - 24px)
+  )!important;
+
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+
+  transition:
+    height .12s ease,
+    max-height .12s ease!important;
+}
+
+/*
+  Root больше НЕ является resize-объектом.
+  Иначе его старый inline height продолжает конфликтовать
+  с внешней оболочкой панели.
+*/
+body.shell-split-active #approvedDockRoot{
+  position:static!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+
+/* Убираем ошибочную внутреннюю арку V3. */
+body.shell-split-active #approvedDockRoot::after{
+  content:none!important;
+  display:none!important;
+}
+
+/*
+  Настоящая resize-зона.
+  Это отдельный fixed элемент в document.body, находящийся
+  С НАРУЖНОЙ стороны нижней границы .left-panel.
+
+  Он не лежит на тексте, карточках, кнопках или scroll-контенте.
+*/
+.approved-split-outer-resize-handle{
+  position:fixed;
+  z-index:1605;
+  display:none;
+  height:14px;
+  cursor:ns-resize;
+  touch-action:none;
+  user-select:none;
+}
+
+/*
+  Внешняя нижняя арка:
+  стороны и нижняя дуга видны только при наведении / resize.
+  Она начинается на границе внешней панели и продолжается ВНИЗ.
+*/
+.approved-split-outer-resize-handle::before{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:1px;
+  left:0;
+
+  pointer-events:none;
+
+  border-right:1px solid rgba(205,214,225,.34);
+  border-bottom:1px solid rgba(205,214,225,.40);
+  border-left:1px solid rgba(205,214,225,.34);
+  border-radius:0 0 20px 20px;
+
+  opacity:0;
+  box-shadow:
+    0 7px 14px rgba(0,0,0,.20),
+    0 1px 0 rgba(255,255,255,.05);
+
+  transition:
+    opacity .14s ease,
+    border-color .14s ease,
+    box-shadow .14s ease;
+}
+
+.approved-split-outer-resize-handle.is-visible{
+  display:block;
+}
+
+.approved-split-outer-resize-handle:hover::before,
+body.approved-split-panel-is-resizing
+.approved-split-outer-resize-handle::before{
+  opacity:1;
+  border-color:rgba(104,172,255,.75);
+  box-shadow:
+    0 8px 16px rgba(0,0,0,.26),
+    0 0 10px rgba(74,158,255,.16);
+}
+
+/*
+  Во время drag не должно происходить выделение текста,
+  но обычный cursor панели не меняется до попадания на handle.
+*/
+body.approved-split-panel-is-resizing,
+body.approved-split-panel-is-resizing *{
+  cursor:ns-resize!important;
+  user-select:none!important;
+}
+
+/*
+  Остатки предыдущих версий полностью отключаем.
+*/
+#approvedSplitPanelResizeHandle,
+.approved-split-panel-resize-handle{
+  display:none!important;
+}
+/* APPROVED_SPLIT_PANEL_RESIZE_VISUAL_TUNING_V5 */
+
+/*
+  Во время drag панель должна идти строго за мышью.
+  Убираем transition height/max-height, который создавал визуальное отставание.
+*/
+body.shell-split-active .left-panel{
+  transition:none!important;
+}
+
+/*
+  Нижняя resize-зона остаётся снаружи панели,
+  но визуально это теперь тонкая нейтрально-серая нижняя грань.
+  Без синего свечения, без U-образной арки и без лишней кривизны.
+*/
+.approved-split-outer-resize-handle{
+  height:10px!important;
+  transform:translateZ(0);
+}
+
+.approved-split-outer-resize-handle::before{
+  top:0!important;
+  right:0!important;
+  bottom:auto!important;
+  left:0!important;
+
+  height:1px!important;
+
+  border:0!important;
+  border-top:1px solid rgba(206,211,218,.56)!important;
+  border-radius:0!important;
+
+  opacity:0;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.035),
+    0 3px 8px rgba(0,0,0,.14)!important;
+
+  transition:opacity 70ms linear!important;
+}
+
+/*
+  Только мягкий холодный серый highlight.
+  Никакого голубого / синего accent-цвета.
+*/
+.approved-split-outer-resize-handle:hover::before,
+body.approved-split-panel-is-resizing
+.approved-split-outer-resize-handle::before{
+  opacity:1!important;
+  border-top-color:rgba(218,222,228,.82)!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06),
+    0 3px 9px rgba(0,0,0,.18)!important;
+}
+
+/*
+  При наведении нижняя часть настоящей панели получает
+  очень деликатное серое завершение — не синее и не светящееся.
+*/
+body:has(.approved-split-outer-resize-handle:hover)
+.shell-split-active .left-panel,
+body.approved-split-panel-is-resizing .left-panel{
+  box-shadow:
+    0 16px 50px rgba(0,0,0,.80),
+    inset 0 -1px 0 rgba(218,222,228,.34)!important;
+}
+
+/*
+  Убираем остаточные transition старого Split visual layer:
+  они вызывали «доезд» панели при смене режима / раздела.
+*/
+body.shell-split-active .left-panel,
+body.shell-pres-active .left-panel,
+body.shell-split-active #approvedDockRoot,
+body.shell-pres-active #approvedDockRoot{
+  transition:none!important;
+  animation:none!important;
+}
+
+/* END_APPROVED_SPLIT_PANEL_RESIZE_VISUAL_TUNING_V5 */
+/* APPROVED_SPLIT_CLEAN_PANEL_RESIZE_V3 */
+
+/*
+  1. Полностью отключаем внешнюю линию/дугу и центральную полоску (Grip Bar)
+*/
+.approved-split-outer-resize-handle::before,
+body.shell-split-active .left-panel::after {
+  content: none !important;
+  display: none !important;
+}
+
+.approved-split-outer-resize-handle {
+  background: transparent !important;
+}
+
+/*
+  2. Плавный переход границы и тени панели при наведении
+*/
+body.shell-split-active .left-panel {
+  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+/*
+  3. ИСПРАВЛЕННЫЙ СЕЛЕКТОР:
+     Подсветка нижней грани .left-panel при наведении на зону ресайза или при тяге.
+*/
+body.shell-split-active:has(.approved-split-outer-resize-handle:hover) .left-panel,
+body.shell-split-active.approved-split-panel-is-resizing .left-panel {
+  border-bottom-color: rgba(225, 230, 240, 0.60) !important;
+  border-left-color: rgba(255, 255, 255, 0.22) !important;
+  border-right-color: rgba(255, 255, 255, 0.22) !important;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.85),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -12px 24px -6px rgba(255, 255, 255, 0.03) !important;
+}
+
+/* END_APPROVED_SPLIT_CLEAN_PANEL_RESIZE_V3 */
+        /* PAGE_TOPBAR_APPROVED_VISUAL_PATCH_V2 */
+    .page-shell{width:var(--page-w-px)!important;position:relative}
+
+    .page-shell .page-stage{
+      transition:
+        box-shadow .18s ease,
+        border-color .18s ease,
+        transform .18s ease,
+        background .18s ease;
+    }
+
+    .page-shell.active .page-stage{
+      border:1px solid rgba(255,255,255,.10)!important;
+      box-shadow:
+        var(--shadow),
+        0 0 0 1px rgba(255,255,255,.05),
+        0 12px 32px rgba(0,0,0,.22),
+        0 2px 10px rgba(180,200,255,.06),
+        inset 0 1px 0 rgba(255,255,255,.06)!important;
+      transform:translateY(-1px);
+      position:relative;
+    }
+
+    .page-shell.active .page-stage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+      background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.035) 0%,
+        rgba(255,255,255,.012) 18%,
+        rgba(255,255,255,0) 52%
+      );
+    }
+
+    .page-shell.active .page-toolbar{
+      filter:brightness(1.03);
+    }
+
+    .page-shell.active .page-chip{
+      background:linear-gradient(180deg,#2a2f39 0%, #20242c 100%)!important;
+      color:#fff!important;
+      border-color:rgba(255,255,255,.10)!important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.08),
+        0 6px 18px rgba(0,0,0,.24),
+        inset 0 1px 0 rgba(255,255,255,.08)!important;
+    }
+
+    .page-toolbar,
+    .page-toolbar-left,
+    .page-toolbar-right,
+    .page-move-buttons{display:flex;align-items:center}
+
+    .page-toolbar{
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px!important;
+      padding:0 2px!important;
+      width:var(--page-w-px)!important;
+      max-width:var(--page-w-px)!important
+    }
+
+    .page-toolbar-left{gap:8px;flex-wrap:wrap}
+    .page-toolbar-right{gap:6px;flex-wrap:wrap}
+    .page-move-buttons{gap:4px}
+
+    .mini-pill{
+      padding:6px 14px!important;
+      border-radius:999px!important;
+      background:#20232a!important;
+      border:1px solid var(--line-dark)!important;
+      font-size:11px!important;
+      line-height:1!important;
+      font-weight:800!important;
+      letter-spacing:.08em!important;
+      text-transform:uppercase!important;
+      color:#ffffff!important
+    }
+
+    .page-chip{
+      background:#20232a!important;
+      color:#ffffff!important;
+      border:1px solid var(--line-dark)!important;
+      box-shadow:0 4px 14px rgba(0,0,0,.25)!important;
+      width:28px!important;
+      min-width:28px!important;
+      height:28px!important;
+      padding:0!important;
+      border-radius:50%!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      font-size:11px!important;
+      line-height:1!important;
+      font-weight:800!important;
+      letter-spacing:0!important;
+      text-transform:none!important;
+      cursor:pointer!important
+    }
+
+    .page-chip:hover{
+      background:#262a33!important;
+      border-color:rgba(255,255,255,.22)!important
+    }
+
+    .page-move-buttons button{
+      background:#20232a!important;
+      border:1px solid var(--line-dark)!important;
+      color:#ffffff!important;
+      padding:4px 10px!important;
+      font-size:12px!important;
+      line-height:1!important;
+      font-weight:800!important;
+      border-radius:8px!important;
+      cursor:pointer!important;
+      box-shadow:none!important
+    }
+
+    .page-move-buttons button:hover,
+    .page-move-buttons button:focus{
+      background:#262a33!important;
+      border-color:rgba(255,255,255,.25)!important;
+      outline:none!important
+    }
+
+    .small-btn{
+      border:1px solid var(--line-dark)!important;
+      background:#20232a!important;
+      padding:6px 16px!important;
+      border-radius:999px!important;
+      cursor:pointer!important;
+      font-size:11px!important;
+      line-height:1!important;
+      font-weight:800!important;
+      text-transform:uppercase!important;
+      letter-spacing:.08em!important;
+      white-space:nowrap!important;
+      color:#ffffff!important
+    }
+
+    .small-btn:hover,
+    .btn:hover{
+      background:#262a33!important;
+      border-color:rgba(255,255,255,.25)!important
+    }
+
+    .small-btn:focus,
+    .btn:focus,
+    select:focus,
+    input:focus,
+    textarea:focus{
+      outline:none;
+      border-color:rgba(255,255,255,.34);
+      box-shadow:0 0 0 3px rgba(255,255,255,.08)
+    }
+
+    .page-shell.multi-selected .page-stage{
+      border:1px solid rgba(255,255,255,.07)!important;
+      outline:none!important;
+      box-shadow:
+        var(--shadow),
+        0 0 0 1px rgba(255,255,255,.035),
+        0 8px 22px rgba(0,0,0,.16),
+        inset 0 1px 0 rgba(255,255,255,.04)!important;
+      position:relative;
+    }
+
+    .page-shell.multi-selected .page-stage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+      background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.022) 0%,
+        rgba(255,255,255,.008) 20%,
+        rgba(255,255,255,0) 50%
+      );
+    }
+
+    .page-chip.pp-multi-btn.is-multi{
+      background:linear-gradient(180deg,#262b34 0%, #1e232b 100%)!important;
+      color:#fff!important;
+      border-color:rgba(255,255,255,.08)!important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.05),
+        0 4px 12px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.06)!important;
+    }
+    /* END_PAGE_TOPBAR_APPROVED_VISUAL_PATCH_V2 */
+/* APPROVED_SPLIT_CONCEPT_TEMPLATES_TECH_FINAL_V1 */
+
+/*
+  Старый Quick Slot больше не используется.
+  Все реальные кнопки находятся в своих исходных рабочих карточках.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptQuickSlot{
+  display:none!important;
+}
+
+/*
+  CONCEPT:
+  Image Pool остаётся единой реальной карточкой.
+  Возвращаем все рабочие fix/unfix действия.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-concept-extra{
+  display:block!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #shuffleFrameLayoutBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #fixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #unfixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #fixAllPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #unfixAllPageBtn{
+  display:block!important;
+}
+
+/*
+  Global Fix All / Unfix All не требовались в утверждённом Concept UX.
+  Они остаются в DOM и доступны в обычном редакторе.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #fixAllBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #unfixAllBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #shuffleFrameLayoutBtn{
+  display:none!important;
+}
+
+/*
+  Choose Folder / Rescan — две равные кнопки.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  width:100%!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row .btn{
+  width:100%!important;
+  min-width:0!important;
+}
+
+/*
+  Реальный Page Concept — input[type=number].
+  Никаких искусственных −/+ не создаём.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #pageConceptSelect,
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot #pageSubfolderSelect{
+  width:100%!important;
+}
+
+/*
+  Random / Fix grid: две колонки.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions .btn{
+  width:100%!important;
+  min-width:0!important;
+}
+
+/*
+  TEMPLATES:
+  отображается исходная Template Library целиком.
+*/
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot{
+  display:block!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:20px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #templateStyleFilterSelect,
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #templateCategorySelect,
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #templateSelect{
+  width:100%!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #addTemplatePageBtn{
+  width:100%!important;
+  margin:0 0 6px!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot .stack-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot .stack-actions .btn{
+  width:100%!important;
+  min-width:0!important;
+}
+
+/*
+  TECH:
+  Memory + Image Radius + Page Radius.
+*/
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+}
+
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot #imageRadiusSlider,
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot #pageRadiusSlider{
+  width:100%!important;
+}
+
+/* END_APPROVED_SPLIT_CONCEPT_TEMPLATES_TECH_FINAL_V1 */
+/* APPROVED_SPLIT_CARD_DEPTH_AND_IMAGE_ACTIONS_V1 */
+
+/*
+  Убираем лишний третий слой:
+  approvedSplit*Slot — это только технический контейнер.
+  Визуальную карточку рисует реальная production sidebar-card внутри.
+*/
+
+/* Concept: технический слот без собственного фона и рамки. */
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Templates: технический слот без собственного фона и рамки. */
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Tech: технический слот без собственного фона и рамки. */
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Одна реальная карточка внутри технического слота.
+  Именно это — единственный внутренний уровень панели.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card,
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot > .approved-dock-card,
+
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+/*
+  Последняя внутренняя карточка не оставляет пустой отступ снизу.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:last-child,
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot > .approved-dock-card:last-child,
+
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitTechSlot > .approved-dock-card:last-child{
+  margin-bottom:0!important;
+}
+
+/*
+  Image Pool:
+  возвращаем эталонный вариант — две большие кнопки друг под другом.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:6px!important;
+  width:100%!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row .btn{
+  display:block!important;
+  width:100%!important;
+  min-height:40px!important;
+  padding:9px 10px!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+
+/*
+  У Image Pool не должно быть лишней внешней карточки
+  поверх настоящего содержимого.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(#chooseImagePoolBtn){
+  margin-bottom:0!important;
+}
+
+/*
+  Templates:
+  две короткие действия находятся рядом и не переносят текст.
+*/
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot .stack-actions{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #applyTemplateToPageBtn,
+body.shell-split-active[data-approved-split-section="templates"]
+#legacyApprovedSplitTemplatesSlot #nextTemplateBtn{
+  min-height:32px!important;
+  padding:7px 5px!important;
+  font-size:10px!important;
+  line-height:1.1!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+}
+
+/* END_APPROVED_SPLIT_CARD_DEPTH_AND_IMAGE_ACTIONS_V1 */
+/* APPROVED_SPLIT_FLAT_CARD_DEPTH_V2 */
+
+/* ========================================================== */
+/* 1. FRAME INSPECTOR: остаётся внешняя панель + один toolbar */
+/* ========================================================== */
+
+/*
+  Frame slot — только технический mount-контейнер.
+  Он не должен рисовать ещё одну карточку.
+*/
+body.shell-split-active[data-approved-split-section="frame"]
+#approvedSplitFrameSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Selection Toolbar — единственная внутренняя карточка Frame Inspector.
+*/
+body.shell-split-active[data-approved-split-section="frame"]
+#approvedSplitFrameSlot > #selectionToolbar{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+
+/* ========================================================== */
+/* 2. TEXT INSPECTOR: остаётся внешняя панель + одна карточка */
+/* ========================================================== */
+
+/*
+  Text slot — технический контейнер без своей третьей рамки.
+*/
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Global Type Styles и Selection Toolbar — обычные внутренние блоки.
+  Их не оборачиваем дополнительной декоративной карточкой.
+*/
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot > .approved-dock-card,
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot > #selectionToolbar{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid var(--line-dark)!important;
+  border-radius:16px!important;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.015)
+  )!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="text"]
+#approvedSplitTextSlot > :last-child{
+  margin-bottom:0!important;
+}
+
+
+/* ========================================================== */
+/* 3. SITE & EXPORT: убираем карточки HTML/PDF/Images/Data    */
+/* ========================================================== */
+
+/*
+  Внешняя Site Export card остаётся одной основной карточкой.
+  Внутренние HTML/PDF/Images/Data больше не выглядят как отдельные
+  вложенные панели.
+*/
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:10px!important;
+  width:100%!important;
+  margin:10px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+
+/*
+  Убираем третью панель: карточка группы становится прозрачным контейнером.
+*/
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-card{
+  display:contents!important;
+}
+
+/*
+  Оставляем название категории простой подписью, без box/card.
+*/
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-title{
+  display:block!important;
+  margin:2px 0 -3px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--text-3)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+/*
+  Кнопки остаются в своих реальных группах, но без дополнительной рамки.
+*/
+body.shell-split-active[data-approved-split-section="export"]
+#approvedSplitExportRuntime .approved-export-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+
+/* ========================================================== */
+/* 4. CONCEPT: Choose / Rescan ниже random/fix, в одну колонку */
+/* ========================================================== */
+
+/*
+  После DOM-переноса старый верхний контейнер содержит только
+  скрытый input[type=file] и счётчик. Он не должен создавать пустоту.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions.cols-1:has(#imagePoolInput){
+  display:none!important;
+}
+
+/*
+  Между random/fix блоком и операциями папки — только тонкий divider,
+  а не новая третья карточка.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+  width:100%!important;
+  margin:12px 0 0!important;
+  padding:12px 0 0!important;
+  border-top:1px solid var(--line-soft)!important;
+  background:transparent!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+/*
+  Две большие кнопки на всю ширину панели.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .image-pool-action-row .btn{
+  display:block!important;
+  width:100%!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:10px 12px!important;
+  border-radius:10px!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:.08em!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+/* END_APPROVED_SPLIT_FLAT_CARD_DEPTH_V2 */
+/* APPROVED_SPLIT_IMAGE_LIBRARY_IN_TECH_V1 */
+
+/*
+  IMAGE LIBRARY в Tech:
+  это техническая секция без отдельной третьей панели.
+  Внешняя left-panel и реальные Tech-карточки остаются как есть.
+*/
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitImageLibraryControls{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+  width:100%!important;
+  margin:0 0 12px!important;
+  padding:0 0 12px!important;
+  border:0!important;
+  border-bottom:1px solid var(--line-soft)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Технический заголовок — не новая карточка.
+*/
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitImageLibraryControls .approved-split-image-library-title{
+  margin:0 0 2px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--text-3)!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+/*
+  Две реальные кнопки:
+  полная ширина, одна под другой.
+*/
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitImageLibraryControls .image-pool-action-row{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitImageLibraryControls .image-pool-action-row .btn{
+  display:block!important;
+  width:100%!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:10px 12px!important;
+  border-radius:10px!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:.08em!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+/*
+  Счётчик остаётся обычной тихой technical-meta строкой.
+*/
+body.shell-split-active[data-approved-split-section="tech"]
+#approvedSplitImageLibraryControls #imagePoolCount{
+  display:block!important;
+  width:100%!important;
+  margin:1px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--text-3)!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.04em!important;
+  text-align:left!important;
+}
+
+/*
+  В Concept кнопки уже физически перенесены в Tech.
+  Старый wrapper остаётся только с hidden file input и не занимает место.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions.cols-1:has(#imagePoolInput){
+  display:none!important;
+}
+
+/* END_APPROVED_SPLIT_IMAGE_LIBRARY_IN_TECH_V1 */
+/* APPROVED_SPLIT_CONCEPT_ACTION_HIERARCHY_V1 */
+
+/*
+  Concept / Image Pool:
+  две смысловые группы без новых карточек, рамок или фонов.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .stack-actions:has(
+  #approvedSplitRandomizeGroup
+){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  RANDOMIZE и LOCKS — обычные layout-группы, не вложенные панели.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-action-group{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:6px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Тихая подпись: создаёт иерархию, но не конкурирует с IMAGE POOL.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-action-group-title{
+  margin:0!important;
+  padding:0!important;
+  color:var(--text-3)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+
+/*
+  Существующие production-кнопки остаются в привычной 2-column сетке.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-action-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  width:100%!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot .approved-split-action-grid > .btn{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:7px 5px!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  line-height:1.1!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  text-transform:none!important;
+  white-space:nowrap!important;
+}
+
+/*
+  LOCKS слегка отделяется сверху только через воздух.
+  Без линии, дополнительной панели и новой рамки.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitLocksGroup{
+  padding-top:2px!important;
+}
+
+/* END_APPROVED_SPLIT_CONCEPT_ACTION_HIERARCHY_V1 */
+/* APPROVED_SPLIT_CONCEPT_IMAGE_SCOPE_ORDER_V1 */
+
+/*
+  IMAGE SCOPE — редкая настройка источника random.
+  Это layout-группа без дополнительной карточки/фона/обводки.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:8px!important;
+  width:100%!important;
+  margin:14px 0 0!important;
+  padding:12px 0 0!important;
+  border:0!important;
+  border-top:1px solid var(--line-soft)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/*
+  Заголовок перенесён из исходной Image Pool-card.
+  Он не создаёт новую карточку, только тихую смысловую секцию.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup .sidebar-title{
+  margin:0 0 1px!important;
+  padding:0!important;
+  color:var(--text-3)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+
+/*
+  Поля сохраняют единый аккуратный spacing.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup .field{
+  display:grid!important;
+  gap:4px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup .field label{
+  color:var(--text-3)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup #pageConceptSelect,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitImageScopeGroup #pageSubfolderSelect{
+  width:100%!important;
+  min-height:34px!important;
+}
+
+/*
+  Старый пустой spacer после переноса полей не нужен.
+  Он находится до основной action-grid и не должен оставлять пустоту.
+*/
+body.shell-split-active[data-approved-split-section="concept"]
+#legacyApprovedSplitConceptSlot > .approved-dock-card:has(
+  #approvedSplitImageScopeGroup
+) > div[style*="height:10px"]{
+  display:none!important;
+}
+
+/* END_APPROVED_SPLIT_CONCEPT_IMAGE_SCOPE_ORDER_V1 */
+
+
+/* =========================================================
+   PANEL CONTROL CENTER — CONCEPT EDITING DESIGN START
+   ========================================================= */
+
+/* ------------------------------------------------------------------ */
+/* Concept Editing — scoped design system (aligned with Page Actions) */
+/* ------------------------------------------------------------------ */
+
+body.shell-split-active #approvedSplitConceptSlot > .approved-dock-card{
+  color:var(--text);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .sidebar-title{
+  margin:0 0 12px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  opacity:.82;
+  font-weight:800;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn,
+body.shell-split-active #approvedSplitConceptSlot select,
+body.shell-split-active #approvedSplitConceptSlot input{
+  border:1px solid var(--line-dark);
+  background:var(--panel-2);
+  color:var(--text);
+  border-radius:var(--ui-soft-radius);
+  padding:10px 12px;
+  font-size:13px;
+  width:100%;
+}
+
+body.shell-split-active #approvedSplitConceptSlot select,
+body.shell-split-active #approvedSplitConceptSlot input{
+  caret-color:var(--text);
+}
+
+body.shell-split-active #approvedSplitConceptSlot select option{
+  background:#1d2026;
+  color:#f3f5f7;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn{
+  cursor:pointer;
+  transition:var(--transition);
+  text-align:center;
+  font-size:11px;
+  min-height:40px;
+  border-radius:var(--ui-pill-radius);
+  text-transform:uppercase;
+  letter-spacing:var(--editorial-tracking);
+  font-weight:800;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn.primary{
+  background:var(--accent);
+  color:#101216;
+  border-color:var(--accent);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn:hover{
+  background:var(--panel-2);
+  border-color:rgba(255,255,255,.26);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn.primary:hover{
+  background:var(--accent-2);
+  border-color:var(--accent-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .btn:focus,
+body.shell-split-active #approvedSplitConceptSlot select:focus,
+body.shell-split-active #approvedSplitConceptSlot input:focus{
+  outline:none;
+  border-color:rgba(255,255,255,.34);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .stack-actions{
+  display:grid;
+  gap:8px;
+  grid-template-columns:1fr 1fr;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .stack-actions.cols-1{
+  grid-template-columns:1fr;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .field label{
+  font-size:10px;
+  text-transform:uppercase;
+  opacity:.88;
+  letter-spacing:.14em;
+  font-weight:800;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .mini-help{
+  font-size:11px;
+  opacity:.92;
+  line-height:1.4;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .mini-pill{
+  padding:7px 8px;
+  border-radius:10px;
+  background:var(--panel);
+  border:1px solid var(--line-dark);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .check-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .check-row input[type="checkbox"]{
+  width:auto;
+  min-width:16px;
+  height:16px;
+  padding:0;
+  margin:0;
+}
+
+/* Slot visibility / dock-card shell */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:18px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+    #20232b!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 28px rgba(0,0,0,.17)!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot > .approved-dock-card:last-child{
+  margin-bottom:0!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot > .approved-dock-card{
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot > .approved-dock-card{
+  padding:12px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:18px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+    #20232b!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 28px rgba(0,0,0,.17)!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot > .approved-dock-card > .sidebar-card,
+body.shell-split-active #approvedSplitConceptSlot .sidebar-card{
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Hide legacy extras inside concept slot */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .mini-help{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #noRepeatsCheckbox,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #imagePoolCount{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #noRepeatsCheckbox + span{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .check-row:has(#noRepeatsCheckbox),
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .mini-pill:has(#imagePoolCount){
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .stack-actions.cols-1:has(#imagePoolInput){
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .stack-actions:not(:has(button)):not(:has(#approvedSplitConceptSection)){
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .image-pool-action-row{
+  display:none!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitRandomizeGroup,
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitLocksGroup{
+  display:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #shuffleFrameLayoutBtn{
+  display:none!important;
+}
+
+/* Parent stack that hosts the assembled concept section */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .stack-actions:has(#approvedSplitConceptSection){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* ---------- IMAGE SCOPE ---------- */
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup{
+  display:block!important;
+  margin:0 0 12px!important;
+  padding:0 0 12px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.09)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup .sidebar-title,
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup.approved-split-image-scope-group > .sidebar-title{
+  margin:0 0 8px!important;
+  color:rgba(211,220,232,.58)!important;
+  font-size:8px!important;
+  font-weight:900!important;
+  letter-spacing:.14em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  opacity:1!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup .field{
+  margin:0 0 8px!important;
+  gap:5px!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup .field:last-child{
+  margin-bottom:0!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup label{
+  margin:0!important;
+  color:rgba(211,220,232,.48)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.10em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  opacity:1!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup input,
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup select,
+body.shell-split-active #approvedSplitConceptSlot #pageConceptSelect,
+body.shell-split-active #approvedSplitConceptSlot #pageSubfolderSelect{
+  width:100%!important;
+  min-height:34px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0 11px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:8px!important;
+  background:#1b1e25!important;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.13)!important;
+  color:rgba(245,248,252,.88)!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup input:focus,
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitImageScopeGroup select:focus,
+body.shell-split-active #approvedSplitConceptSlot #pageConceptSelect:focus,
+body.shell-split-active #approvedSplitConceptSlot #pageSubfolderSelect:focus{
+  outline:none!important;
+  border-color:rgba(255,255,255,.28)!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06)!important;
+}
+
+/* ---------- CONCEPT EDITING section ---------- */
+body.shell-split-active #approvedSplitConceptSlot #approvedSplitConceptSection{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-section-title{
+  margin:0 0 8px!important;
+  padding:0!important;
+  color:rgba(235,240,247,.90)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.11em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:6px!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid .btn{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:32px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0 8px!important;
+  border:1px solid rgba(207,215,227,.28)!important;
+  border-radius:15px!important;
+  background:#1c1f26!important;
+  box-shadow:none!important;
+  color:rgba(228,233,240,.88)!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:.04em!important;
+  text-align:center!important;
+  text-transform:none!important;
+  white-space:nowrap!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid .btn:hover{
+  border-color:rgba(224,231,241,.48)!important;
+  background:#242832!important;
+  color:rgba(243,246,250,.96)!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid .btn:focus{
+  outline:none!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06)!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid .btn.primary,
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-primary-grid .btn.btn-accent-outline{
+  background:#1c1f26!important;
+  color:rgba(228,233,240,.88)!important;
+  border-color:rgba(207,215,227,.28)!important;
+  box-shadow:none!important;
+}
+
+/* ---------- ADVANCED ---------- */
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced{
+  display:block!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:10px!important;
+  background:#1a1c22!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-title{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  min-height:29px!important;
+  margin:0!important;
+  padding:0 9px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.075)!important;
+  color:rgba(216,225,237,.58)!important;
+  font-size:8px!important;
+  font-weight:900!important;
+  letter-spacing:.13em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  background:transparent!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-title span:last-child{
+  color:rgba(206,220,240,.50)!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  transform:translateY(-1px);
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:6px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:7px!important;
+  border:0!important;
+  background:transparent!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid .btn{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:26px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0 5px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:7px!important;
+  background:rgba(255,255,255,.012)!important;
+  box-shadow:none!important;
+  color:rgba(210,220,233,.58)!important;
+  font-size:8px!important;
+  font-weight:750!important;
+  line-height:1.1!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  text-transform:none!important;
+  white-space:nowrap!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid .btn:hover{
+  border-color:rgba(166,196,231,.48)!important;
+  background:rgba(255,255,255,.027)!important;
+  color:rgba(223,231,242,.78)!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid .btn:focus{
+  outline:none!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.05)!important;
+}
+
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid .btn.primary,
+body.shell-split-active #approvedSplitConceptSlot .approved-split-concept-advanced-grid .btn.btn-accent-outline{
+  background:rgba(255,255,255,.012)!important;
+  color:rgba(210,220,233,.58)!important;
+  border-color:rgba(255,255,255,.10)!important;
+  box-shadow:none!important;
+}
+
+/* Ensure advanced action IDs stay visible when moved into panel */
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #randomOneBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #randomPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #randomFrameBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #randomAllBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #fixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #unfixRandomBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #fixAllPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #unfixAllPageBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #fixAllBtn,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot #unfixAllBtn{
+  display:block!important;
+}
+
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot .approved-split-concept-extra,
+body.shell-split-active[data-approved-split-section="concept"]
+#approvedSplitConceptSlot > .approved-split-concept-extra{
+  display:block!important;
+}
+
+/* =========================================================
+   PANEL CONTROL CENTER — CONCEPT EDITING DESIGN END
+   ========================================================= */
+
+
+/* =========================================================
+   PANEL CONTROL CENTER — TEMPLATES DESIGN START
+   ========================================================= */
+
+/* ------------------------------------------------------------------ */
+/* Templates — scoped design system (aligned with Page Actions)       */
+/* ------------------------------------------------------------------ */
+
+body.shell-split-active #approvedSplitTemplatesSlot > .approved-dock-card{
+  color:var(--text);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .sidebar-title{
+  margin:0 0 12px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  opacity:.82;
+  font-weight:800;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn,
+body.shell-split-active #approvedSplitTemplatesSlot select,
+body.shell-split-active #approvedSplitTemplatesSlot input{
+  border:1px solid var(--line-dark);
+  background:var(--panel-2);
+  color:var(--text);
+  border-radius:var(--ui-soft-radius);
+  padding:10px 12px;
+  font-size:13px;
+  width:100%;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot select,
+body.shell-split-active #approvedSplitTemplatesSlot input{
+  caret-color:var(--text);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot select option{
+  background:#1d2026;
+  color:#f3f5f7;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn{
+  cursor:pointer;
+  transition:var(--transition);
+  text-align:center;
+  font-size:11px;
+  min-height:40px;
+  border-radius:var(--ui-pill-radius);
+  text-transform:uppercase;
+  letter-spacing:var(--editorial-tracking);
+  font-weight:800;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn.primary{
+  background:var(--accent);
+  color:#101216;
+  border-color:var(--accent);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn:hover{
+  background:var(--panel-2);
+  border-color:rgba(255,255,255,.26);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn.primary:hover{
+  background:var(--accent-2);
+  border-color:var(--accent-2);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .btn:focus,
+body.shell-split-active #approvedSplitTemplatesSlot select:focus,
+body.shell-split-active #approvedSplitTemplatesSlot input:focus{
+  outline:none;
+  border-color:rgba(255,255,255,.34);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .stack-actions{
+  display:grid;
+  gap:8px;
+  grid-template-columns:1fr 1fr;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .field label{
+  font-size:10px;
+  text-transform:uppercase;
+  opacity:.88;
+  letter-spacing:.14em;
+  font-weight:800;
+  color:var(--text-2);
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot .mini-help{
+  font-size:11px;
+  opacity:.92;
+  line-height:1.4;
+  color:var(--text-2);
+}
+
+/* Slot visibility / dock-card shell */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active #approvedSplitTemplatesSlot > .approved-dock-card{
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot > .approved-dock-card{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:12px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:18px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+    #20232b!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 28px rgba(0,0,0,.17)!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot > .approved-dock-card:last-child{
+  margin-bottom:0!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot > .approved-dock-card > .sidebar-card,
+body.shell-split-active #approvedSplitTemplatesSlot .sidebar-card{
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Title */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .sidebar-title{
+  margin:0 0 10px!important;
+  color:rgba(235,240,247,.90)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  line-height:1.2!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+  opacity:1!important;
+}
+
+/* Fields */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .field{
+  margin:0 0 8px!important;
+  gap:5px!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .field label{
+  margin:0!important;
+  color:rgba(211,220,232,.48)!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.10em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  opacity:1!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #templateStyleFilterSelect,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #templateCategorySelect,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #templateSelect,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot select{
+  width:100%!important;
+  min-height:34px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0 11px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:8px!important;
+  background:#1b1e25!important;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.13)!important;
+  color:rgba(245,248,252,.88)!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot select:focus{
+  outline:none!important;
+  border-color:rgba(255,255,255,.28)!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06)!important;
+}
+
+/* Local layout groups */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-filter-row,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-main-row,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-apply-row,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .stack-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:6px!important;
+  width:100%!important;
+  margin:0 0 8px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-apply-row{
+  margin-bottom:0!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-filter-row .btn,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-main-row .btn,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-apply-row .btn,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .stack-actions .btn{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:32px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0 8px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:15px!important;
+  background:#1c1f26!important;
+  box-shadow:none!important;
+  color:rgba(228,233,240,.86)!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  letter-spacing:.04em!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-filter-row .btn:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-main-row .btn:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-apply-row .btn:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .stack-actions .btn:hover{
+  border-color:rgba(224,231,241,.42)!important;
+  background:#242832!important;
+  color:rgba(243,246,250,.96)!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-filter-row .btn:focus,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-main-row .btn:focus,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .approved-split-templates-apply-row .btn:focus,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .stack-actions .btn:focus{
+  outline:none!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06)!important;
+}
+
+/* Primary-weight actions: Add + Apply */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #addTemplatePageBtn,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #applyTemplateToPageBtn{
+  border-color:rgba(255,255,255,.18)!important;
+  background:#2a2f3a!important;
+  color:rgba(245,248,252,.96)!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #addTemplatePageBtn:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #applyTemplateToPageBtn:hover{
+  border-color:rgba(255,255,255,.28)!important;
+  background:#323846!important;
+  color:#fff!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #addTemplatePageBtn.primary,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #applyTemplateToPageBtn.primary,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .btn.primary{
+  background:#2a2f3a!important;
+  color:rgba(245,248,252,.96)!important;
+  border-color:rgba(255,255,255,.18)!important;
+  box-shadow:none!important;
+}
+
+/* Secondary quieter: Favorite toggle / All Styles / Next */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #templateFavoriteToggleBtn,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #btn_toggle_all_concepts,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #nextTemplateBtn{
+  border-color:rgba(255,255,255,.10)!important;
+  background:rgba(255,255,255,.012)!important;
+  color:rgba(210,220,233,.62)!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #templateFavoriteToggleBtn:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #btn_toggle_all_concepts:hover,
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #nextTemplateBtn:hover{
+  border-color:rgba(166,196,231,.40)!important;
+  background:rgba(255,255,255,.027)!important;
+  color:rgba(223,231,242,.82)!important;
+}
+
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot #btn_toggle_fav_only{
+  border-color:rgba(255,255,255,.12)!important;
+  background:#1c1f26!important;
+  color:rgba(228,233,240,.86)!important;
+}
+
+/* Help text: keep node, hide visually to match screenshot density */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot .mini-help{
+  display:none!important;
+}
+
+/* Kill leftover spacer divs from legacy markup */
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot div[style*="height:8px"],
+body.shell-split-active[data-approved-split-section="templates"]
+#approvedSplitTemplatesSlot div[style*="height:10px"]{
+  display:none!important;
+}
+
+/* =========================================================
+   PANEL CONTROL CENTER — TEMPLATES DESIGN END
+   ========================================================= */
+</style>
+
+  <!-- Подключаем файл кастомных обложек из Песочницы -->
+<script>
+    // Синхронная автозагрузка всех JS-шаблонов из папки templates для Electron
+    (function loadCustomTemplatesSync() {
+      try {
+        if (typeof require !== 'undefined') {
+          const fs = require('fs');
+          const path = require('path');
+          
+          // Абсолютный путь к папке templates в корне приложения
+          const templatesDir = path.join(__dirname, 'templates');
+
+          if (fs.existsSync(templatesDir)) {
+            const files = fs.readdirSync(templatesDir);
+            files.forEach(file => {
+              if (file.endsWith('.js')) {
+                const filePath = path.join(templatesDir, file);
+                const code = fs.readFileSync(filePath, 'utf8');
+                // Синхронно исполняем код скрипта в контексте window
+                window.eval(code);
+                console.log(`[Templates] Успешно загружен: ${file}`);
+              }
+            });
+          } else {
+            console.warn('[Templates] Предупреждение: Папка "templates" не найдена в корне проекта.');
+          }
+        }
+      } catch (err) {
+        console.error('[Templates] Ошибка при автозагрузке шаблонов:', err);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+    <div class="workspace" id="workspace">
+      <div class="left-dock-tabs editor-only" id="leftDockTabs">
+        <button type="button" class="left-dock-tab" data-left-dock="menu">Menu</button>
+        <button type="button" class="left-dock-tab" data-left-dock="textlib">Text Lib</button>
+        <button type="button" class="left-dock-tab" data-left-dock="aipc">AI Collect</button>
+      </div>
+      <aside class="text-library-panel editor-only hidden" id="textLibraryPanel"></aside>
+      <aside class="aipc-panel editor-only" id="aiPagesCollectorPanel"></aside>
+      <aside class="left-panel editor-only">
+        <div class="sidebar-card">
+          <div class="editor-logo">Portfolio Editor</div>
+          <div class="editor-sub">AKINBINU AKINTAYO / presentation system</div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="deckSelect">Load Deck</label>
+            <select id="deckSelect">
+              <option value="CINEMATIC_PORTFOLIO">CINEMATIC_PORTFOLIO</option>
+              <option value="EDITORIAL_BLUE_0_1">EDITORIAL_BLUE_0_1</option>
+              <option value="ALL_PROJECT_COVERS">ОБЛОЖКИ ВСЕХ ПРОЕКТОВ</option>
+            </select>
+          </div>
+          <button class="btn primary" id="loadDeckBtn">Load Deck</button>
+
+          <div style="height:12px"></div>
+
+          <div class="stack-actions">
+            <button class="btn" id="undoBtn">Undo</button>
+            <button class="btn" id="redoBtn">Redo</button>
+            <button class="btn" id="previewBtn">Preview</button>
+            <button class="btn" id="printBtn">PDF</button>
+            <button class="btn" id="techPdfBtn">Export Tech PDF</button>
+            <button class="btn btn-danger-outline" id="resetProjectBtn">Reset Project</button>
+          </div>
+          <div style="height:10px"></div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="techInfoModeSelect">Tech Info Mode</label>
+            <select id="techInfoModeSelect">
+              <option value="off">Hide everywhere</option>
+              <option value="workspace-only">Show in workspace only</option>
+              <option value="pdf-only">Show in PDF only</option>
+            </select>
+          </div>
+          <div style="height:8px"></div>
+          <label class="check-row" style="margin-bottom:6px;">
+            <input type="checkbox" id="toggleTemplateLabelsBtn">
+            <span>Лейблы шаблонов (templateId)</span>
+          </label>
+          <div class="mini-help">
+            Показывает аккуратную плашку с templateId на каждой странице. Выводится и в PDF.
+          </div>
+          <div style="height:10px"></div>
+          <button class="btn primary" id="saveBtn">Save Project</button>
+          <div style="height:8px"></div>
+          <div class="stack-actions">
+            <button class="btn" id="exportBtn">Export JSON</button>
+            <button class="btn" id="overwriteJsonBtn">Overwrite JSON</button>
+            <button class="btn" id="importBtn">Import JSON</button>
+<button class="btn" id="refreshImagePoolBtn">Rescan Image Folder</button>
+          </div>
+          <div class="json-meta" id="currentJsonMeta">JSON: not selected</div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">AI Deck Builder</h3>
+       
+
+<div class="stack-actions cols-1">
+            <button class="btn primary" id="openAiDeckBuilderBtn">Open AI Deck Builder</button>
+          </div>
+          <div style="height:10px"></div>
+          <div class="mini-help">
+            Вставьте JSON-план, проверьте структуру будущей презентации и подготовьте контекст для нейросети.
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Site Export</h3>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteTitleInput">Site Title</label>
+            <input id="siteTitleInput" type="text" value="AKINBINU AKINTAYO Portfolio">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteEmailInput">Email</label>
+            <input id="siteEmailInput" type="text" value="hello@example.com">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteTelegramInput">Telegram</label>
+            <input id="siteTelegramInput" type="text" value="@telegram">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="sitePhoneInput">Phone</label>
+            <input id="sitePhoneInput" type="text" value="+1234567890">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteWebsiteInput">Website URL</label>
+            <input id="siteWebsiteInput" type="text" value="https://example.com">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteBehanceInput">Behance URL</label>
+            <input id="siteBehanceInput" type="text" value="https://behance.net/name">
+          </div>
+
+          <div class="field" style="margin-bottom:8px;">
+            <label for="siteInstagramInput">Instagram URL</label>
+            <input id="siteInstagramInput" type="text" value="https://instagram.com/name">
+          </div>
+
+          <div class="stack-actions cols-1">
+            <button class="btn" id="previewExportHtmlBtn">Preview Export HTML</button>
+            <button class="btn primary" id="exportFinalHtmlBtn">Export Final HTML</button>
+          </div>
+
+          <div style="height:8px"></div>
+
+          <div class="stack-actions cols-1">
+            <button class="btn" id="exportSlideJpegBtn">Export Slide</button>
+            <button class="btn" id="exportImagesZipBtn">Export Images ZIP</button>
+            <button class="btn" id="exportCsvBtn">Export CSV</button>
+            <button class="btn" id="importCsvBtn">Import CSV</button>
+          </div>
+
+          <div style="height:10px"></div>
+          <div class="mini-help">
+            Экспортирует чистый HTML только со страницами, без редактора, меню и служебных кнопок.
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Edit</h3>
+          <div class="stack-actions">
+            <button class="btn" id="addPageAfterBtn">Add Empty Page</button>
+            <button class="btn" id="addTextBlockBtn">+ Text</button>
+            <button class="btn" id="addImageBlockBtn">+ Image</button>
+            <button class="btn" id="copyElementBtn">Copy Element</button>
+            <button class="btn" id="pasteElementBtn">Paste Element</button>
+          </div>
+          <div style="height:8px"></div>
+          <div class="stack-actions">
+            <button class="btn" id="copyTextStyleBtn">Copy Text Style</button>
+            <button class="btn" id="pasteTextStyleBtn">Paste Text Style</button>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Page Actions</h3>
+          <div class="stack-actions cols-1">
+            <button class="btn" id="copyPageBtn">Copy Page</button>
+            <button class="btn" id="pastePageBtn">Paste Page</button>
+            <button class="btn" id="duplicatePageBtn">Duplicate Page</button>
+                  <button class="btn btn-accent-outline" id="deletePageBtn">Delete Page</button>
+            <button class="btn" id="movePageUpBtn">Move Page Up</button>
+            <button class="btn" id="movePageDownBtn">Move Page Down</button>
+            <button class="btn primary" id="addAllTemplatesBtn">Add All Templates</button>
+            <button class="btn btn-danger-outline" id="deleteAllPagesBtn">Delete All Pages</button>
+            <button class="btn" id="openPagesPanelBtn">Pages Panel</button>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Image Pool</h3>
+          <div class="stack-actions cols-1">
+  <div class="image-pool-action-row">
+    <button class="btn btn-accent-outline" id="chooseImagePoolBtn">Choose Image Folder</button>
+    <button class="btn btn-accent-outline" id="refreshImagePoolConceptBtn">Rescan Image Folder</button>
+  </div>
+  <input type="file" id="imagePoolInput" class="hidden" accept="image/*" multiple webkitdirectory directory>
+  <div class="mini-pill" id="imagePoolCount">0 images</div>
+          </div>
+          <div style="height:10px"></div>
+          <label class="check-row" style="margin-bottom:10px;">
+            <input type="checkbox" id="noRepeatsCheckbox">
+            <span>No repeats</span>
+          </label>
+          <div class="field" style="margin-bottom:8px;">
+            <label for="pageConceptSelect">Page Concept</label>
+            <input type="number" id="pageConceptSelect" min="0" step="1" value="0">
+          </div>
+          <div class="field" style="margin-bottom:8px;">
+            <label for="pageSubfolderSelect">Page Subfolder</label>
+            <select id="pageSubfolderSelect">
+              <option value="all">all</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="stack-actions">
+            <button class="btn primary" id="randomPageBtn">Random Page</button>
+            <button class="btn" id="randomOneBtn">Random One</button>
+            <button class="btn" id="randomFrameBtn">Random Frame</button>
+            <button class="btn" id="randomAllBtn">Random All</button>
+            <button class="btn" id="shuffleFrameLayoutBtn">Shuffle Frame Layout</button>
+            <button class="btn" id="fixRandomBtn">Fix Random</button>
+            <button class="btn" id="unfixRandomBtn">Unfix Random</button>
+            <button class="btn" id="fixAllPageBtn">Fix All on Page</button>
+            <button class="btn" id="unfixAllPageBtn">Unfix All on Page</button>
+            <button class="btn" id="fixAllBtn">Fix All</button>
+            <button class="btn" id="unfixAllBtn">Unfix All</button>
+          </div>
+          <div style="height:10px"></div>
+          <div class="mini-help">Random All теперь reroll-ит все unlocked изображения и frame slots на всех страницах. Fixed элементы не меняются.</div>
+        </div>
+
+        <!-- =========================================================
+             PANEL CONTROL CENTER — TEMPLATES STRUCTURE START
+             ========================================================= -->
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">TEMPLATE LIBRARY</h3>
+
+          <div class="field">
+            <label for="templateStyleFilterSelect">Filter Templates By Style</label>
+            <select id="templateStyleFilterSelect">
+              <option value="auto">Auto (Active Style)</option>
+              <option value="cinematic">Cinematic Only</option>
+              <option value="editorial-blue">Editorial Blue Only</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="templateCategorySelect">Select Template Category</label>
+            <select id="templateCategorySelect" class="select-field"></select>
+          </div>
+
+          <div class="field">
+            <label for="templateSelect">Select Template</label>
+            <select id="templateSelect"></select>
+          </div>
+
+          <div class="approved-split-templates-filter-row">
+            <button
+              id="btn_toggle_fav_only"
+              type="button"
+              class="btn"
+              onclick="toggleFilterFavOnly()"
+            >
+              ★ Favorites
+            </button>
+            <button
+              id="btn_toggle_all_concepts"
+              type="button"
+              class="btn"
+              onclick="toggleFilterAllConcepts()"
+            >
+              All Styles
+            </button>
+          </div>
+
+          <div class="approved-split-templates-main-row">
+            <button class="btn primary" id="addTemplatePageBtn" type="button">
+              Add to Page
+            </button>
+            <button
+              class="btn"
+              id="templateFavoriteToggleBtn"
+              type="button"
+            >
+              Favorite: Off
+            </button>
+          </div>
+
+          <div class="approved-split-templates-apply-row stack-actions">
+            <button class="btn" id="applyTemplateToPageBtn" type="button">
+              Apply to Page
+            </button>
+            <button class="btn" id="nextTemplateBtn" type="button">
+              Next Template
+            </button>
+          </div>
+
+          <div class="mini-help">
+            Шаблон вставляется после выбранной страницы. Если страница не выбрана — в конец. Можно также применить шаблон к уже выбранной странице.
+          </div>
+        </div>
+        <!-- =========================================================
+             PANEL CONTROL CENTER — TEMPLATES STRUCTURE END
+     ========================================================= -->
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Image Radius</h3>
+          <div class="field">
+            <label>Image Radius (0–100)</label>
+            <div class="range-number-row">
+              <input type="range" id="imageRadiusSlider" min="0" max="100" value="8">
+              <input type="number" id="imageRadiusNumber" min="0" max="100" value="8">
+            </div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="mini-help">Работает для image blocks и frame slots. Можно отдельно исключать конкретный image или frame container из глобального скругления.</div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Page Radius</h3>
+          <div class="field">
+            <label>Page Radius (0–80)</label>
+            <div class="range-number-row">
+              <input type="range" id="pageRadiusSlider" min="0" max="80" value="10">
+              <input type="number" id="pageRadiusNumber" min="0" max="80" value="10">
+            </div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="mini-help">Глобальное скругление самих страниц editor canvas.</div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Memory / Project Load</h3>
+          <div class="memory-grid" id="memoryStatsGrid">
+            <div>Pages: 0</div>
+            <div>Pool: 0</div>
+            <div>Image Blocks: 0</div>
+            <div>Slots: 0</div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="loadbar"><span id="memoryLoadBar"></span></div>
+          <div style="height:8px"></div>
+          <div class="mini-help" id="memoryStatsText">Load: low</div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Global Type Styles</h3>
+          <div class="field" style="margin-bottom:8px;">
+            <label for="globalTypePresetSelect">Preset Type</label>
+            <select id="globalTypePresetSelect"></select>
+          </div>
+          <div class="tool-grid">
+            <div class="field">
+              <label for="globalTypeFontFamily">Font Family</label>
+              <input id="globalTypeFontFamily" type="text" value="Inter, system-ui, sans-serif">
+            </div>
+            <div class="field">
+              <label for="globalTypeSize">Size</label>
+              <input id="globalTypeSize" type="number" value="32">
+            </div>
+            <div class="field">
+              <label for="globalTypeWeight">Weight</label>
+              <input id="globalTypeWeight" type="number" min="100" max="900" step="100" value="500">
+            </div>
+            <div class="field">
+              <label for="globalTypeLineHeight">Line Height</label>
+              <input id="globalTypeLineHeight" type="number" step="0.01" value="1.1">
+            </div>
+            <div class="field">
+              <label for="globalTypeLetterSpacing">Letter Spacing</label>
+              <input id="globalTypeLetterSpacing" type="number" step="0.1" value="0">
+            </div>
+            <div class="field">
+              <label for="globalTypeTransform">Text Transform</label>
+              <select id="globalTypeTransform">
+                <option value="none">none</option>
+                <option value="uppercase">uppercase</option>
+                <option value="lowercase">lowercase</option>
+                <option value="capitalize">capitalize</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="globalTypeColor">Color</label>
+              <input id="globalTypeColor" type="color" value="#111111">
+            </div>
+            <div class="field">
+              <label for="globalTypeAlign">Align</label>
+              <select id="globalTypeAlign">
+                <option value="left">left</option>
+                <option value="center">center</option>
+                <option value="right">right</option>
+                <option value="justify">justify</option>
+              </select>
+            </div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="stack-actions cols-1">
+            <button class="btn primary" id="applyGlobalTypePresetBtn">Apply Preset to Document</button>
+          </div>
+          <div style="height:8px"></div>
+          <div class="mini-help">Безопасное массовое обновление text blocks по semantic type.</div>
+
+        </div>
+        <div class="selection-toolbar" id="selectionToolbar">
+          <h3>Selection</h3>
+          <div id="selectionContent" style="font-size:12px;opacity:.95;">Select any block to edit.</div>
+        </div>
+        <div class="sidebar-card hotkeys-card is-collapsed" id="hotkeysCard">
+          <div class="hotkeys-head" id="hotkeysHead">
+            <h3 class="sidebar-title">Hotkeys</h3>
+            <button type="button" class="hotkeys-toggle-btn" id="hotkeysToggleBtn">▸</button>
+          </div>
+          <div class="hotkeys-body" id="hotkeysBody"></div>
+        </div>
+      </aside>
+
+      <main class="pages-wrap">
+        <div class="pages-stack" id="pagesStack"></div>
+      </main>
+    </div>
+  </div>
+
+  <input type="file" id="jsonImportInput" accept=".json" class="hidden">
+  <input type="file" id="imageImportInput" accept="image/*" class="hidden">
+  <input type="file" id="csvImportInput" accept=".csv,text/csv" class="hidden">
+  <input type="file" id="textLibraryCsvImportInput" accept=".csv,text/csv" class="hidden">
+  <input type="file" id="aiDeckJsonImportInput" accept=".json,application/json" class="hidden">
+
+  <div class="ai-deck-overlay editor-only" id="aiDeckBuilderOverlay" aria-hidden="true">
+    <section class="ai-deck-modal" role="dialog" aria-modal="true" aria-labelledby="aiDeckBuilderTitle">
+      <header class="ai-deck-head">
+        <div>
+          <div class="ai-deck-kicker">AI Presentation Pipeline</div>
+          <h2 class="ai-deck-title" id="aiDeckBuilderTitle">AI Deck Builder</h2>
+<p class="ai-deck-subtitle">
+  Вставьте JSON-план, который вернула нейросеть. Редактор проверит templateId,
+  text roles, concept folders и доступное количество изображений, а затем сможет
+  собрать новую презентацию, вставить страницы или обновить существующий deck.
+</p>
+        </div>
+        <button type="button" class="ai-deck-close" id="closeAiDeckBuilderBtn" title="Close">×</button>
+      </header>
+
+      <div class="ai-deck-body">
+        <div class="ai-deck-column">
+          <div class="ai-deck-panel">
+            <h3 class="ai-deck-panel-title">Paste AI JSON</h3>
+            <textarea
+              id="aiDeckJsonInput"
+              class="ai-deck-json"
+              spellcheck="false"
+              placeholder='{
+  "schemaVersion": "ai-deck-plan-v1",
+  "document": {
+    "title": "New Presentation",
+    "visualStyle": "editorial-blue"
+  },
+  "pages": [
+    {
+      "templateId": "eb_intro_cover_split",
+      "label": "Cover",
+      "conceptIndex": 0,
+      "conceptSubfolder": "all",
+      "text": {
+        "title": "PROJECT TITLE",
+        "body": "Short description"
+      }
+    }
+  ]
+}'></textarea>
+          </div>
+
+          <div class="ai-deck-panel">
+            <h3 class="ai-deck-panel-title">Actions</h3>
+            <div class="ai-deck-actions">
+              <button type="button" class="btn" id="aiDeckLoadJsonBtn">Load AI JSON</button>
+              <button type="button" class="btn" id="aiDeckValidateBtn">Validate</button>
+              <button type="button" class="btn" id="aiDeckPreviewBtn">Preview Plan</button>
+              <button type="button" class="btn" id="aiDeckDryRunBtn">Dry Run</button>
+              <button type="button" class="btn primary" id="aiDeckBuildNewBtn">Build New Deck</button>
+              <button type="button" class="btn" id="aiDeckInsertBtn">Insert After Selected</button>
+              <button type="button" class="btn" id="aiDeckUpdateBtn">Update Existing Deck</button>
+              <button type="button" class="btn" id="aiDeckExportContextBtn">Export AI Context</button>
+              <button type="button" class="btn wide" id="aiDeckExportBriefBtn">Export Project Brief</button>
+            </div>
+          </div>
+
+          <div id="aiDeckStatus" class="ai-deck-status">
+            Ready. Paste an AI deck plan or load a JSON file.
+          </div>
+        </div>
+
+        <div class="ai-deck-column">
+          <div class="ai-deck-panel">
+            <h3 class="ai-deck-panel-title">Plan Preview</h3>
+            <div class="ai-deck-preview" id="aiDeckPreview">
+              <div class="ai-deck-preview-empty">
+                Validate or preview an AI JSON plan to see future pages here.
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-deck-panel">
+            <h3 class="ai-deck-panel-title">Current Project Snapshot</h3>
+            <div class="ai-deck-preview" id="aiDeckProjectInfo"></div>
+          </div>
+
+<p class="ai-deck-note">
+  Build New Deck заменяет текущие страницы новой AI-презентацией.
+  Insert After Selected добавляет AI-страницы после выбранной страницы.
+  Update Existing Deck обновляет существующие страницы по порядку и сохраняет
+  лишние старые страницы, если их больше, чем страниц в AI JSON.
+  Перед сборкой рекомендуется сделать Export JSON как backup.
+</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="split-hotkeys-overlay editor-only" id="splitHotkeysOverlay" aria-hidden="true">
+    <section class="split-hotkeys-modal" role="dialog" aria-modal="true" aria-labelledby="splitHotkeysTitle">
+      <div class="split-hotkeys-head">
+        <h3 class="split-hotkeys-title" id="splitHotkeysTitle">Hotkeys</h3>
+        <button type="button" class="split-hotkeys-close" id="splitHotkeysCloseBtn" title="Close">×</button>
+      </div>
+      <div class="split-hotkeys-body" id="splitHotkeysModalMount"></div>
+    </section>
+  </div>
+  <button id="previewExitBtn" class="preview-exit-btn editor-only">Exit Preview (Esc)</button>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "cinematic_portfolio_editor_state_v4";
+      const PAGE_W = 1123;
+      const PAGE_H = 794;
+      const GRID = 8;
+      const HISTORY_LIMIT = 20;
+      const DRAG_THRESHOLD = 5;
+      const KEYBOARD_MOVE_STEP = 8;
+      const KEYBOARD_MOVE_STEP_BIG = 32;
+      const PREVIEW_MAX_SIDE = 320;
+      const RENDER_MAX_SIDE = 1920;
+      const RENDER_JPEG_QUALITY = 0.86;
+      const FILE_HANDLE_MAP = new Map();
+      const HOTKEY_DEFAULTS = {
+        nextTemplate:"Ctrl+ArrowRight",
+        prevTemplate:"Ctrl+ArrowLeft",
+        prevConcept:"Alt+ArrowLeft",
+        nextConcept:"Alt+ArrowRight",
+        prevConcept10:"Ctrl+Alt+ArrowLeft",
+        nextConcept10:"Ctrl+Alt+ArrowRight",
+        prevSubfolder:"Shift+ArrowLeft",
+        nextSubfolder:"Shift+ArrowRight",
+        subfolderAll:"Shift+ArrowDown",
+        deletePage:"Ctrl+Backspace",
+        randomOne:"Ctrl+R",
+        randomPage:"Ctrl+Shift+R",
+        duplicatePage:"Ctrl+D",
+        movePageUp:"Ctrl+ArrowUp",
+        movePageDown:"Ctrl+ArrowDown",
+        saveProject:"Ctrl+S",
+        undo:"Ctrl+Z",
+        redo:"Ctrl+Y",
+        preview:"",
+        exportPdf:"",
+        exportTechPdf:"",
+        addPage:"",
+        addText:"",
+        addImage:"",
+        addTemplate:"",
+        applyTemplate:"",
+        addAllTemplates:"",
+        copyPage:"",
+        pastePage:"",
+        copyElement:"",
+        pasteElement:"",
+        copyTextStyle:"",
+        pasteTextStyle:"",
+        randomFrame:"",
+        randomAll:"",
+        shuffleFrame:"",
+        fixRandom:"",
+        unfixRandom:"",
+        fixAllPage:"",
+        unfixAllPage:"",
+        fixAll:"",
+        unfixAll:"",
+        loadDeck:"",
+        exportJson:"",
+        overwriteJson:"",
+        importJson:"",
+        applyGlobalType:"",
+        previewExportHtml:"",
+        exportFinalHtml:"",
+        exportPageImages:"",
+        exportCsv:"",
+        importCsv:"",
+        aipcCollect:"Ctrl+Shift+D"
+      };
+
+      const HOTKEY_ACTIONS = [
+        { key:"nextTemplate", label:"Next template", run:() => switchTemplateRelative(1) },
+        { key:"prevTemplate", label:"Previous template", run:() => switchTemplateRelative(-1) },
+        { key:"prevConcept", label:"Previous Concept", run:() => changeImagePoolConceptBy(-1) },
+        { key:"nextConcept", label:"Next Concept", run:() => changeImagePoolConceptBy(1) },
+        { key:"prevConcept10", label:"Previous Concept ×10", run:() => changeImagePoolConceptBy(-10) },
+        { key:"nextConcept10", label:"Next Concept ×10", run:() => changeImagePoolConceptBy(10) },
+        { key:"prevSubfolder", label:"Previous Subfolder", run:() => changeImagePoolSubfolderBy(-1) },
+        { key:"nextSubfolder", label:"Next Subfolder", run:() => changeImagePoolSubfolderBy(1) },
+        { key:"subfolderAll", label:"Subfolder: All", run:() => setImagePoolSubfolderAll() },
+        { key:"deletePage", label:"Delete page", run:() => deletePage() },
+        { key:"randomOne", label:"Random one", run:() => randomizeOne() },
+        { key:"randomPage", label:"Random page", run:() => randomizePage() },
+        { key:"duplicatePage", label:"Duplicate page", run:() => duplicatePage() },
+        { key:"movePageUp", label:"Move page up", run:() => movePageUp() },
+        { key:"movePageDown", label:"Move page down", run:() => movePageDown() },
+        { key:"saveProject", label:"Save project", run:() => els.saveBtn && els.saveBtn.click() },
+        { key:"undo", label:"Undo", run:() => undo() },
+        { key:"redo", label:"Redo", run:() => redo() },
+        { key:"preview", label:"Preview", run:() => { state.ui.preview = !state.ui.preview; applyUI(); } },
+        { key:"exportPdf", label:"Export PDF", run:() => els.printBtn && els.printBtn.click() },
+        { key:"exportTechPdf", label:"Export Tech PDF", run:() => els.techPdfBtn && els.techPdfBtn.click() },
+        { key:"addPage", label:"Add empty page", run:() => els.addPageAfterBtn && els.addPageAfterBtn.click() },
+        { key:"addText", label:"Add text", run:() => els.addTextBlockBtn && els.addTextBlockBtn.click() },
+        { key:"addImage", label:"Add image", run:() => els.addImageBlockBtn && els.addImageBlockBtn.click() },
+        { key:"addTemplate", label:"Add template page", run:() => addTemplatePageFromUI() },
+        { key:"applyTemplate", label:"Apply template to page", run:() => applyTemplateToSelectedPage() },
+        { key:"addAllTemplates", label:"Add all templates", run:() => addAllTemplatesInOrder() },
+        { key:"copyPage", label:"Copy page", run:() => copySelectedPage() },
+        { key:"pastePage", label:"Paste page", run:() => pasteCopiedPageAfterSelected() },
+        { key:"copyElement", label:"Copy element", run:() => copySelectedElement() },
+        { key:"pasteElement", label:"Paste element", run:() => pasteClipboardElement() },
+        { key:"copyTextStyle", label:"Copy text style", run:() => copySelectedTextStyle() },
+        { key:"pasteTextStyle", label:"Paste text style", run:() => pasteSelectedTextStyle() },
+        { key:"randomFrame", label:"Random frame", run:() => { const f = getSelectedFrameBlock(); if (f) randomizeFrameBlock(f); else toast("Select frame"); } },
+        { key:"randomAll", label:"Random all", run:() => rerollAllUnlockedAcrossDocument() },
+        { key:"shuffleFrame", label:"Shuffle frame layout", run:() => { const f = getSelectedFrameBlock(); if (f) shuffleFrameLayoutVariation(f); else toast("Select frame"); } },
+        { key:"fixRandom", label:"Fix random", run:() => setFixOnSelection(true) },
+        { key:"unfixRandom", label:"Unfix random", run:() => setFixOnSelection(false) },
+        { key:"fixAllPage", label:"Fix all on page", run:() => setFixAllOnPage(true) },
+        { key:"unfixAllPage", label:"Unfix all on page", run:() => setFixAllOnPage(false) },
+        { key:"fixAll", label:"Fix all", run:() => setFixAllGlobal(true) },
+        { key:"unfixAll", label:"Unfix all", run:() => setFixAllGlobal(false) },
+        { key:"loadDeck", label:"Load deck", run:() => els.loadDeckBtn && els.loadDeckBtn.click() },
+        { key:"exportJson", label:"Export JSON", run:() => exportJsonWithPicker(false) },
+        { key:"overwriteJson", label:"Overwrite JSON", run:() => exportJsonWithPicker(true) },
+        { key:"importJson", label:"Import JSON", run:() => els.importBtn && els.importBtn.click() },
+        { key:"applyGlobalType", label:"Apply global type preset", run:() => applyGlobalTypePresetToDocument() },
+        { key:"previewExportHtml", label:"Preview export HTML", run:() => els.previewExportHtmlBtn && els.previewExportHtmlBtn.click() },
+        { key:"exportFinalHtml", label:"Export final HTML", run:() => els.exportFinalHtmlBtn && els.exportFinalHtmlBtn.click() },
+        { key:"exportPageImages", label:"Export page images", run:() => els.exportPageImagesBtn && els.exportPageImagesBtn.click() },
+        { key:"exportCsv", label:"Export CSV", run:() => els.exportCsvBtn && els.exportCsvBtn.click() },
+         { key:"importCsv", label:"Import CSV", run:() => els.importCsvBtn && els.importCsvBtn.click() },
+        { key:"aipcCollect", label:"AI Collector: собрать текущую", run:() => { if (window.__aipcCollect) window.__aipcCollect(); } }
+      ];
+
+      function normalizeHotkeysState(hk){
+        const safe = Object.assign({}, HOTKEY_DEFAULTS, hk || {});
+        const out = {};
+        Object.keys(HOTKEY_DEFAULTS).forEach(k => {
+          let val = typeof safe[k] === "string" ? safe[k] : "";
+          // undo / redo всегда должны иметь дефолтную комбинацию, даже если в сохранённом стейте пусто
+          if (!val && (k === "undo" || k === "redo")) val = HOTKEY_DEFAULTS[k] || "";
+          out[k] = val;
+        });
+        return out;
+      }
+
+      function hotkeyComboFromEvent(e){
+        const parts = [];
+        if (e.ctrlKey || e.metaKey) parts.push("Ctrl");
+        if (e.shiftKey) parts.push("Shift");
+        if (e.altKey) parts.push("Alt");
+        let key = e.key;
+        if (["Control","Shift","Alt","Meta"].includes(key)) return null;
+        if (key === " ") key = "Space";
+        if (key.length === 1) key = key.toUpperCase();
+        parts.push(key);
+        return parts.join("+");
+      }
+
+      function hotkeyComboFromActiveEvent(e){
+        const parts = [];
+        if (e.ctrlKey || e.metaKey) parts.push("Ctrl");
+        if (e.shiftKey) parts.push("Shift");
+        if (e.altKey) parts.push("Alt");
+        let key = e.key;
+        if (["Control","Shift","Alt","Meta"].includes(key)) return null;
+        if (key === " ") key = "Space";
+        if (key.length === 1) key = key.toUpperCase();
+        parts.push(key);
+        return parts.join("+");
+      }
+      const uid = (p="id") => p + "_" + Math.random().toString(36).slice(2,10);
+      const deepClone = v => JSON.parse(JSON.stringify(v));
+      const snap = v => Math.round(v / GRID) * GRID;
+      const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+      const $ = id => document.getElementById(id);
+
+      const els = [
+        "pagesStack","undoBtn","redoBtn","previewBtn","printBtn","techPdfBtn","techInfoModeSelect","saveBtn","exportBtn","importBtn","jsonImportInput",
+        "imageImportInput","status","previewExitBtn","selectionToolbar","selectionContent","addPageAfterBtn",
+        "addTextBlockBtn","addImageBlockBtn","copyElementBtn","pasteElementBtn","copyTextStyleBtn","pasteTextStyleBtn",
+        "imageRadiusSlider","imageRadiusNumber","pageRadiusSlider","pageRadiusNumber","deckSelect","loadDeckBtn",
+        "templateCategorySelect","templateSelect","addTemplatePageBtn","applyTemplateToPageBtn","nextTemplateBtn",
+        "copyPageBtn","pastePageBtn","duplicatePageBtn","deletePageBtn","movePageUpBtn","movePageDownBtn","addAllTemplatesBtn",
+        "chooseImagePoolBtn","imagePoolInput","imagePoolCount","pageConceptSelect","pageSubfolderSelect","randomPageBtn","randomOneBtn","randomFrameBtn","randomAllBtn","shuffleFrameLayoutBtn","fixRandomBtn","unfixRandomBtn","fixAllBtn","unfixAllBtn","fixAllPageBtn","unfixAllPageBtn",
+"refreshImagePoolConceptBtn",
+        "overwriteJsonBtn","refreshImagePoolBtn","currentJsonMeta","memoryStatsGrid","memoryLoadBar","memoryStatsText",
+        "globalTypePresetSelect","globalTypeFontFamily","globalTypeSize","globalTypeWeight","globalTypeLineHeight","globalTypeLetterSpacing","globalTypeTransform","globalTypeColor","globalTypeAlign","applyGlobalTypePresetBtn",
+        "noRepeatsCheckbox","csvImportInput","exportPageImagesBtn","exportCsvBtn","importCsvBtn",
+        "workspace","textLibraryPanel","textLibraryCsvImportInput"
+      ].reduce((acc, id) => (acc[id] = $(id), acc), {});
+
+      const PLACEHOLDER_SVG = (bg1, bg2, fg, label) =>
+        "data:image/svg+xml;utf8," + encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${bg1}"/>
+                <stop offset="100%" stop-color="${bg2}"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stop-color="rgba(255,255,255,.0)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,.16)"/>
+              </linearGradient>
+            </defs>
+            <rect width="1600" height="1200" fill="url(#g)"/>
+            <rect width="1600" height="1200" fill="url(#g2)"/>
+            <circle cx="1260" cy="180" r="250" fill="${fg}" opacity="0.10"/>
+            <circle cx="290" cy="910" r="340" fill="${fg}" opacity="0.08"/>
+            <rect x="90" y="90" width="1420" height="1020" rx="18" fill="none" stroke="${fg}" stroke-opacity="0.18" stroke-width="2"/>
+            <text x="110" y="1038" fill="${fg}" fill-opacity="0.88" font-family="Inter, Arial, sans-serif" font-size="52" letter-spacing="8">${label}</text>
+          </svg>
+        `);
+
+      const IMG = {
+        roadMist: PLACEHOLDER_SVG("#c5beb3","#5b5a57","#ffffff","MIST ROAD"),
+        truckFront: PLACEHOLDER_SVG("#8aa2a2","#2f3b3d","#ffffff","TRUCK FRONT"),
+        forestRiver: PLACEHOLDER_SVG("#809084","#2d3831","#ffffff","FOREST RIVER"),
+        dunesCamp: PLACEHOLDER_SVG("#b9a37a","#685943","#ffffff","DESERT CAMP"),
+        forestLight: PLACEHOLDER_SVG("#786f5b","#2c241f","#ffffff","FOREST LIGHT"),
+        truckStudio: PLACEHOLDER_SVG("#bbc0c5","#4d545d","#ffffff","TRUCK STUDIO"),
+        skyline: PLACEHOLDER_SVG("#9da6c4","#5d5b71","#ffffff","CITY SKYLINE"),
+        sunsetFigure: PLACEHOLDER_SVG("#d7a46b","#594235","#ffffff","SUNSET FIGURE"),
+        mountainValley: PLACEHOLDER_SVG("#8ea0a7","#435158","#ffffff","MOUNTAIN VALLEY"),
+        roadStorm: PLACEHOLDER_SVG("#56707f","#1e2730","#ffffff","ROAD STORM"),
+        mirrorBlur: PLACEHOLDER_SVG("#7b6854","#302722","#ffffff","MIRROR BLUR"),
+        architectureUp: PLACEHOLDER_SVG("#98a8b4","#445261","#ffffff","ARCHITECTURE UP"),
+        oceanOutro: PLACEHOLDER_SVG("#8fa0aa","#3c4a56","#ffffff","COASTAL OUTRO"),
+        canyon: PLACEHOLDER_SVG("#9b7a5d","#4a3629","#ffffff","CANYON"),
+        flock: PLACEHOLDER_SVG("#a08ca0","#544457","#ffffff","FLOCK"),
+        eyeDetail: PLACEHOLDER_SVG("#8d644c","#342219","#ffffff","EYE DETAIL"),
+        waterfall: PLACEHOLDER_SVG("#7b8792","#333d47","#ffffff","WATERFALL"),
+        wheelRoad: PLACEHOLDER_SVG("#7b9cb2","#2a3b4b","#ffffff","WHEEL ROAD"),
+        riverAerial: PLACEHOLDER_SVG("#7c8f85","#34413a","#ffffff","RIVER AERIAL"),
+        woodTexture: PLACEHOLDER_SVG("#857358","#403223","#ffffff","WOOD TEXTURE"),
+        truckDesert: PLACEHOLDER_SVG("#b49f7d","#5a4f3b","#ffffff","TRUCK DESERT"),
+        truckSnow: PLACEHOLDER_SVG("#a9b8c5","#4a5864","#ffffff","TRUCK SNOW"),
+        truckNight: PLACEHOLDER_SVG("#657382","#232c35","#ffffff","TRUCK NIGHT"),
+        beautyHero: PLACEHOLDER_SVG("#ccb6b6","#6b5258","#ffffff","BEAUTY HERO"),
+        productGlass: PLACEHOLDER_SVG("#919aa6","#3b4652","#ffffff","PRODUCT GLASS"),
+        studioMetal: PLACEHOLDER_SVG("#a2a7ab","#51575d","#ffffff","STUDIO METAL"),
+        horizon: PLACEHOLDER_SVG("#9f927a","#50483b","#ffffff","HORIZON"),
+        fogSea: PLACEHOLDER_SVG("#98a4b3","#495564","#ffffff","FOG SEA"),
+
+        ebHero: PLACEHOLDER_SVG("#dfe6ff","#8ca2ff","#1b16ff","EDITORIAL HERO"),
+        ebSoft: PLACEHOLDER_SVG("#edf1ff","#d4dcff","#1b16ff","EDITORIAL SOFT"),
+        ebGridA: PLACEHOLDER_SVG("#f3f6ff","#d9e1ff","#1b16ff","EDITORIAL GRID A"),
+        ebGridB: PLACEHOLDER_SVG("#eaf0ff","#c7d2ff","#1b16ff","EDITORIAL GRID B"),
+        ebGridC: PLACEHOLDER_SVG("#eef3ff","#d4ddff","#1b16ff","EDITORIAL GRID C"),
+        ebGridD: PLACEHOLDER_SVG("#e2e9ff","#bccaff","#1b16ff","EDITORIAL GRID D"),
+        ebProject: PLACEHOLDER_SVG("#edf2ff","#cad6ff","#1b16ff","EDITORIAL PROJECT"),
+        ebPortrait: PLACEHOLDER_SVG("#f6f8ff","#dee5ff","#1b16ff","EDITORIAL PORTRAIT"),
+        ebWide: PLACEHOLDER_SVG("#eef3ff","#d5defe","#1b16ff","EDITORIAL WIDE"),
+        ebStatement: PLACEHOLDER_SVG("#e8eeff","#c6d2ff","#1b16ff","EDITORIAL STATEMENT"),
+        ebContact: PLACEHOLDER_SVG("#f2f0ff","#ddd6ff","#1b16ff","EDITORIAL CONTACT")
+      };
+
+      const TEXT_PRESETS = {
+        overline:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:11,
+          fontWeight:700,
+          lineHeight:1.2,
+          letterSpacing:2.2,
+          textAlign:"left",
+          color:"#5f6873",
+          textTransform:"uppercase",
+          semanticType:"meta"
+        },
+        introTitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:62,
+          fontWeight:600,
+          lineHeight:.96,
+          letterSpacing:-2.1,
+          textAlign:"left",
+          color:"#111315",
+          textTransform:"none",
+          semanticType:"title"
+        },
+        projectTitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:52,
+          fontWeight:600,
+          lineHeight:.98,
+          letterSpacing:-1.5,
+          textAlign:"left",
+          color:"#ffffff",
+          textTransform:"none",
+          semanticType:"overlayTitle"
+        },
+        bodyText:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:17,
+          fontWeight:400,
+          lineHeight:1.48,
+          letterSpacing:0,
+          textAlign:"left",
+          color:"#4c5661",
+          textTransform:"none",
+          semanticType:"body"
+        },
+        smallMeta:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:12,
+          fontWeight:600,
+          lineHeight:1.3,
+          letterSpacing:1.6,
+          textAlign:"left",
+          color:"#6d7682",
+          textTransform:"uppercase",
+          semanticType:"smallMeta"
+        },
+        centeredCoverTitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:28,
+          fontWeight:700,
+          lineHeight:1.15,
+          letterSpacing:6,
+          textAlign:"center",
+          color:"#ffffff",
+          textTransform:"uppercase",
+          semanticType:"overlayTitle"
+        },
+        overlayText:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:18,
+          fontWeight:500,
+          lineHeight:1.45,
+          letterSpacing:.1,
+          textAlign:"center",
+          color:"rgba(255,255,255,.88)",
+          textTransform:"none",
+          semanticType:"overlayBody"
+        },
+        conclusionText:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:15,
+          fontWeight:400,
+          lineHeight:1.55,
+          letterSpacing:.05,
+          textAlign:"center",
+          color:"rgba(255,255,255,.92)",
+          textTransform:"none",
+          semanticType:"overlayBody"
+        },
+        statement:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:42,
+          fontWeight:500,
+          lineHeight:1.08,
+          letterSpacing:-1.1,
+          textAlign:"center",
+          color:"#111315",
+          textTransform:"none",
+          semanticType:"statement"
+        },
+
+        ebTitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:74,
+          fontWeight:500,
+          lineHeight:.88,
+          letterSpacing:-3.1,
+          textAlign:"left",
+          color:"#1b16ff",
+          textTransform:"none",
+          semanticType:"title",
+          editorialBlue:true,
+          editorialVariant:"display"
+        },
+        ebSubtitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:24,
+          fontWeight:500,
+          lineHeight:1.14,
+          letterSpacing:-.3,
+          textAlign:"left",
+          color:"#0c0f14",
+          textTransform:"none",
+          semanticType:"subtitle",
+          editorialBlue:true
+        },
+        ebBody:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:17,
+          fontWeight:500,
+          lineHeight:1.45,
+          letterSpacing:0,
+          textAlign:"left",
+          color:"#374055",
+          textTransform:"none",
+          semanticType:"body",
+          editorialBlue:true
+        },
+        ebMeta:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:11,
+          fontWeight:700,
+          lineHeight:1.2,
+          letterSpacing:1.2,
+          textAlign:"left",
+          color:"#1b16ff",
+          textTransform:"uppercase",
+          semanticType:"meta",
+          editorialBlue:true
+        },
+        ebSmallMeta:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:12,
+          fontWeight:600,
+          lineHeight:1.3,
+          letterSpacing:1.2,
+          textAlign:"left",
+          color:"#4f5f8c",
+          textTransform:"uppercase",
+          semanticType:"smallMeta",
+          editorialBlue:true
+        },
+        ebStatement:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:66,
+          fontWeight:500,
+          lineHeight:.9,
+          letterSpacing:-2.8,
+          textAlign:"left",
+          color:"#1b16ff",
+          textTransform:"none",
+          semanticType:"statement",
+          editorialBlue:true,
+          editorialVariant:"display"
+        },
+        ebOverlayTitle:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:34,
+          fontWeight:500,
+          lineHeight:1.02,
+          letterSpacing:-1.2,
+          textAlign:"left",
+          color:"#ffffff",
+          textTransform:"none",
+          semanticType:"overlayTitle",
+          editorialBlue:true
+        },
+        ebOverlayBody:{
+          fontFamily:'Inter, system-ui, sans-serif',
+          fontSize:16,
+          fontWeight:500,
+          lineHeight:1.42,
+          letterSpacing:0,
+          textAlign:"left",
+          color:"rgba(255,255,255,.94)",
+          textTransform:"none",
+          semanticType:"overlayBody",
+          editorialBlue:true
+        }
+      };
+
+      const GLOBAL_TYPE_STYLE_DEFAULTS = {
+        title:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:56, fontWeight:500, lineHeight:1, letterSpacing:-2, textTransform:'none', color:'#111111', textAlign:'left' },
+        subtitle:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:24, fontWeight:500, lineHeight:1.15, letterSpacing:-0.3, textTransform:'none', color:'#111111', textAlign:'left' },
+        body:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:17, fontWeight:400, lineHeight:1.48, letterSpacing:0, textTransform:'none', color:'#4c5661', textAlign:'left' },
+        meta:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:11, fontWeight:700, lineHeight:1.2, letterSpacing:1.4, textTransform:'uppercase', color:'#5f6873', textAlign:'left' },
+        statement:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:56, fontWeight:500, lineHeight:0.95, letterSpacing:-2.2, textTransform:'none', color:'#111111', textAlign:'left' },
+        overlayTitle:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:32, fontWeight:500, lineHeight:1.05, letterSpacing:-1, textTransform:'none', color:'#ffffff', textAlign:'left' },
+        overlayBody:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:16, fontWeight:500, lineHeight:1.42, letterSpacing:0, textTransform:'none', color:'#ffffff', textAlign:'left' },
+        smallMeta:{ fontFamily:'Inter, system-ui, sans-serif', fontSize:12, fontWeight:600, lineHeight:1.3, letterSpacing:1.2, textTransform:'uppercase', color:'#6d7682', textAlign:'left' }
+      };
+
+      const CONTENT = {
+        coverName: "AKINBINU AKINTAYO",
+        coverRoles: "AI Visual Director / Creative Director / Visual Researcher",
+        coverBody: "Разрабатываю визуальные направления, keyframes и style systems для брендов, студий и pitch-команд — от research до production-ready visual language.",
+        coverLinks: "Contact<br>Brief<br>Portfolio",
+        whatIDoTitle: "What I Do",
+        whatIDoList: "Creative Direction<br>Visual Research<br>Concept Development<br>Style Frames / Keyframes<br>Style DNA<br>AI-assisted ideation<br>Production-oriented visual systems",
+        aboutTitle: "About",
+        aboutBody: "Я работаю на пересечении visual direction, concept development, AI-assisted ideation и CGI-based image making. Основной фокус моей работы — не отдельные красивые изображения, а визуальные системы, которые можно использовать в pitch-документах, рекламных кампаниях, motion-концептах, key visual-сериях и брендовых средах.<br><br>Работаю с fashion, beauty, luxury, product, pharma, culture, tourism и experimental форматами. Помогаю превращать продукт, тему или бренд в целостный визуальный язык, который выглядит современно, системно и пригоден для дальнейшего развития.",
+        howTitle: "How I Work",
+        howSteps: "Context / goal<br>Research / directions<br>Keyframes / system<br>Production-ready package",
+        howBody: "Работа начинается с контекста, задачи и визуального вектора. Затем я собираю направления, создаю keyframes и формирую систему, которую можно использовать в презентации, питче, кампании или production pipeline.",
+        formatsTitle: "Formats of Collaboration",
+        formatsList: "Direction Sprint<br>Pitch Pack<br>Style System<br>Visual Supervision",
+        formatsBody: "Формат работы зависит от задачи: от короткого direction sprint и визуального исследования до полноценного style system и supervision для production-ready визуального языка.",
+        selectedWorksTitle: "Selected Works",
+        selectedWorksList: "Product direction<br>Luxury communication<br>System-led visual design<br>AI + CGI image development<br>Campaign thinking<br>Visual storytelling",
+        p1CoverTitle: "Eyewear Campaign — Structural Light",
+        p1CoverSub1: "Concept Development / Motion Treatment / Product Visual System",
+        p1CoverSub2: "Creative Direction / Concept Development",
+        p1CoverBody: "Product/fashion-ролик для брендов очков и аксессуаров, где сам продукт становится основой визуальной среды, композиции и motion-языка.",
+        p1InternalTitle: "Structural Light",
+        p1InternalBody: "Ключевая идея проекта — сделать сам продукт источником визуальной среды, а не просто объектом внутри кадра. Форма, материалы и конструктивная логика очков становятся основой композиции, света и motion-подачи, благодаря чему вокруг продукта собирается цельный visual world, а не отдельный packshot.",
+        p1InternalMeta: "Services:<br>Creative Direction, Product Visual System, Motion Concept<br><br>Project:<br>Concept<br><br>Deliverables:<br>Keyframes, Graphic Frames, Image System",
+        p1DevTitle: "Development",
+        p1DevBody: "Система может адаптироваться для eyewear, accessories, watches, jewelry и других product/fashion-категорий, где важно выстроить не только демонстрацию объекта, но и полноценный визуальный мир вокруг него.",
+        p1DevMeta: "Services:<br>Concept Development, Visual Direction, Product CGI<br><br>Project:<br>Speculative Case<br><br>Deliverables:<br>Portfolio Layouts, Keyframes, Image System",
+        p2CoverTitle: "BENTO Visual System",
+        p2CoverSub1: "Visual System / Key Visual System",
+        p2CoverSub2: "Style System Design / Creative Direction",
+        p2CoverBody: "Модульная key visual-система для брендов, адаптируемая под fashion, retail, beauty, pharma и digital-коммуникацию.",
+        p2InternalTitle: "BENTO System",
+        p2InternalBody: "В основе проекта — модульная BENTO-система, которая позволяет собирать разные типы бренд-коммуникации внутри одного визуального алгоритма. Один принцип задает структуру и узнаваемость, а гибкость композиции помогает адаптировать систему под разные индустрии — от fashion и retail до beauty, pharma и digital.",
+        p2InternalMeta: "Services:<br>Style System Design, Key Visual Development, Brand Structuring<br><br>Project:<br>Visual System<br><br>Deliverables:<br>Deck Slides, Graphic Frames, Image System",
+        p2DevTitle: "Development",
+        p2DevBody: "Система подходит для fashion, retail, beauty, pharma и digital-коммуникации, где нужен современный и легко адаптируемый visual framework с четкой структурой и возможностью масштабирования.",
+        p2DevMeta: "Services:<br>Creative Direction, Brand System, Modular KV<br><br>Project:<br>Research<br><br>Deliverables:<br>Keyframes, Graphic Frames, Image System",
+        p3CoverTitle: "Beauty Campaign — Expansion AI + CGI",
+        p3CoverSub1: "Commercial Case / CGI Enhancement / AI Art Direction",
+        p3CoverSub2: "Creative Direction / CGI / Image Strategy",
+        p3CoverBody: "Расширение и усиление существующей beauty-кампании с помощью AI и CGI с сохранением исходного стиля бренда и повышением визуального уровня материалов.",
+        contactTitle: "Contact",
+        contactBody: "Открыт к сотрудничеству с брендами, студиями, агентствами и командами, которым нужен visual direction, concept development или production-ready visual language.",
+        contactMeta: "Email<br>Telegram<br>Behance / Website / Instagram",
+        contactValues: "hello@example.com<br>@telegram<br>behance.net/name<br>instagram.com/name"
+      };
+
+      const FRAME_LAYOUTS = {
+        "1x2":[1,2],
+        "2x1":[2,1],
+        "2x2":[2,2],
+        "1x4":[1,4],
+        "4x1":[4,1],
+        "2x3":[2,3],
+        "3x2":[3,2],
+        "2x4":[2,4],
+        "4x2":[4,2],
+        "1x6":[1,6],
+        "6x1":[6,1],
+        "3x3":[3,3],
+        "1x8":[1,8],
+        "8x1":[8,1],
+        "bento-4-a":"custom",
+        "bento-4-b":"custom",
+        "bento-4-c":"custom",
+        "mosaic-4-a":"custom",
+        "mosaic-4-b":"custom"
+      };
+
+      const FRAME_LAYOUT_LABELS = {
+        "1x2":"1x2 — Horizontal 2",
+        "2x1":"2x1 — Vertical 2",
+        "2x2":"2x2 — Grid 4",
+        "1x4":"1x4 — Horizontal Strip 4",
+        "4x1":"4x1 — Vertical Strip 4",
+        "2x3":"2x3 — Grid 6 Horizontal",
+        "3x2":"3x2 — Grid 6 Vertical",
+        "2x4":"2x4 — Grid 8 Horizontal",
+        "4x2":"4x2 — Grid 8 Vertical",
+        "1x6":"1x6 — Horizontal Strip 6",
+        "6x1":"6x1 — Vertical Strip 6",
+        "3x3":"3x3 — Grid 9",
+        "1x8":"1x8 — Horizontal Strip 8",
+        "8x1":"8x1 — Vertical Strip 8",
+        "bento-4-a":"Bento 4A",
+        "bento-4-b":"Bento 4B",
+        "bento-4-c":"Bento 4C",
+        "mosaic-4-a":"Mosaic 4A",
+        "mosaic-4-b":"Mosaic 4B"
+      };
+
+      function textStyle(name, ov={}){
+        return Object.assign({}, deepClone(TEXT_PRESETS[name] || TEXT_PRESETS.bodyText), ov);
+      }
+
+      function inferSemanticType(role, styleName, content){
+        const roleNorm = String(role || "").toLowerCase();
+        const styleNorm = String(styleName || "").toLowerCase();
+        const html = String(content || "").toLowerCase();
+        if (styleNorm.includes("overlay") || roleNorm.includes("overlay")) return styleNorm.includes("title") ? "overlayTitle" : "overlayBody";
+        if (styleNorm.includes("smallmeta")) return "smallMeta";
+        if (styleNorm.includes("statement")) return "statement";
+        if (styleNorm.includes("overline") || roleNorm.includes("meta") || roleNorm.includes("kicker")) return "meta";
+        if (styleNorm.includes("subtitle") || roleNorm.includes("subtitle") || roleNorm === "sub" || roleNorm === "sub1" || roleNorm === "sub2") return "subtitle";
+        if (styleNorm.includes("title") || roleNorm.includes("title") || roleNorm.includes("headline")) return "title";
+        if (roleNorm.includes("links") || roleNorm.includes("small")) return "smallMeta";
+        if (styleNorm.includes("body") || roleNorm.includes("body") || roleNorm.includes("steps") || html.includes("<br>")) return "body";
+        return "body";
+      }
+
+      function normalizeConceptNumber(value){
+        const n = parseInt(String(value ?? "").trim(), 10);
+        return Number.isFinite(n) && n > 0 ? n : 0;
+      }
+
+      function normalizeConceptSubfolder(value){
+        const str = String(value ?? "").trim().toLowerCase();
+        if (str === "all") return "all";
+        if (str === "root") return "root";
+        if (/^\d{2}$/.test(str)) return str;
+        return "all";
+      }
+
+      /*
+        HOTKEYS: IMAGE POOL CONCEPT + SUBFOLDER NAVIGATION
+
+        Все изменения проходят через нативное событие change.
+        Поэтому работают точно так же, как ручной выбор
+        Concept/Subfolder в существующем меню.
+      */
+      function notifyImagePoolSelectChange(select){
+        if (!select) return;
+        select.dispatchEvent(
+          new Event("change", { bubbles:true })
+        );
+      }
+
+      function getEnabledSelectOptions(select, predicate){
+        if (!select) return [];
+
+        return Array.from(select.options || []).filter(option => {
+          return !option.disabled && predicate(option);
+        });
+      }
+
+      function changeImagePoolConceptBy(step){
+        /*
+          Реальные номера Concept берём прямо из Image Pool,
+          а не из options select.
+
+          Причина: select — это UI выбранной страницы, и он может
+          содержать служебное значение 0 либо обновляться только
+          после setPageConcept(...).
+        */
+        const concepts = Array.from(
+          new Set(
+            (state.imagePool?.items || [])
+              .map(item => normalizeConceptNumber(item.concept))
+              .filter(number => number > 0)
+          )
+        ).sort((a, b) => a - b);
+
+        if (!concepts.length) {
+          toast("No Concept folders found in Image Pool");
+          return;
+        }
+
+        const selectedPage = getSelectedPage();
+
+        if (!selectedPage) {
+          toast("Select a page first");
+          return;
+        }
+
+        const currentConcept =
+          normalizeConceptNumber(
+            selectedPage.conceptIndex
+          );
+
+        const currentIndex =
+          concepts.indexOf(currentConcept);
+
+        let nextIndex;
+
+        /*
+          Если у страницы пока Concept 0:
+          → вправо выбирает первый доступный Concept;
+          ← влево выбирает последний доступный Concept.
+        */
+        if (currentIndex < 0) {
+          nextIndex = step > 0
+            ? 0
+            : concepts.length - 1;
+        } else {
+          nextIndex = clamp(
+            currentIndex + step,
+            0,
+            concepts.length - 1
+          );
+        }
+
+        const nextConcept = concepts[nextIndex];
+
+        /*
+          Уже на первой/последней папке — ничего не меняем.
+        */
+        if (
+          !nextConcept ||
+          nextConcept === currentConcept
+        ) {
+          return;
+        }
+
+        /*
+          Тот же рабочий путь, что и ручной выбор PAGE CONCEPT:
+          history → setPageConcept → autofill / UI.
+        */
+        pushHistory();
+
+        setPageConcept(
+          String(nextConcept),
+          { autofill:true }
+        );
+
+        /*
+          При Concept ±1 и ±10 всегда возвращаемся к All,
+          как договорились. Это не изменяет старые страницы:
+          меняется только Image Scope активной страницы.
+        */
+        setPageConceptSubfolder(
+          "all",
+          { autofill:false }
+        );
+      }
+      function changeImagePoolSubfolderBy(step){
+        const select =
+          els.pageSubfolderSelect ||
+          $("pageSubfolderSelect");
+
+        if (!select) {
+          toast("Subfolder selector not found");
+          return;
+        }
+
+        /*
+          Используем порядок, уже заданный в меню:
+          All → root → 01 → 02 → 03 ...
+        */
+        const options = getEnabledSelectOptions(
+          select,
+          option => {
+            const value =
+              normalizeConceptSubfolder(option.value);
+
+            return (
+              value === "all" ||
+              value === "root" ||
+              /^\d{2}$/.test(value)
+            );
+          }
+        );
+
+        if (!options.length) {
+          toast("No Subfolders found");
+          return;
+        }
+
+        let currentIndex = options.findIndex(option => {
+          return option.value === select.value;
+        });
+
+        let nextIndex;
+
+        if (currentIndex < 0) {
+          nextIndex = step > 0 ? 0 : options.length - 1;
+        } else {
+          nextIndex = clamp(
+            currentIndex + step,
+            0,
+            options.length - 1
+          );
+        }
+
+        const target = options[nextIndex];
+
+        if (!target || target.value === select.value) {
+          return;
+        }
+
+        select.value = target.value;
+        notifyImagePoolSelectChange(select);
+      }
+
+      function setImagePoolSubfolderAll(){
+        const select =
+          els.pageSubfolderSelect ||
+          $("pageSubfolderSelect");
+
+        if (!select) return;
+
+        const allOption = Array.from(
+          select.options || []
+        ).find(option => {
+          return (
+            !option.disabled &&
+            normalizeConceptSubfolder(option.value) === "all"
+          );
+        });
+
+        if (!allOption || select.value === allOption.value) {
+          return;
+        }
+
+        select.value = allOption.value;
+        notifyImagePoolSelectChange(select);
+      }
+      function sanitizeRelativePath(path){
+        return String(path || "").replace(/\\/g, "/").replace(/^\/+/, "").trim();
+      }
+
+      function getRelativePathFromFileLike(fileOrItem){
+        if (!fileOrItem) return "";
+        const path = sanitizeRelativePath(fileOrItem.relativePath || fileOrItem.webkitRelativePath || "");
+        if (path) return path;
+        const originalFileName = String(fileOrItem.originalFileName || "").trim();
+        const name = String(fileOrItem.name || "").trim();
+        return sanitizeRelativePath(originalFileName || name || "");
+      }
+
+      function getPathSegments(path){
+        return sanitizeRelativePath(path).split("/").filter(Boolean);
+      }
+
+      function parseConceptFolderSegment(seg){
+        const part = String(seg || "").trim();
+        if (!part) return 0;
+        if (/^\d+$/.test(part)) return normalizeConceptNumber(part);
+        const match = part.match(/^(\d{1,3})(?:[\s_-].*)?$/);
+        if (match) return normalizeConceptNumber(match[1]);
+        return 0;
+      }
+
+      function parseSubfolderSegment(seg){
+        const part = String(seg || "").trim().toLowerCase();
+        if (!part) return "";
+        if (/^\d{2}$/.test(part)) return part;
+        const match = part.match(/^(\d{2})(?:[\s_-].*)?$/);
+        return match ? match[1] : "";
+      }
+
+      function resolveConceptInfo(relativePath, fileName){
+        const parts = getPathSegments(relativePath);
+        if (!parts.length) {
+          const fromName = parseConceptFromName(fileName);
+          if (fromName > 0) return { concept:fromName, subfolder:"root" };
+          return { concept:0, subfolder:"root" };
+        }
+
+        for (let i = 0; i < parts.length; i++) {
+          const seg = parts[i];
+          const concept = parseConceptFolderSegment(seg);
+          if (concept <= 0) continue;
+
+          const next = parts[i + 1] || "";
+          const nextSubfolder = parseSubfolderSegment(next);
+          const hasMoreAfterNext = i + 2 < parts.length;
+          if (hasMoreAfterNext && nextSubfolder) {
+            return { concept, subfolder:nextSubfolder };
+          }
+
+          if (nextSubfolder && i + 1 < parts.length - 1) {
+            return { concept, subfolder:nextSubfolder };
+          }
+
+          return { concept, subfolder:"root" };
+        }
+
+        const fromName = parseConceptFromName(fileName);
+        if (fromName > 0) return { concept:fromName, subfolder:"root" };
+        return { concept:0, subfolder:"root" };
+      }
+
+      function parseConceptFromFolderPath(path){
+        return resolveConceptInfo(path, "").concept;
+      }
+
+      function parseConceptSubfolderFromFolderPath(path){
+        return resolveConceptInfo(path, "").subfolder;
+      }
+
+      function parseConceptFromName(name){
+        const fileName = String(name || "").split("/").pop().split("\\").pop().trim();
+        if (!fileName) return 0;
+        const baseName = fileName.replace(/\.[^.]+$/, "");
+        const match = baseName.match(/^(\d+)(?:$|[^0-9])/);
+        return match ? normalizeConceptNumber(match[1]) : 0;
+      }
+
+      function resolveConcept(relativePath, fileName){
+        return resolveConceptInfo(relativePath, fileName).concept;
+      }
+
+      function parseConceptFromFile(fileOrItem){
+        const relativePath = getRelativePathFromFileLike(fileOrItem);
+        const fileName = String(fileOrItem?.originalFileName || fileOrItem?.name || "").trim();
+        return resolveConcept(relativePath, fileName);
+      }
+
+      function parseConceptSubfolderFromFile(fileOrItem){
+        const relativePath = getRelativePathFromFileLike(fileOrItem);
+        const fileName = String(fileOrItem?.originalFileName || fileOrItem?.name || "").trim();
+        return resolveConceptInfo(relativePath, fileName).subfolder;
+      }
+
+      function makeTextBlock(role, x, y, w, h, content, styleName="bodyText", styleOv={}){
+        const style = textStyle(styleName, styleOv);
+        if (!style.semanticType) style.semanticType = inferSemanticType(role, styleName, content);
+        return { id:uid("b"), kind:"text", role, x, y, w, h, content, style, visible:true };
+      }
+
+      function makeImageBase(obj){
+        const out = Object.assign({
+          src:"",
+          sourceType:"inline",
+          poolImageId:null,
+          randomFixed:false,
+          imageTransform:{scale:1, offsetX:0, offsetY:0},
+          naturalSize:null,
+          excludeFromGlobalRadius:false,
+          isTemplatePlaceholder:false,
+          originalFileName:"",
+          runtimeFileKey:null
+        }, obj || {});
+        if (out.poolImageId) out.sourceType = out.sourceType || "pool";
+        return out;
+      }
+
+      function makeImageBlock(role, x, y, w, h, src="", style={}){
+        return makeImageBase({
+          id:uid("b"),
+          kind:"image",
+          role,
+          x, y, w, h,
+          src,
+          fit:"cover",
+          style:Object.assign({ radius:8, baseRadius:8 }, style),
+          visible:true,
+          isTemplatePlaceholder: !!src
+        });
+      }
+
+      function makeFrameSlot(src=""){
+        return makeImageBase({
+          id:uid("s"),
+          src,
+          isTemplatePlaceholder: !!src
+        });
+      }
+
+      function makeFrameBlock(role, x, y, w, h, layout="2x2", gap=8, slotCount=null, style={}){
+        const c = slotCount || getFrameLayoutCount(layout);
+        return {
+          id:uid("b"),
+          kind:"frame",
+          role, x,y,w,h, visible:true,
+          layout, gap,
+          layoutVariant:0,
+          emphasis:"medium",
+          asymmetry:"medium",
+          style:Object.assign({
+            radius:8,
+            baseRadius:8,
+            background:"#f0eee8",
+            applyGlobalRadiusToContainer:true,
+            excludeFromGlobalRadius:false
+          }, style),
+          randomFixed:false,
+          slots:Array.from({length:c}, () => makeFrameSlot())
+        };
+      }
+
+      function makePage(templateGroup, templateId, sourceLabel, blocks, visualStyle="cinematic"){
+        return {
+          id:uid("p"),
+          templateGroup,
+          templateId,
+          sourceLabel,
+          visualStyle,
+          conceptIndex:0,
+          conceptSubfolder:"all",
+          blocks
+        };
+      }
+
+      function normalizeVisualStyle(style){
+        return style === "editorial-blue" ? "editorial-blue" : "cinematic";
+      }
+
+      function pageBgBlock(role, color="#ffffff"){
+        return {
+          id:uid("b"),
+          kind:"shape",
+          role,
+          x:0,y:0,w:PAGE_W,h:PAGE_H,
+          shape:"rect",
+          style:{ fill:color, radius:0, stroke:null },
+          visible:true
+        };
+      }
+
+      function shapeBlock(role, x, y, w, h, fill="#ffffff", radius=0, stroke=null){
+        return {
+          id:uid("b"),
+          kind:"shape",
+          role,
+          x,y,w,h,
+          shape:"rect",
+          style:{ fill, radius, stroke },
+          visible:true
+        };
+      }
+
+      function cloneBlock(block){
+        return deepClone(block);
+      }
+
+      function safeProjectSnapshot(){
+        return JSON.stringify(state, (key, value) => {
+          if (key === "currentJsonHandleKey") return value || null;
+          return value;
+        });
+      }
+
+      function getHistorySnapshot(){
+        return {
+          ui:deepClone(state.ui),
+          pages:deepClone(state.pages),
+          document:deepClone(state.document),
+          textLibrary:deepClone(state.textLibrary)
+        };
+      }
+
+      function applyHistorySnapshot(snapshot){
+        const liveImagePool = state.imagePool || { items:[] };
+        state = {
+          ui:deepClone(snapshot.ui || {}),
+          pages:deepClone(snapshot.pages || []),
+          document:deepClone(snapshot.document || { design:{ select:"#dbe3ef" }, globalTypeStyles:{} }),
+          imagePool:liveImagePool,
+          textLibrary:deepClone(snapshot.textLibrary || createDefaultTextLibraryState())
+        };
+      }
+
+      function getLocalStorageSnapshot(){
+        return {
+          ui:deepClone(state.ui),
+          pages:deepClone(state.pages),
+          document:deepClone(state.document),
+          textLibrary:deepClone(state.textLibrary),
+        imagePool:{
+          rootPath:state.imagePool.rootPath || "",
+          items:(state.imagePool.items || []).map(it => {
+              // Лёгкие ссылки media:// (путь к файлу на диске) сохраняем — они почти ничего не весят
+              // и позволяют восстановить картинки после открытия. Тяжёлый base64 НЕ сохраняем.
+              const isLightPath = typeof it.src === "string" && it.src.indexOf("media://") === 0;
+              const isLightPreview = typeof it.previewSrc === "string" && it.previewSrc.indexOf("media://") === 0;
+              return {
+                id:it.id,
+                name:it.name,
+                originalFileName:it.originalFileName || it.name || "",
+                relativePath:it.relativePath || "",
+                concept:parseConceptFromFile(it),
+                subfolder:parseConceptSubfolderFromFile(it),
+                lastModified:it.lastModified || 0,
+                size:it.size || 0,
+                src: isLightPath ? it.src : "",
+                previewSrc: isLightPreview ? it.previewSrc : ""
+              };
+            })
+          }
+        };
+      }
+
+      function safeLocalStorageSnapshot(){
+        return JSON.stringify(getLocalStorageSnapshot(), (key, value) => {
+          if (key === "currentJsonHandleKey") return value || null;
+          return value;
+        });
+      }
+
+      function reIdPage(page){
+        const copy = deepClone(page);
+        copy.id = uid("p");
+        copy.blocks = (copy.blocks || []).map(b => {
+          const c = deepClone(b);
+          c.id = uid("b");
+          if (c.kind === "frame") c.slots = (c.slots || []).map(s => Object.assign({}, s, { id:uid("s") }));
+          return c;
+        });
+        return copy;
+      }
+
+      function markFullBleedBlocksForNoRadius(page){
+        (page.blocks || []).forEach(b => {
+          if (b.kind === "image") {
+            const isFullBleed = b.x === 0 && b.y === 0 && b.w === PAGE_W && b.h === PAGE_H;
+            if (isFullBleed) b.excludeFromGlobalRadius = true;
+          }
+          if (b.kind === "frame") {
+            const isFullBleed = b.x === 0 && b.y === 0 && b.w === PAGE_W && b.h === PAGE_H;
+            if (isFullBleed) b.style.excludeFromGlobalRadius = true;
+          }
+        });
+      }
+
+      function createTemplatePage(meta){
+        const blocks = meta.factory();
+        const page = makePage(meta.templateGroup, meta.id, meta.label, blocks, meta.visualStyle || "cinematic");
+        markFullBleedBlocksForNoRadius(page);
+        return page;
+      }
+
+      function editorialTopBottomTemplate(opts){
+        const pad = opts.pad || 24;
+        const textY = opts.textY || 520;
+        const textH = PAGE_H - textY - 24;
+        const blocks = [pageBgBlock("bg", "#ffffff"), shapeBlock("text-bg", pad, textY, PAGE_W - pad*2, textH, "#ffffff", 0, null)];
+        (opts.images || []).forEach((it, i) => blocks.push(makeImageBlock("img"+(i+1), it.x, it.y, it.w, it.h, it.src || "")));
+        if (opts.overline) blocks.push(makeTextBlock("overline", opts.overlineX || (pad + 20), opts.overlineY || (textY + 24), opts.overlineW || 180, 20, opts.overline, "overline", opts.overlineStyle || {}));
+        if (opts.title) blocks.push(makeTextBlock("title", pad + 20, textY + 58, opts.titleW || 420, 52, opts.title, "introTitle", { fontSize:opts.titleSize || 34, textAlign:opts.titleAlign || "left" }));
+        if (opts.body) blocks.push(makeTextBlock("body", opts.bodyX || (pad + 20), opts.bodyY || (textY + (opts.title ? 126 : (opts.overline ? 58 : 36))), opts.bodyW || 560, opts.bodyH || 100, opts.body, "bodyText", Object.assign({ fontSize:15, lineHeight:1.48, textAlign:opts.bodyAlign || "left" }, opts.bodyStyle || {})));
+        if (opts.meta) blocks.push(makeTextBlock("meta", opts.metaX || (pad + 620), opts.metaY || (textY + 58), opts.metaW || 360, opts.metaH || 110, opts.meta, "bodyText", { fontSize:14, lineHeight:1.5, color:"#17191c", fontWeight:500, textAlign:opts.metaAlign || "left", semanticType:"meta" }));
+        return blocks;
+      }
+
+      function ebBasePage(){
+        return [
+          pageBgBlock("bg", "#f8f9fc")
+        ];
+      }
+
+      function ebSafeImageOverlay(x, y, w, h, darkTop=true){
+        return shapeBlock("overlay-plate", x, y, w, h, darkTop ? "rgba(8,12,26,.28)" : "rgba(255,255,255,.78)", 0, null);
+      }
+
+      function template_intro_full_image_center_title(){
+        return [
+          makeImageBlock("full-hero", 0, 0, PAGE_W, PAGE_H, IMG.truckDesert),
+          makeTextBlock("meta", 350, 140, 430, 28, CONTENT.coverName, "centeredCoverTitle", { fontSize:16, letterSpacing:5.2 }),
+          makeTextBlock("title", 300, 188, 530, 54, CONTENT.coverRoles, "overlayText", { fontSize:18, lineHeight:1.35, color:"rgba(255,255,255,.96)", semanticType:"overlayTitle" }),
+          makeTextBlock("sub", 92, 596, 370, 92, CONTENT.coverBody, "overlayText", { fontSize:17, textAlign:"left", color:"rgba(255,255,255,.9)", lineHeight:1.42, semanticType:"overlayBody" }),
+          makeTextBlock("links", 92, 694, 180, 58, CONTENT.coverLinks, "overlayText", { fontSize:12, textAlign:"left", letterSpacing:1.8, textTransform:"uppercase", color:"rgba(255,255,255,.96)", semanticType:"smallMeta" })
+        ];
+      }
+
+      function template_intro_left_image_right_text(){
+        return [
+          pageBgBlock("bg", "#ffffff"),
+          makeImageBlock("left-image", 0, 0, 430, PAGE_H, IMG.roadMist),
+          makeTextBlock("overline", 476, 92, 220, 20, CONTENT.whatIDoTitle, "overline"),
+          makeTextBlock("title", 476, 136, 400, 56, CONTENT.whatIDoTitle, "introTitle", { fontSize:46, color:"#141618" }),
+          makeTextBlock("body", 476, 248, 380, 292, CONTENT.whatIDoList, "bodyText", { fontSize:29, lineHeight:1.2, color:"#17191c", fontWeight:500 }),
+          makeTextBlock("meta", 476, 690, 220, 20, "Core Services", "smallMeta")
+        ];
+      }
+
+      function template_intro_minimal_white_text_page(){
+        return [
+          pageBgBlock("bg", "#ffffff"),
+          makeTextBlock("overline", 104, 102, 180, 20, CONTENT.whatIDoTitle, "overline", { color:"#727983" }),
+          makeTextBlock("title", 104, 144, 420, 60, CONTENT.whatIDoTitle, "introTitle", { fontSize:44 }),
+          makeTextBlock("body", 104, 244, 520, 360, CONTENT.whatIDoList, "bodyText", { fontSize:28, fontWeight:500, lineHeight:1.22, color:"#17191c" })
+        ];
+      }
+
+      function template_about_left_text_right_image(){
+        return [
+          pageBgBlock("bg", "#ffffff"),
+          makeTextBlock("overline", 70, 82, 220, 20, CONTENT.aboutTitle, "overline"),
+          makeTextBlock("title", 70, 126, 320, 60, CONTENT.aboutTitle, "introTitle", { fontSize:44 }),
+          makeTextBlock("body", 70, 220, 380, 440, CONTENT.aboutBody, "bodyText", { fontSize:17, lineHeight:1.5 }),
+          makeImageBlock("right-image", 486, 40, 597, 714, IMG.forestRiver)
+        ];
+      }
+
+      function template_about_right_text_left_image(){
+        return [
+          pageBgBlock("bg", "#ffffff"),
+          makeImageBlock("left-image", 40, 40, 597, 714, IMG.truckFront),
+          makeTextBlock("overline", 688, 82, 220, 20, CONTENT.aboutTitle, "overline"),
+          makeTextBlock("title", 688, 126, 300, 60, CONTENT.aboutTitle, "introTitle", { fontSize:44 }),
+          makeTextBlock("body", 688, 220, 360, 450, CONTENT.aboutBody, "bodyText", { fontSize:16, lineHeight:1.48 })
+        ];
+      }
+
+      function template_about_full_width_image_text_block(){
+        return [
+          pageBgBlock("bg", "#ffffff"),
+          makeImageBlock("full-image", 40, 40, 1043, 520, IMG.roadStorm),
+          makeTextBlock("overline", 70, 606, 220, 20, CONTENT.aboutTitle, "overline"),
+          makeTextBlock("body", 70, 648, 660, 92, CONTENT.aboutBody, "bodyText", { fontSize:15, lineHeight:1.45 })
+        ];
+      }
+
+      function template_project_cover_full_bleed_hero(){
+        return [
+          makeImageBlock("full-bleed", 0, 0, PAGE_W, PAGE_H, IMG.truckDesert),
+          shapeBlock("safe-plate", 0, 540, PAGE_W, 254, "rgba(10,14,24,.30)", 0, null),
+          makeTextBlock("meta", 306, 138, 520, 22, CONTENT.p1CoverTitle, "centeredCoverTitle", { fontSize:13, letterSpacing:3.2, semanticType:"overlayTitle" }),
+          makeTextBlock("sub", 272, 182, 584, 28, CONTENT.p1CoverSub1, "overlayText", { fontSize:12, letterSpacing:2.1, textTransform:"uppercase", semanticType:"overlayBody" }),
+          makeTextBlock("sub2", 90, 596, 340, 30, CONTENT.p1CoverSub2, "overlayText", { fontSize:14, textAlign:"left", color:"rgba(255,255,255,.96)", semanticType:"overlayTitle" }),
+          makeTextBlock("body", 90, 636, 430, 78, CONTENT.p1CoverBody, "overlayText", { fontSize:16, textAlign:"left", color:"rgba(255,255,255,.9)", lineHeight:1.42, semanticType:"overlayBody" })
+        ];
+      }
+
+===== PART 2/5 END =====
